@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "d90b055674ba",
+  "session_id": "efe6476a-cf83-4946-8c20-69f272f891e8",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-15T14:14:47.515866Z",
+  "branch": "feature/phase2",
+  "checkpoints_count": 4,
+  "files_touched": [
+    ".env.example",
+    "apps/web/nuxt.config.ts"
+  ],
+  "agent": "Cursor",
+  "model": "claude-4.6-opus-high-thinking",
+  "turn_id": "c7b001b1bde5",
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-15T14:14:47.486668Z",
+    "agent_lines": 0,
+    "human_added": 477,
+    "human_modified": 39,
+    "human_removed": 0,
+    "total_committed": 479,
+    "agent_percentage": 0
+  }
+}

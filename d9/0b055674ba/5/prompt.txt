@@ -1,0 +1,16 @@
+`/api/v1/tokens` をGETアクセスすると、エラーになります
+```
+invalid input syntax for type uuid: "undefined"
+```
+
+---
+
+Issue reproduced, please proceed.
+
+---
+
+Issue reproduced, please proceed.
+
+---
+
+The issue has been fixed. Please clean up the instrumentation.
