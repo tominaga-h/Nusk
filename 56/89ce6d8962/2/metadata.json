@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "5689ce6d8962",
+  "session_id": "6472039e-4e80-4f77-a34c-58e1f7286f3b",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-15T11:04:32.063446Z",
+  "branch": "develop",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/cli/package.json"
+  ],
+  "agent": "Cursor",
+  "model": "claude-4.6-opus-high-thinking",
+  "turn_id": "4b62d82e82a6",
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-15T11:04:31.996321Z",
+    "agent_lines": 5,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 5,
+    "agent_percentage": 100
+  }
+}

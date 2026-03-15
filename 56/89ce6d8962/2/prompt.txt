@@ -1,0 +1,6 @@
+@docs/DEVELOP_PHASES.md @docs/OVERVIEW.md 
+フェーズ1は完了でOK?
+
+---
+
+`apps/cli` に空のpackages.jsonを作成して
