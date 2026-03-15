@@ -145,4 +145,3 @@ erDiagram
         timestamptz updated_at
     }
 ```
-
