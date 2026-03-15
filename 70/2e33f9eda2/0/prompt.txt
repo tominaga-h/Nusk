@@ -1,0 +1,16 @@
+SCSSを使えるようにして
+
+---
+
+また既存の @apps/web/pages/index.vue @apps/web/pages/login.vue @apps/web/pages/confirm.vue のCSSをSCSSに書き換えて。 @.cursor/rules/general.mdc 
+ クラス名もBEMに設計しなおして
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+---
+
+こっちで起動させるのでdevサーバーを停止して
