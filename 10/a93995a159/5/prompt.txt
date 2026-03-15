@@ -1,0 +1,24 @@
+@package.json 
+
+`apps/web` の @apps/web/package.json にはscriptsに起動コマンドが記載ありますが、
+全体の @package.json のscriptsにたとえば `npm run dev` や `next dev` って書けないの？
+それがかければMakefileにしたいんだけど
+
+---
+
+```
+"scripts": {
+    "dev": "bun run --filter web dev",
+    "build": "bun run --filter web build",
+    "generate": "bun run --filter web generate"
+  }
+```
+これを @package.json に設定すれば、Makefileで以下のように書ける？
+```
+dev:
+    bun run dev
+```
+
+---
+
+では、 @package.json にscriptsを記載し、Makefileを新規作成してください。
