@@ -3,7 +3,7 @@
   "checkpoint_id": "d90b055674ba",
   "strategy": "manual-commit",
   "branch": "feature/phase2",
-  "checkpoints_count": 5,
+  "checkpoints_count": 7,
   "files_touched": [
     ".cursor/plans/nuxt_server_api実装_52d8cac2.plan.md",
     ".env.example",
@@ -42,6 +42,12 @@
       "transcript": "/d9/0b055674ba/3/full.jsonl",
       "content_hash": "/d9/0b055674ba/3/content_hash.txt",
       "prompt": "/d9/0b055674ba/3/prompt.txt"
+    },
+    {
+      "metadata": "/d9/0b055674ba/4/metadata.json",
+      "transcript": "/d9/0b055674ba/4/full.jsonl",
+      "content_hash": "/d9/0b055674ba/4/content_hash.txt",
+      "prompt": "/d9/0b055674ba/4/prompt.txt"
     }
   ]
 }
