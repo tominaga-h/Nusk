@@ -1,0 +1,16 @@
+@docs/DEVELOP_PHASES.md @docs/OVERVIEW.md 
+NuxtのServerによるAPIエンドポイントの実装をお願いします
+
+---
+
+テスト用のPATを作成するのもお願い
+
+---
+
+POST `/api/v1/tokens` には認証不要でOK?
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
