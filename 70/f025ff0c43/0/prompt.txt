@@ -1,0 +1,2 @@
+@docs/SCHEMA.md 
+ER図をmermaidで作成し SCHEMA.mdに追記してください
