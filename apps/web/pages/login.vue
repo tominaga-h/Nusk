@@ -22,15 +22,15 @@ const login = async (provider: 'google' | 'github') => {
 </script>
 
 <template>
-  <div class="login-container">
-    <div class="login-card">
-      <h1>Nusk</h1>
-      <p class="subtitle">次世代タスク管理システム</p>
+  <div class="login">
+    <div class="login__card">
+      <h1 class="login__title">Nusk</h1>
+      <p class="login__subtitle">次世代タスク管理システム</p>
 
-      <div class="divider" />
+      <div class="login__divider" />
 
-      <div class="buttons">
-        <button class="btn btn-google" :disabled="loading" @click="login('google')">
+      <div class="login__actions">
+        <button class="login__btn login__btn--google" :disabled="loading" @click="login('google')">
           <svg viewBox="0 0 24 24" width="20" height="20">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z" />
             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
@@ -40,7 +40,7 @@ const login = async (provider: 'google' | 'github') => {
           Google でログイン
         </button>
 
-        <button class="btn btn-github" :disabled="loading" @click="login('github')">
+        <button class="login__btn login__btn--github" :disabled="loading" @click="login('github')">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
           </svg>
@@ -48,103 +48,103 @@ const login = async (provider: 'google' | 'github') => {
         </button>
       </div>
 
-      <p v-if="error" class="error">{{ error }}</p>
+      <p v-if="error" class="login__error">{{ error }}</p>
     </div>
   </div>
 </template>
 
-<style scoped>
-.login-container {
+<style lang="scss" scoped>
+.login {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #f5f5f5;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
 
-.login-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 48px 40px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-  text-align: center;
-  width: 100%;
-  max-width: 400px;
-}
+  &__card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 48px 40px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+  }
 
-.login-card h1 {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #111;
-}
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111;
+  }
 
-.subtitle {
-  margin: 8px 0 0;
-  color: #666;
-  font-size: 0.9rem;
-}
+  &__subtitle {
+    margin: 8px 0 0;
+    color: #666;
+    font-size: 0.9rem;
+  }
 
-.divider {
-  height: 1px;
-  background: #e5e5e5;
-  margin: 32px 0;
-}
+  &__divider {
+    height: 1px;
+    background: #e5e5e5;
+    margin: 32px 0;
+  }
 
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px 24px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s, box-shadow 0.15s;
-}
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, box-shadow 0.15s;
 
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
 
-.btn-google {
-  background: #fff;
-  color: #333;
-}
+    &--google {
+      background: #fff;
+      color: #333;
 
-.btn-google:hover:not(:disabled) {
-  background: #f8f8f8;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
+      &:hover:not(:disabled) {
+        background: #f8f8f8;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+    }
 
-.btn-github {
-  background: #24292e;
-  color: #fff;
-  border-color: #24292e;
-}
+    &--github {
+      background: #24292e;
+      color: #fff;
+      border-color: #24292e;
 
-.btn-github:hover:not(:disabled) {
-  background: #2f363d;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-}
+      &:hover:not(:disabled) {
+        background: #2f363d;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
 
-.error {
-  margin-top: 20px;
-  padding: 12px;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: 8px;
-  color: #dc2626;
-  font-size: 0.85rem;
+  &__error {
+    margin-top: 20px;
+    padding: 12px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    color: #dc2626;
+    font-size: 0.85rem;
+  }
 }
 </style>
