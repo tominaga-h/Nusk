@@ -3,7 +3,7 @@
   "checkpoint_id": "6631cbd756c2",
   "strategy": "manual-commit",
   "branch": "feature/phase2",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "docs/API_ENDPOINT.md"
   ],
@@ -13,6 +13,12 @@
       "transcript": "/66/31cbd756c2/0/full.jsonl",
       "content_hash": "/66/31cbd756c2/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/66/31cbd756c2/1/metadata.json",
+      "transcript": "/66/31cbd756c2/1/full.jsonl",
+      "content_hash": "/66/31cbd756c2/1/content_hash.txt",
+      "prompt": "/66/31cbd756c2/1/prompt.txt"
     }
   ]
 }
