@@ -1,0 +1,21 @@
+リモートのSupabaseでOAuth Providerを設定しました。
+これってローカルのsupabaseでも使えるんですか？
+
+---
+
+リモートのSupabaseにはProviderの設定をしてあるから、それをローカルで(ローカルのsupabaseを利用するのではなく）使うことはできるの？
+
+---
+
+`.env` にはすでにリモート用の環境変数を設定してあります。 `.env.local` を使わないで `.env` を使うにはどうすればいい？
+
+---
+
+@.env.local の環境変数をコメントアウトしました。
+フェーズ2の第一段階として、現在の環境変数でちゃんとsupabaseに接続できるかどうかを `/login` ページでテストしてほしい。
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
