@@ -1,0 +1,11 @@
+@packages/shared/lib/supabase.ts @apps/web/nuxt.config.ts 
+せっかく Bun Workspacesでモノレポにしているので、packages/shared/lib/supabase.ts の `supabase` を app/web/ で使いたいんだけど、可能？
+
+---
+
+`lib/supabase.ts` を削除しました。
+また、`packages/shared/index.ts` が型のエクスポートしかしてないので、 `packages/shared/types/index.ts` に入れるべきだと思いますがどうですか？
+
+---
+
+単一責務原則から言えば、Database型が欲しいなら `@nusk/shared/db` から `type Database` をimportすべきなんじゃないですか？全部のせindex.tsは違和感
