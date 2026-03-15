@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "6a172e518a33",
+  "session_id": "8c36accb-cd0f-46c0-888c-a91592532520",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-15T10:58:49.796669Z",
+  "branch": "develop",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "supabase/seed.sql",
+    ".env.example",
+    "apps/web/nuxt.config.ts",
+    "bun.lock",
+    "package.json"
+  ],
+  "agent": "Cursor",
+  "model": "default",
+  "turn_id": "918a7f305451",
+  "initial_attribution": {
+    "calculated_at": "2026-03-15T10:58:49.793237Z",
+    "agent_lines": 45,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 45,
+    "agent_percentage": 100
+  }
+}
