@@ -3,7 +3,7 @@
   "checkpoint_id": "375e3dc064ab",
   "strategy": "manual-commit",
   "branch": "feature/phase2",
-  "checkpoints_count": 3,
+  "checkpoints_count": 5,
   "files_touched": [
     ".cursor/rules/general.mdc",
     "apps/web/pages/confirm.vue",
@@ -22,6 +22,12 @@
       "transcript": "/37/5e3dc064ab/1/full.jsonl",
       "content_hash": "/37/5e3dc064ab/1/content_hash.txt",
       "prompt": "/37/5e3dc064ab/1/prompt.txt"
+    },
+    {
+      "metadata": "/37/5e3dc064ab/2/metadata.json",
+      "transcript": "/37/5e3dc064ab/2/full.jsonl",
+      "content_hash": "/37/5e3dc064ab/2/content_hash.txt",
+      "prompt": "/37/5e3dc064ab/2/prompt.txt"
     }
   ]
 }

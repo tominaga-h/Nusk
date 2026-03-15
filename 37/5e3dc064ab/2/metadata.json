@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "375e3dc064ab",
+  "session_id": "9def9233-9021-4970-94b0-3cd5c6e80c45",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-15T12:56:36.548833Z",
+  "branch": "feature/phase2",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".cursor/rules/general.mdc",
+    "apps/web/pages/index.vue"
+  ],
+  "agent": "Cursor",
+  "model": "claude-4.6-opus-high-thinking",
+  "turn_id": "e1eee37b15ff",
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-15T12:56:36.537549Z",
+    "agent_lines": 165,
+    "human_added": 328,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 493,
+    "agent_percentage": 33.46855983772819
+  }
+}
