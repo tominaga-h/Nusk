@@ -1,0 +1,24 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "6631cbd756c2",
+  "session_id": "14a36200-956e-4186-9198-fc88ff9547b4",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-15T14:15:01.130684Z",
+  "branch": "feature/phase2",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "docs/API_ENDPOINT.md"
+  ],
+  "agent": "Cursor",
+  "model": "claude-4.6-opus-high-thinking",
+  "turn_id": "2375abd5a0cb",
+  "initial_attribution": {
+    "calculated_at": "2026-03-15T14:15:01.128664Z",
+    "agent_lines": 60,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 60,
+    "agent_percentage": 100
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "6631cbd756c2",
+  "strategy": "manual-commit",
+  "branch": "feature/phase2",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "docs/API_ENDPOINT.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/66/31cbd756c2/0/metadata.json",
+      "transcript": "/66/31cbd756c2/0/full.jsonl",
+      "content_hash": "/66/31cbd756c2/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
