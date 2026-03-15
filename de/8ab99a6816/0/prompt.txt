@@ -1,0 +1,12 @@
+@docs/DEVELOP_PHASES.md 
+フェーズ1を実行してください。
+またSupabaseのプロジェクトは作成済みです。
+URL: https://nsgiyvjmdlehcdkpaunu.supabase.co
+
+---
+
+supabase CLIを利用してください
+
+---
+
+`.env`　と `.env.example` の作成もプランに追加してください。

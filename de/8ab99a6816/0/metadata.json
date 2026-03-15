@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "de8ab99a6816",
+  "session_id": "44673d18-546e-4b03-842d-47bbf0448725",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-15T07:53:22.919873Z",
+  "branch": "develop",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "docs/SCHEMA.md"
+  ],
+  "agent": "Cursor",
+  "model": "gemini-3.1-pro",
+  "turn_id": "6b69351f5612",
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-15T07:53:22.88378Z",
+    "agent_lines": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 0,
+    "agent_percentage": 0
+  }
+}
