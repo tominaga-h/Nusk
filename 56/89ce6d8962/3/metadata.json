@@ -1,0 +1,24 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "5689ce6d8962",
+  "session_id": "8c36accb-cd0f-46c0-888c-a91592532520",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-15T11:04:32.101877Z",
+  "branch": "develop",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/cli/package.json"
+  ],
+  "agent": "Cursor",
+  "model": "default",
+  "turn_id": "918a7f305451",
+  "initial_attribution": {
+    "calculated_at": "2026-03-15T11:04:32.099496Z",
+    "agent_lines": 5,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 5,
+    "agent_percentage": 100
+  }
+}
