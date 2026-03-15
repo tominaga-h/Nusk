@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "10a93995a159",
+  "session_id": "94e2d8ae-62b7-4ef3-a33c-ef80a60251bf",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-15T09:32:42.434586Z",
+  "branch": "develop",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".cursor/plans/フェーズ1レビュー結果_899a1803.plan.md",
+    ".env.example",
+    "Makefile",
+    "apps/web/app.vue",
+    "apps/web/nuxt.config.ts",
+    "apps/web/package.json",
+    "apps/web/pages/index.vue",
+    "apps/web/types/database.types.ts",
+    "bun.lock",
+    "package.json",
+    "packages/shared/index.ts",
+    "packages/shared/tsconfig.json",
+    "supabase/migrations/20260315090000_add_rls_policies.sql",
+    "supabase/migrations/20260315090100_schema_improvements.sql",
+    "supabase/seed.sql",
+    "tsconfig.json"
+  ],
+  "agent": "Cursor",
+  "model": "claude-4.6-opus-high-thinking",
+  "turn_id": "ebed24f55269",
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-15T09:32:42.379755Z",
+    "agent_lines": 260,
+    "human_added": 125,
+    "human_modified": 10,
+    "human_removed": 0,
+    "total_committed": 395,
+    "agent_percentage": 65.82278481012658
+  }
+}
