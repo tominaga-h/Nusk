@@ -1,49 +1,63 @@
 -- =============================================================
 -- ローカル開発用シードデータ
--- `supabase db reset` 実行時に利用
+-- `supabase db reset` 実行時に自動で適用される
 -- =============================================================
--- 注意: ローカル開発環境では、テストユーザーが Supabase により自動作成されます。
--- 以下はプレースホルダーUUIDを使用しています。適宜差し替えるか、
--- Supabaseダッシュボードでユーザーを作成し、IDを確認してシードを書き換えてください。
---
--- 手早く始めるには、Auth UI（http://127.0.0.1:54323/Supabase Studio）からユーザーを作成し、
---   supabase db reset
--- を実行してください。
--- このシードは、作成済みのテストユーザー用のInboxリストとデフォルトのステータスを生成します（ユーザーが存在する場合）。
+-- テストユーザー: test@example.com / password123
 -- =============================================================
--- 補助: 指定したユーザー用にデフォルトのInboxとステータスを作成する
--- この関数はシード用にのみ利用され、あとで削除しても良いです。
+
+-- テストユーザーを auth.users に作成
+INSERT INTO auth.users (
+  instance_id, id, aud, role, email,
+  encrypted_password, email_confirmed_at,
+  raw_app_meta_data, raw_user_meta_data,
+  created_at, updated_at,
+  confirmation_token, email_change, email_change_token_new, recovery_token
+) VALUES (
+  '00000000-0000-0000-0000-000000000000',
+  'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+  'authenticated', 'authenticated', 'test@example.com',
+  crypt('password123', gen_salt('bf')), now(),
+  '{"provider":"email","providers":["email"]}',
+  '{"full_name":"Test User"}',
+  now(), now(),
+  '', '', '', ''
+);
+
+INSERT INTO auth.identities (
+  id, user_id, identity_data, provider, provider_id,
+  last_sign_in_at, created_at, updated_at
+) VALUES (
+  'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+  'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+  jsonb_build_object('sub', 'a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'email', 'test@example.com'),
+  'email',
+  'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+  now(), now(), now()
+);
+
+-- シードデータ投入
 DO $$
 DECLARE
-  test_user_id UUID;
+  test_user_id UUID := 'a1b2c3d4-e5f6-7890-abcd-ef1234567890';
   inbox_id UUID;
   status_todo UUID;
 BEGIN
-  -- Try to find the first user in auth.users (created via Studio)
-  SELECT id INTO test_user_id FROM auth.users LIMIT 1;
-
-  IF test_user_id IS NULL THEN
-    RAISE NOTICE 'No user found in auth.users. Skipping seed data.';
-    RETURN;
-  END IF;
-
-  -- Create Inbox list
+  -- Inbox リスト
   INSERT INTO lists (user_id, name, is_inbox)
   VALUES (test_user_id, 'Inbox', TRUE)
   RETURNING id INTO inbox_id;
 
-  -- Create default statuses for Inbox
+  -- デフォルトステータス
   INSERT INTO statuses (list_id, name, category, sort_order)
   VALUES
     (inbox_id, '未対応', 'TODO', 0),
     (inbox_id, '対応中', 'IN_PROGRESS', 1),
     (inbox_id, '完了', 'DONE', 2);
 
-  -- Get the TODO status for sample tasks
   SELECT id INTO status_todo FROM statuses
     WHERE list_id = inbox_id AND category = 'TODO' LIMIT 1;
 
-  -- Create sample tasks
+  -- サンプルタスク
   INSERT INTO tasks (user_id, list_id, status_id, title, scheduled_date, sort_order)
   VALUES
     (test_user_id, inbox_id, status_todo, 'Nusk の初期セットアップを完了する', CURRENT_DATE, 0),

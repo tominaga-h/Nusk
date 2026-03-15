@@ -4,6 +4,9 @@
   "workspaces": {
     "": {
       "name": "nusk",
+      "devDependencies": {
+        "@types/node": "^25.5.0",
+      },
     },
     "apps/web": {
       "name": "web",
