@@ -1,0 +1,33 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "10a93995a159",
+  "strategy": "manual-commit",
+  "branch": "develop",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".cursor/plans/フェーズ1レビュー結果_899a1803.plan.md",
+    ".env.example",
+    "Makefile",
+    "apps/web/app.vue",
+    "apps/web/nuxt.config.ts",
+    "apps/web/package.json",
+    "apps/web/pages/index.vue",
+    "apps/web/types/database.types.ts",
+    "bun.lock",
+    "package.json",
+    "packages/shared/index.ts",
+    "packages/shared/tsconfig.json",
+    "supabase/migrations/20260315090000_add_rls_policies.sql",
+    "supabase/migrations/20260315090100_schema_improvements.sql",
+    "supabase/seed.sql",
+    "tsconfig.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/10/a93995a159/0/metadata.json",
+      "transcript": "/10/a93995a159/0/full.jsonl",
+      "content_hash": "/10/a93995a159/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
