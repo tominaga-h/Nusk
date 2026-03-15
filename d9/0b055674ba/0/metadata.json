@@ -1,0 +1,35 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "d90b055674ba",
+  "session_id": "14a36200-956e-4186-9198-fc88ff9547b4",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-15T14:14:47.069678Z",
+  "branch": "feature/phase2",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/server/utils/auth.ts",
+    "apps/web/server/api/v1/tasks/[id].patch.ts",
+    "apps/web/server/api/v1/tokens/index.post.ts",
+    "apps/web/server/middleware/auth.ts",
+    "apps/web/server/utils/supabase.ts",
+    ".cursor/plans/nuxt_server_api実装_52d8cac2.plan.md",
+    ".env.example",
+    "apps/web/nuxt.config.ts",
+    "apps/web/server/api/v1/tasks/[id].get.ts",
+    "apps/web/server/api/v1/tasks/index.get.ts",
+    "apps/web/server/api/v1/tasks/index.post.ts",
+    "apps/web/server/api/v1/tokens/index.get.ts"
+  ],
+  "agent": "Cursor",
+  "model": "claude-4.6-opus-high-thinking",
+  "turn_id": "2375abd5a0cb",
+  "initial_attribution": {
+    "calculated_at": "2026-03-15T14:14:47.067608Z",
+    "agent_lines": 518,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 518,
+    "agent_percentage": 100
+  }
+}
