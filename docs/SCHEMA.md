@@ -72,3 +72,77 @@ CREATE INDEX idx_tasks_deleted_at ON tasks(deleted_at);
 CREATE INDEX idx_pat_user_id ON personal_access_tokens(user_id);
 CREATE INDEX idx_push_sub_user_id ON push_subscriptions(user_id);
 ```
+
+## ER 図
+
+```mermaid
+erDiagram
+    auth_users ||--o{ lists : "has"
+    auth_users ||--o{ tasks : "has"
+    auth_users ||--o{ personal_access_tokens : "has"
+    auth_users ||--o{ push_subscriptions : "has"
+
+    lists ||--o{ statuses : "has"
+    lists ||--o{ tasks : "has"
+
+    statuses ||--o{ tasks : "has"
+
+    auth_users {
+        uuid id PK
+    }
+
+    lists {
+        uuid id PK
+        uuid user_id FK
+        text name
+        boolean is_inbox
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    statuses {
+        uuid id PK
+        uuid list_id FK
+        text name
+        status_category category
+        integer sort_order
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    tasks {
+        uuid id PK
+        uuid user_id FK
+        uuid list_id FK
+        uuid status_id FK
+        text title
+        date scheduled_date
+        timestamptz reminder_time
+        text recurrence_rule
+        jsonb metadata
+        integer sort_order
+        timestamptz created_at
+        timestamptz updated_at
+        timestamptz deleted_at
+    }
+
+    personal_access_tokens {
+        uuid id PK
+        uuid user_id FK
+        text token_hash
+        text name
+        timestamptz created_at
+        timestamptz last_used_at
+    }
+
+    push_subscriptions {
+        uuid id PK
+        uuid user_id FK
+        text endpoint
+        text p256dh
+        text auth
+        timestamptz created_at
+        timestamptz updated_at
+    }
+```
+
