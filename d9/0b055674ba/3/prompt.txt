@@ -1,0 +1,15 @@
+bunで以下のようにelidedが表示されるのはなぜ？
+```
+[3 lines elided]
+```
+
+---
+
+インストール時ではなくdevサーバー時も出ます
+```
+❯ make dev
+bun run dev
+$ bun run --filter web dev
+web dev $ nuxt dev --dotenv ../../.env
+│ [3 lines elided]
+```
