@@ -3,7 +3,7 @@
   "checkpoint_id": "10a93995a159",
   "strategy": "manual-commit",
   "branch": "develop",
-  "checkpoints_count": 1,
+  "checkpoints_count": 4,
   "files_touched": [
     ".cursor/plans/フェーズ1レビュー結果_899a1803.plan.md",
     ".env.example",
@@ -46,6 +46,12 @@
       "transcript": "/10/a93995a159/3/full.jsonl",
       "content_hash": "/10/a93995a159/3/content_hash.txt",
       "prompt": "/10/a93995a159/3/prompt.txt"
+    },
+    {
+      "metadata": "/10/a93995a159/4/metadata.json",
+      "transcript": "/10/a93995a159/4/full.jsonl",
+      "content_hash": "/10/a93995a159/4/content_hash.txt",
+      "prompt": "/10/a93995a159/4/prompt.txt"
     }
   ]
 }

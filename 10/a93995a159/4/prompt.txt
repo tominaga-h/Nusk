@@ -1,0 +1,30 @@
+@docs/DEVELOP_PHASES.md 
+Gemini 3.1 PROでフェーズ1を実施しましたが、Opus 4.6の視点から現在のPJをフェーズ1の視点でれびゅーしてください。
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+---
+
+下記のワーニングがでてます
+```
+
+ WARN  Missing supabase url, set it either in nuxt.config.ts or via env variable                                                               @nuxt/supabase 17:48:17
+
+
+ WARN  Missing supabase publishable key, set it either in nuxt.config.ts or via env variable                                                   @nuxt/supabase 17:48:17
+
+  ➜ DevTools: press Shift + Option + D in the browser (v3.2.3)                                                                                                17:48:18
+
+
+[@nuxt/supabase 17:48:19]  WARN  Database types configured at "~/types/database.types.ts" but file not found at "/Users/mad-tmng/lab/typescript/VUE/nusk/apps/web/types/database.types.ts". Using "Database = unknown".
+```
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
