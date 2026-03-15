@@ -1,0 +1,35 @@
+@supabase/seed.sql 
+コメントにはStudioからユーザーを作成し `supabase db reset` しろと書かれていますが、
+`supabase db reset` してしまうと、auth.userも消えるので結局シーディングが実行されません。
+
+---
+
+@supabase/seed.sql 内でテストユーザーを作成するようにして
+
+---
+
+こういう **間違い** を出力させないようにするにはどうしたらいい？
+
+---
+
+でも提示したルールはこういうバグが分かったからこそ書けることであって、最初からこんなルールはかけないでしょ。
+
+---
+
+エラー
+```
+❯ npx supabase db reset
+Resetting local database...
+Recreating database...
+Initialising schema...
+Seeding globals from roles.sql...
+Applying migration 20260315075555_init_schema.sql...
+Applying migration 20260315080130_remote_schema.sql...
+Applying migration 20260315090000_add_rls_policies.sql...
+Applying migration 20260315090100_schema_improvements.sql...
+Seeding data from supabase/seed.sql...
+NOTICE (00000): Seed data created for user a1b2c3d4-e5f6-7890-abcd-ef1234567890
+Restarting containers...
+failed to execute http request: Get "http://127.0.0.1:54321/storage/v1/bucket": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Try rerunning the command with --debug to troubleshoot the error.
+```

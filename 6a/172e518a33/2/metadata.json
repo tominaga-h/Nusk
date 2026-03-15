@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "6a172e518a33",
+  "session_id": "51a174e0-e716-471f-bd4e-6464380cf4d5",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-15T10:58:49.756591Z",
+  "branch": "develop",
+  "checkpoints_count": 5,
+  "files_touched": [
+    ".env.example",
+    "apps/web/nuxt.config.ts",
+    "bun.lock",
+    "package.json",
+    "supabase/seed.sql"
+  ],
+  "agent": "Cursor",
+  "model": "claude-4.6-opus-high-thinking",
+  "turn_id": "48ce80ba0467",
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-15T10:58:49.694692Z",
+    "agent_lines": 43,
+    "human_added": 0,
+    "human_modified": 1,
+    "human_removed": 0,
+    "total_committed": 44,
+    "agent_percentage": 97.72727272727273
+  }
+}
