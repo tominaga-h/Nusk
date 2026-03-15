@@ -1,0 +1,5 @@
+ローカルのsupabase環境 ( http://127.0.0.1:54323/project/default/auth/users?new=true  ) でユーザーを作成しようとしたところ、エラーになりました。
+```
+invalid JWT: unable to parse or verify signature, token signature is invalid: signing method HS256 is invalid
+```
+リクエストURL: http://127.0.0.1:54323/api/platform/auth/default/users
