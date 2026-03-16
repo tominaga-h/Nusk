@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { List, Calendar } from 'lucide-vue-next'
+
 const {
   viewMode,
   selectedList,
@@ -24,12 +26,7 @@ const {
           :class="{ 'tasks__view-btn--active': viewMode === 'list' }"
           @click="viewMode = 'list'"
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M5.5 3H14M5.5 8H14M5.5 13H14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
-            <circle cx="2.5" cy="3" r="1" fill="currentColor" />
-            <circle cx="2.5" cy="8" r="1" fill="currentColor" />
-            <circle cx="2.5" cy="13" r="1" fill="currentColor" />
-          </svg>
+          <List :size="16" :stroke-width="1.3" />
           リスト
         </button>
         <button
@@ -37,9 +34,7 @@ const {
           :class="{ 'tasks__view-btn--active': viewMode === 'date' }"
           @click="viewMode = 'date'"
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M5 1.5V3.5M11 1.5V3.5M1.5 6.5H14.5M2.5 3H13.5C14.0523 3 14.5 3.44772 14.5 4V14C14.5 14.5523 14.0523 15 13.5 15H2.5C1.94772 15 1.5 14.5523 1.5 14V4C1.5 3.44772 1.94772 3 2.5 3Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
+          <Calendar :size="16" :stroke-width="1.3" />
           日付
         </button>
       </div>

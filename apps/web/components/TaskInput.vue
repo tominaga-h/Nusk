@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Calendar } from 'lucide-vue-next'
+
 const emit = defineEmits<{
   add: [title: string]
 }>()
@@ -26,9 +28,7 @@ function submit() {
     />
     <div class="task-input__actions">
       <button type="button" class="task-input__icon-btn">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <path d="M5.5 1.5V4M12.5 1.5V4M1 7H17M2.5 3H15.5C16.0523 3 16.5 3.44772 16.5 4V15.5C16.5 16.0523 16.0523 16.5 15.5 16.5H2.5C1.94772 16.5 1.5 16.0523 1.5 15.5V4C1.5 3.44772 1.94772 3 2.5 3Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+        <Calendar :size="18" :stroke-width="1.3" />
       </button>
       <button type="submit" class="task-input__submit">
         追加

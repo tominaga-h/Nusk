@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Calendar, AlarmClock, LogOut } from 'lucide-vue-next'
+
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 const { lists, selectedListId, taskCount, todayCount, tomorrowCount } = useTaskStore()
@@ -41,21 +43,14 @@ async function logout() {
           <div class="sidebar__list">
             <button class="sidebar__item">
               <span class="sidebar__item-left">
-                <svg class="sidebar__item-svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
-                  <path d="M4.5 1.5V3.5M9.5 1.5V3.5M1 6H13M2 3H12C12.5523 3 13 3.44772 13 4V13C13 13.5523 12.5523 14 12 14H2C1.44772 14 1 13.5523 1 13V4C1 3.44772 1.44772 3 2 3Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+                <Calendar class="sidebar__item-svg" :size="14" :stroke-width="1.2" />
                 <span class="sidebar__item-name">今日</span>
               </span>
               <span class="sidebar__item-count">{{ todayCount }}</span>
             </button>
             <button class="sidebar__item">
               <span class="sidebar__item-left">
-                <svg class="sidebar__item-svg" width="15" height="17" viewBox="0 0 16 16" fill="none">
-                  <circle cx="8" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.2" />
-                  <path d="M8 5.5V8.5L10 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M3 14.5L5 12.5M13 14.5L11 12.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-                  <path d="M4.5 2L3 1M11.5 2L13 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-                </svg>
+                <AlarmClock class="sidebar__item-svg" :size="15" :stroke-width="1.2" />
                 <span class="sidebar__item-name">明日</span>
               </span>
               <span class="sidebar__item-count">{{ tomorrowCount }}</span>
@@ -80,9 +75,7 @@ async function logout() {
         <span class="sidebar__user-name">{{ user.user_metadata?.full_name || user.email }}</span>
       </div>
       <button class="sidebar__logout" @click="logout">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M6 14H3C2.44772 14 2 13.5523 2 13V3C2 2.44772 2.44772 2 3 2H6M11 11L14 8M14 8L11 5M14 8H6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+        <LogOut :size="16" :stroke-width="1.2" />
         ログアウト
       </button>
     </div>

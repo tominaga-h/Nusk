@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
+
 const WEEKDAYS = ['日', '月', '火', '水', '木', '金', '土'] as const
 
 const today = new Date()
@@ -88,14 +90,10 @@ function goToday() {
           Today
         </button>
         <button class="calendar__nav-btn" @click="prevMonth">
-          <svg width="5" height="8" viewBox="0 0 5 8" fill="none">
-            <path d="M4 1L1 4L4 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
+          <ChevronLeft :size="12" :stroke-width="1.5" />
         </button>
         <button class="calendar__nav-btn" @click="nextMonth">
-          <svg width="5" height="8" viewBox="0 0 5 8" fill="none">
-            <path d="M1 1L4 4L1 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
+          <ChevronRight :size="12" :stroke-width="1.5" />
         </button>
       </div>
     </div>

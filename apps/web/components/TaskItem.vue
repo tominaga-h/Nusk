@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Calendar } from 'lucide-vue-next'
 import type { Task } from '~/composables/useTaskStore'
 
 const props = defineProps<{
@@ -48,16 +49,12 @@ const dateDisplay = computed(() => {
           class="task-item__date"
           :class="{ 'task-item__date--today': dateDisplay.highlight }"
         >
-          <svg
+          <Calendar
             v-if="task.scheduled_date"
             class="task-item__date-icon"
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-          >
-            <path d="M4.5 1V3M9.5 1V3M1 5.5H13M2 2.5H12C12.5523 2.5 13 2.94772 13 3.5V12C13 12.5523 12.5523 13 12 13H2C1.44772 13 1 12.5523 1 12V3.5C1 2.94772 1.44772 2.5 2 2.5Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
+            :size="14"
+            :stroke-width="1.2"
+          />
           {{ dateDisplay.text }}
         </span>
       </div>
