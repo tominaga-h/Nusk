@@ -27,3 +27,7 @@ alwaysApply: true
     }
   }
   ```
+
+## TypeScript
+
+- ユーティリティ関数はアロー方式でOKだが、ハンドリング等の動作関数はfunction方式で記述すること。
