@@ -1,4 +1,6 @@
 <script setup lang="ts">
+definePageMeta({ layout: false })
+
 const client = useSupabaseClient()
 const loading = ref(false)
 const error = ref<string | null>(null)

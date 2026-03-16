@@ -1,4 +1,6 @@
 <script setup lang="ts">
+definePageMeta({ layout: false })
+
 const user = useSupabaseUser()
 const errorMsg = ref<string | null>(null)
 
