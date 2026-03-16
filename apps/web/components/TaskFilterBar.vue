@@ -5,21 +5,21 @@ import { SlidersHorizontal, ArrowUpFromLine, Calendar, CircleCheck } from 'lucid
 <template>
   <div class="filter-bar">
     <div class="filter-bar__label">
-      <SlidersHorizontal :size="14" :stroke-width="1.2" />
+      <SlidersHorizontal :size="14" :stroke-width="1.5" />
       <span>フィルター</span>
     </div>
     <div class="filter-bar__divider" />
     <div class="filter-bar__buttons">
       <button class="filter-bar__btn">
-        <ArrowUpFromLine :size="14" :stroke-width="1.2" />
+        <ArrowUpFromLine :size="14" :stroke-width="1.5" />
         優先度
       </button>
       <button class="filter-bar__btn">
-        <Calendar :size="14" :stroke-width="1.2" />
+        <Calendar :size="14" :stroke-width="1.5" />
         期限
       </button>
       <button class="filter-bar__btn">
-        <CircleCheck :size="15" :stroke-width="1.2" />
+        <CircleCheck :size="15" :stroke-width="1.5" />
         ステータス
       </button>
     </div>

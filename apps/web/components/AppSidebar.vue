@@ -43,14 +43,14 @@ async function logout() {
           <div class="sidebar__list">
             <button class="sidebar__item">
               <span class="sidebar__item-left">
-                <Calendar class="sidebar__item-svg" :size="14" :stroke-width="1.2" />
+                <Calendar class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
                 <span class="sidebar__item-name">今日</span>
               </span>
               <span class="sidebar__item-count">{{ todayCount }}</span>
             </button>
             <button class="sidebar__item">
               <span class="sidebar__item-left">
-                <AlarmClock class="sidebar__item-svg" :size="15" :stroke-width="1.2" />
+                <AlarmClock class="sidebar__item-svg" :size="15" :stroke-width="1.5" />
                 <span class="sidebar__item-name">明日</span>
               </span>
               <span class="sidebar__item-count">{{ tomorrowCount }}</span>
@@ -75,7 +75,7 @@ async function logout() {
         <span class="sidebar__user-name">{{ user.user_metadata?.full_name || user.email }}</span>
       </div>
       <button class="sidebar__logout" @click="logout">
-        <LogOut :size="16" :stroke-width="1.2" />
+        <LogOut :size="16" :stroke-width="1.5" />
         ログアウト
       </button>
     </div>

@@ -53,7 +53,7 @@ const dateDisplay = computed(() => {
             v-if="task.scheduled_date"
             class="task-item__date-icon"
             :size="14"
-            :stroke-width="1.2"
+            :stroke-width="1.5"
           />
           {{ dateDisplay.text }}
         </span>
