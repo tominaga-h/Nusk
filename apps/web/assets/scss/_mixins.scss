@@ -1,0 +1,118 @@
+// ==========================================================================
+// Mixins - Figmaデザインから抽出した共通パターン
+// ==========================================================================
+
+@use 'variables' as *;
+@use 'functions' as *;
+
+// --- Typography ---
+@mixin typography($size: 'base', $weight: 'regular') {
+  font-family: $font-family-base;
+  font-size: font-size($size);
+  font-weight: font-weight($weight);
+}
+
+// --- Text Truncation ---
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// --- Card ---
+@mixin card($r: 'md') {
+  background: color('surface');
+  border: 1px solid color('border-light');
+  border-radius: radius($r);
+}
+
+// --- Button Base ---
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: spacing(2);
+  border: none;
+  border-radius: radius('md');
+  font-family: $font-family-base;
+  font-weight: font-weight('medium');
+  cursor: pointer;
+  transition: background $transition-fast, box-shadow $transition-fast;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// --- Primary Button ---
+@mixin btn-primary {
+  @include btn-base;
+  background: color('primary');
+  color: color('surface');
+  box-shadow: shadow('button');
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.05);
+  }
+}
+
+// --- Secondary Button (outlined) ---
+@mixin btn-secondary {
+  @include btn-base;
+  background: color('surface');
+  color: color('text');
+  border: 1px solid color('border');
+
+  &:hover:not(:disabled) {
+    background: color('bg');
+  }
+}
+
+// --- Ghost Button (borderless) ---
+@mixin btn-ghost {
+  @include btn-base;
+  background: transparent;
+  color: color('text-secondary');
+
+  &:hover:not(:disabled) {
+    background: color('bg');
+  }
+}
+
+// --- Status Badge ---
+@mixin status-badge($bg-color, $text-color) {
+  display: inline-block;
+  padding: 2px spacing(2);
+  border-radius: radius('sm');
+  font-size: font-size('xs');
+  font-weight: font-weight('bold');
+  text-transform: uppercase;
+  line-height: 15px;
+  white-space: nowrap;
+  background: $bg-color;
+  color: $text-color;
+}
+
+// --- Section Label (サイドバーの「リスト」「日付」等) ---
+@mixin section-label {
+  font-size: font-size('sm');
+  font-weight: font-weight('bold');
+  color: color('text-muted');
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+// --- Flex Center ---
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// --- Flex Between ---
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

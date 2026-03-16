@@ -1,0 +1,114 @@
+// ==========================================================================
+// Design Tokens - Figma「Nusk」デザインから抽出
+// ==========================================================================
+
+// --- Layer 1: Palette (色名 → HEX値) ---
+// ユーティリティクラス (.{name}-text, .{name}-bg) はここから自動生成される
+$palette: (
+  // Neutrals (暗→明)
+  'dark':           #111111,
+  'charcoal':       #4b5563,
+  'slate':          #6b7280,
+  'gray':           #999999,
+  'silver':         #9ca3af,
+  'mist':           #d1d5db,
+  'ash':            #e5e7eb,
+  'cloud':          #f3f4f6,
+  'smoke':          #f5f5f5,
+  'snow':           #f9fafb,
+  'white':          #ffffff,
+
+  // Brand
+  'primary':        #f97316,
+  'primary-light':  #fff7ed,
+
+  // Accent
+  'blue':           #2563eb,
+  'blue-light':     #eff6ff,
+  'green':          #059669,
+  'green-light':    #ecfdf5,
+  'danger':         #dc2626,
+  'danger-light':   #fef2f2,
+  'danger-pale':    #fecaca,
+);
+
+// --- Layer 2: Semantic Colors (用途名 → パレットキー) ---
+// color() 関数で従来のセマンティックキーを維持する
+$semantic-colors: (
+  'text':           'dark',
+  'text-secondary': 'gray',
+  'text-muted':     'silver',
+  'text-gray':      'slate',
+  'text-calendar':  'charcoal',
+  'text-disabled':  'mist',
+  'bg':             'smoke',
+  'surface':        'white',
+  'surface-muted':  'snow',
+  'border':         'ash',
+  'border-light':   'cloud',
+  'border-danger':  'danger-pale',
+  'status-blue':    'blue',
+  'status-blue-bg': 'blue-light',
+  'status-green':   'green',
+  'status-green-bg':'green-light',
+  'danger-bg':      'danger-light',
+);
+
+// --- Spacing Scale (4px base) ---
+$spacing: (
+  1:  4px,
+  2:  8px,
+  3:  12px,
+  4:  16px,
+  5:  20px,
+  6:  24px,
+  8:  32px,
+  10: 40px,
+  12: 48px,
+);
+
+// --- Font Family ---
+$font-family-base: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-family-logo: 'Inter', sans-serif;
+
+// --- Font Size ---
+$font-sizes: (
+  'xs':      10px,
+  'sm':      11px,
+  'base-sm': 12px,
+  'base':    14px,
+  'md':      16px,
+  'lg':      24px,
+  'xl':      32px,
+);
+
+// --- Font Weight ---
+$font-weights: (
+  'regular': 400,
+  'medium':  500,
+  'bold':    700,
+);
+
+// --- Border Radius ---
+$radii: (
+  'sm':   4px,
+  'md':   8px,
+  'lg':   12px,
+  'pill': 9999px,
+);
+
+// --- Box Shadow ---
+$shadows: (
+  'card':     (0 1px 4px rgba(0, 0, 0, 0.04)),
+  'card-hover':(0 2px 8px rgba(0, 0, 0, 0.08)),
+  'elevated': (0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)),
+  'button':   (0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)),
+  'subtle':   (0 1px 2px 0 rgba(0, 0, 0, 0.05)),
+  'input':    (0 2px 16px rgba(0, 0, 0, 0.08)),
+);
+
+// --- Layout ---
+$sidebar-width: 260px;
+
+// --- Transition ---
+$transition-fast: 0.15s ease;

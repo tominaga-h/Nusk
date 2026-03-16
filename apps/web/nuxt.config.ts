@@ -5,6 +5,21 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/supabase'],
 
+  css: [
+    '~/assets/scss/_global.scss',
+    '~/assets/scss/_utilities.scss',
+  ],
+
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "~/assets/scss" as *;',
+        },
+      },
+    },
+  },
+
   supabase: {
     url: process.env.SUPABASE_URL,
     key: process.env.SUPABASE_KEY,

@@ -56,17 +56,14 @@ const login = async (provider: 'google' | 'github') => {
 <style lang="scss" scoped>
 .login {
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f5f5f5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  @include flex-center;
+  background: color('bg');
 
   &__card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 48px 40px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    background: color('surface');
+    border-radius: radius('lg');
+    padding: spacing(12) spacing(10);
+    box-shadow: shadow('input');
     text-align: center;
     width: 100%;
     max-width: 400px;
@@ -74,77 +71,66 @@ const login = async (provider: 'google' | 'github') => {
 
   &__title {
     margin: 0;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #111;
+    font-family: $font-family-logo;
+    font-size: font-size('xl');
+    font-weight: font-weight('bold');
+    color: color('text');
   }
 
   &__subtitle {
-    margin: 8px 0 0;
-    color: #666;
-    font-size: 0.9rem;
+    margin: spacing(2) 0 0;
+    color: color('text-gray');
+    font-size: font-size('base');
   }
 
   &__divider {
     height: 1px;
-    background: #e5e5e5;
-    margin: 32px 0;
+    background: color('border');
+    margin: spacing(8) 0;
   }
 
   &__actions {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: spacing(3);
   }
 
   &__btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 12px 24px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s, box-shadow 0.15s;
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+    @include btn-base;
+    padding: spacing(3) spacing(6);
+    font-size: font-size('base');
+    border: 1px solid color('border');
 
     &--google {
-      background: #fff;
-      color: #333;
+      background: color('surface');
+      color: color('text');
 
       &:hover:not(:disabled) {
-        background: #f8f8f8;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        background: color('bg');
+        box-shadow: shadow('card');
       }
     }
 
     &--github {
       background: #24292e;
-      color: #fff;
+      color: color('surface');
       border-color: #24292e;
 
       &:hover:not(:disabled) {
         background: #2f363d;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        box-shadow: shadow('card');
       }
     }
   }
 
   &__error {
-    margin-top: 20px;
-    padding: 12px;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    border-radius: 8px;
-    color: #dc2626;
-    font-size: 0.85rem;
+    margin-top: spacing(5);
+    padding: spacing(3);
+    background: color('danger-bg');
+    border: 1px solid color('border-danger');
+    border-radius: radius('md');
+    color: color('danger');
+    font-size: font-size('base');
   }
 }
 </style>

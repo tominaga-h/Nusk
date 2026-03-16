@@ -1,0 +1,143 @@
+---
+description: デザインシステムのトークン・関数・ミキシンの使用ルール。SCSS スタイルを書く際に必ず従うこと。
+globs: "apps/web/**/*.vue"
+alwaysApply: false
+---
+
+# Design System ルール
+
+`apps/web/assets/scss/` にデザインシステムが定義されている。
+`nuxt.config.ts` の `additionalData` により、全 Vue SFC の `<style lang="scss" scoped>` 内で自動的に利用可能。
+
+## 必須ルール
+
+- **色のハードコード禁止**: `#f97316` や `#111` のような直接指定は禁止。必ず `color('primary')` のようにトークン関数を使うこと。
+- **スペーシングのハードコード禁止**: `24px` のような直接指定は禁止。必ず `spacing(6)` のようにトークン関数を使うこと。
+- **フォントサイズのハードコード禁止**: `16px` のような直接指定は禁止。必ず `font-size('md')` を使うこと。
+- **角丸のハードコード禁止**: `8px` のような直接指定は禁止。必ず `radius('md')` を使うこと。
+- **シャドウのハードコード禁止**: `box-shadow` に直接値を書かず `shadow('card')` を使うこと。
+
+## トークン関数リファレンス
+
+### `color($key)` -- 2層構造
+
+`color()` はセマンティックキー・パレットキーの両方を受け付ける。
+セマンティックキーは内部でパレットキーに解決される。
+
+**Layer 1: パレット（色名 → HEX値）** -- ユーティリティクラスの元
+
+| key | 値 | 明るさ |
+|-----|------|--------|
+| `'dark'` | `#111111` | 最暗 |
+| `'charcoal'` | `#4b5563` | 暗め |
+| `'slate'` | `#6b7280` | 中暗 |
+| `'gray'` | `#999999` | 中間 |
+| `'silver'` | `#9ca3af` | 中明 |
+| `'mist'` | `#d1d5db` | 淡め |
+| `'ash'` | `#e5e7eb` | 明るめ |
+| `'cloud'` | `#f3f4f6` | ほぼ白 |
+| `'smoke'` | `#f5f5f5` | ほぼ白 |
+| `'snow'` | `#f9fafb` | ほぼ白 |
+| `'white'` | `#ffffff` | 最明 |
+| `'primary'` | `#f97316` | -- |
+| `'primary-light'` | `#fff7ed` | -- |
+| `'blue'` | `#2563eb` | -- |
+| `'blue-light'` | `#eff6ff` | -- |
+| `'green'` | `#059669` | -- |
+| `'green-light'` | `#ecfdf5` | -- |
+| `'danger'` | `#dc2626` | -- |
+| `'danger-light'` | `#fef2f2` | -- |
+| `'danger-pale'` | `#fecaca` | -- |
+
+**Layer 2: セマンティック（用途名 → パレットキー）** -- 従来互換
+
+| key | → パレット | 用途 |
+|-----|-----------|------|
+| `'text'` | `dark` | 本文テキスト |
+| `'text-secondary'` | `gray` | 補助テキスト |
+| `'text-muted'` | `silver` | セクションラベル |
+| `'text-gray'` | `slate` | フィルターテキスト |
+| `'text-calendar'` | `charcoal` | カレンダー日付 |
+| `'text-disabled'` | `mist` | 無効テキスト |
+| `'bg'` | `smoke` | ページ背景 |
+| `'surface'` | `white` | カード・サイドバー背景 |
+| `'surface-muted'` | `snow` | 控えめなサーフェス |
+| `'border'` | `ash` | 主要ボーダー |
+| `'border-light'` | `cloud` | 軽いボーダー |
+| `'border-danger'` | `danger-pale` | エラーボーダー |
+| `'status-blue'` | `blue` | 対応中ステータス |
+| `'status-blue-bg'` | `blue-light` | 対応中背景 |
+| `'status-green'` | `green` | 完了ステータス |
+| `'status-green-bg'` | `green-light` | 完了背景 |
+| `'danger-bg'` | `danger-light` | エラー背景 |
+
+### ユーティリティクラス
+
+`$palette` から自動生成。テンプレート内で直接使用可能。
+
+- `.{name}-text` → `color`（例: `.primary-text`, `.dark-text`, `.blue-text`）
+- `.{name}-bg` → `background-color`（例: `.primary-bg`, `.smoke-bg`, `.danger-bg`）
+- `.{name}-border` → `border-color`（例: `.ash-border`, `.danger-pale-border`）
+
+### `spacing($key)`
+
+| key | 値 |
+|-----|------|
+| `1` | 4px |
+| `2` | 8px |
+| `3` | 12px |
+| `4` | 16px |
+| `5` | 20px |
+| `6` | 24px |
+| `8` | 32px |
+| `10` | 40px |
+| `12` | 48px |
+
+### `font-size($key)`
+
+| key | 値 | 用途 |
+|-----|------|------|
+| `'xs'` | 10px | バッジ |
+| `'sm'` | 11px | セクション見出し |
+| `'base-sm'` | 12px | 小テキスト |
+| `'base'` | 14px | 標準テキスト |
+| `'md'` | 16px | 本文 |
+| `'lg'` | 24px | 見出し |
+| `'xl'` | 32px | 大見出し |
+
+### `font-weight($key)`
+
+`'regular'` (400) / `'medium'` (500) / `'bold'` (700)
+
+### `radius($key)`
+
+`'sm'` (4px) / `'md'` (8px) / `'lg'` (12px) / `'pill'` (9999px)
+
+### `shadow($key)`
+
+`'card'` / `'card-hover'` / `'elevated'` / `'button'` / `'subtle'` / `'input'`
+
+## ミキシンリファレンス
+
+| ミキシン | 用途 |
+|---------|------|
+| `@include typography($size, $weight)` | フォント設定を一括適用 |
+| `@include truncate` | テキスト省略（ellipsis） |
+| `@include card($radius)` | カードスタイル（背景 + ボーダー + 角丸） |
+| `@include btn-base` | ボタン共通スタイル |
+| `@include btn-primary` | プライマリボタン（オレンジ） |
+| `@include btn-secondary` | セカンダリボタン（白 + ボーダー） |
+| `@include btn-ghost` | ゴーストボタン（透明背景） |
+| `@include status-badge($bg, $color)` | ステータスバッジ |
+| `@include section-label` | セクションラベル（「リスト」「日付」等） |
+| `@include flex-center` | Flex 中央揃え |
+| `@include flex-between` | Flex 両端揃え |
+
+## 変数（直接使用可）
+
+| 変数 | 用途 |
+|------|------|
+| `$font-family-base` | 本文フォントファミリー |
+| `$font-family-logo` | ロゴフォントファミリー |
+| `$sidebar-width` | サイドバー幅 (260px) |
+| `$transition-fast` | 高速トランジション (0.15s ease) |

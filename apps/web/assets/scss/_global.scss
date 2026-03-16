@@ -1,0 +1,50 @@
+// ==========================================================================
+// Global Styles - リセット + ベーススタイル
+// ==========================================================================
+
+@use 'variables' as *;
+@use 'functions' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: font-size('base');
+  font-weight: font-weight('regular');
+  color: color('text');
+  background: color('bg');
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}

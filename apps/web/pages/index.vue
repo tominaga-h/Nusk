@@ -45,17 +45,14 @@ const logout = async () => {
 <style lang="scss" scoped>
 .home {
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f5f5f5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  @include flex-center;
+  background: color('bg');
 
   &__card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 48px 40px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    background: color('surface');
+    border-radius: radius('lg');
+    padding: spacing(12) spacing(10);
+    box-shadow: shadow('input');
     text-align: center;
     width: 100%;
     max-width: 480px;
@@ -63,102 +60,94 @@ const logout = async () => {
 
   &__title {
     margin: 0;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #111;
+    font-family: $font-family-logo;
+    font-size: font-size('xl');
+    font-weight: font-weight('bold');
+    color: color('text');
   }
 
   &__subtitle {
-    margin: 8px 0 0;
-    color: #666;
-    font-size: 0.9rem;
+    margin: spacing(2) 0 0;
+    color: color('text-gray');
+    font-size: font-size('base');
   }
 
   &__divider {
     height: 1px;
-    background: #e5e5e5;
-    margin: 32px 0;
+    background: color('border');
+    margin: spacing(8) 0;
   }
 
   &__status {
     display: inline-block;
-    padding: 6px 16px;
-    background: #ecfdf5;
+    padding: 6px spacing(4);
+    background: color('status-green-bg');
     border: 1px solid #a7f3d0;
-    border-radius: 20px;
-    color: #059669;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 24px;
+    border-radius: radius('pill');
+    color: color('status-green');
+    font-size: font-size('base');
+    font-weight: font-weight('medium');
+    margin-bottom: spacing(6);
   }
 
   &__user-detail {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: spacing(4);
     text-align: left;
-    padding: 16px;
-    background: #fafafa;
-    border-radius: 8px;
-    margin-bottom: 24px;
+    padding: spacing(4);
+    background: color('surface-muted');
+    border-radius: radius('md');
+    margin-bottom: spacing(6);
   }
 
   &__avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    width: spacing(12);
+    height: spacing(12);
+    border-radius: radius('pill');
   }
 
   &__name {
     margin: 0;
-    font-weight: 600;
-    color: #111;
+    font-weight: font-weight('medium');
+    color: color('text');
   }
 
   &__email {
-    margin: 4px 0 0;
-    color: #666;
-    font-size: 0.85rem;
+    margin: spacing(1) 0 0;
+    color: color('text-gray');
+    font-size: font-size('base');
   }
 
   &__provider {
-    margin: 4px 0 0;
-    color: #999;
-    font-size: 0.8rem;
+    margin: spacing(1) 0 0;
+    color: color('text-secondary');
+    font-size: font-size('base-sm');
   }
 
   &__logout {
-    padding: 10px 24px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background 0.15s;
-
-    &:hover {
-      background: #f5f5f5;
-    }
+    @include btn-secondary;
+    padding: 10px spacing(6);
+    font-size: font-size('base');
   }
 
   &__guest {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
-    color: #666;
+    gap: spacing(4);
+    color: color('text-gray');
   }
 
   &__login {
     display: inline-block;
-    padding: 10px 24px;
-    background: #111;
-    color: #fff;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: background 0.15s;
+    padding: 10px spacing(6);
+    background: color('text');
+    color: color('surface');
+    border-radius: radius('md');
+    font-size: font-size('base');
+    font-weight: font-weight('medium');
+    transition: background $transition-fast;
 
     &:hover {
       background: #333;

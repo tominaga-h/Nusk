@@ -41,17 +41,14 @@ onMounted(() => {
 <style lang="scss" scoped>
 .confirm {
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f5f5f5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  @include flex-center;
+  background: color('bg');
 
   &__card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 48px 40px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    background: color('surface');
+    border-radius: radius('lg');
+    padding: spacing(12) spacing(10);
+    box-shadow: shadow('input');
     text-align: center;
     width: 100%;
     max-width: 400px;
@@ -61,16 +58,16 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
-    color: #666;
+    gap: spacing(4);
+    color: color('text-gray');
   }
 
   &__spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid #e5e5e5;
-    border-top-color: #111;
-    border-radius: 50%;
+    border: 3px solid color('border');
+    border-top-color: color('text');
+    border-radius: radius('pill');
     animation: spin 0.8s linear infinite;
   }
 
@@ -78,22 +75,22 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: spacing(4);
   }
 
   &__error {
-    padding: 12px;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    border-radius: 8px;
-    color: #dc2626;
-    font-size: 0.85rem;
+    padding: spacing(3);
+    background: color('danger-bg');
+    border: 1px solid color('border-danger');
+    border-radius: radius('md');
+    color: color('danger');
+    font-size: font-size('base');
     width: 100%;
   }
 
   &__back {
-    color: #111;
-    font-weight: 500;
+    color: color('text');
+    font-weight: font-weight('medium');
     text-decoration: underline;
     text-underline-offset: 2px;
   }

@@ -1,0 +1,61 @@
+// ==========================================================================
+// Helper Functions - マップからトークン値を取得するショートハンド
+// ==========================================================================
+
+@use 'sass:map';
+@use 'variables' as *;
+
+@function color($key) {
+  // 1. セマンティック層を確認 → パレットキーに解決
+  $resolved: map.get($semantic-colors, $key);
+  @if $resolved != null {
+    $key: $resolved;
+  }
+
+  // 2. パレット層から値を取得
+  $value: map.get($palette, $key);
+  @if $value == null {
+    @error 'Unknown color token: `#{$key}`. Available palette: #{map.keys($palette)}, semantic: #{map.keys($semantic-colors)}';
+  }
+  @return $value;
+}
+
+@function spacing($key) {
+  $value: map.get($spacing, $key);
+  @if $value == null {
+    @error 'Unknown spacing token: `#{$key}`. Available: #{map.keys($spacing)}';
+  }
+  @return $value;
+}
+
+@function font-size($key) {
+  $value: map.get($font-sizes, $key);
+  @if $value == null {
+    @error 'Unknown font-size token: `#{$key}`. Available: #{map.keys($font-sizes)}';
+  }
+  @return $value;
+}
+
+@function font-weight($key) {
+  $value: map.get($font-weights, $key);
+  @if $value == null {
+    @error 'Unknown font-weight token: `#{$key}`. Available: #{map.keys($font-weights)}';
+  }
+  @return $value;
+}
+
+@function radius($key) {
+  $value: map.get($radii, $key);
+  @if $value == null {
+    @error 'Unknown radius token: `#{$key}`. Available: #{map.keys($radii)}';
+  }
+  @return $value;
+}
+
+@function shadow($key) {
+  $value: map.get($shadows, $key);
+  @if $value == null {
+    @error 'Unknown shadow token: `#{$key}`. Available: #{map.keys($shadows)}';
+  }
+  @return $value;
+}
