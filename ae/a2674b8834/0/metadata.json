@@ -1,0 +1,43 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "aea2674b8834",
+  "session_id": "316c17ad-322a-4de9-a764-d413495a1dcd",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-16T15:22:53.336699Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/web/components/AppSidebar.vue",
+    "apps/web/middleware/setup.global.ts",
+    "apps/web/nuxt.config.ts",
+    "apps/web/pages/config.vue",
+    "apps/web/pages/confirm.vue",
+    "apps/web/server/api/v1/lists/[id].delete.ts",
+    "apps/web/server/api/v1/lists/[id].patch.ts",
+    "apps/web/server/api/v1/lists/index.get.ts",
+    "apps/web/server/api/v1/lists/index.post.ts",
+    "apps/web/server/api/v1/setup/init.post.ts",
+    "apps/web/server/api/v1/statuses/[id].delete.ts",
+    "apps/web/server/api/v1/statuses/[id].patch.ts",
+    "apps/web/server/api/v1/statuses/index.get.ts",
+    "apps/web/server/api/v1/statuses/index.post.ts",
+    "docs/SCHEMA.md",
+    "packages/shared/types/database.ts",
+    "supabase/migrations/20260317000000_add_color_to_statuses.sql"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "42ac5dc9cf9d",
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-16T15:22:53.218817Z",
+    "agent_lines": 1400,
+    "human_added": 247,
+    "human_modified": 3,
+    "human_removed": 0,
+    "total_committed": 1650,
+    "agent_percentage": 84.84848484848484
+  }
+}
