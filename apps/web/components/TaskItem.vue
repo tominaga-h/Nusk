@@ -9,6 +9,7 @@ const props = defineProps<{
 }>()
 
 defineEmits<{
+  'complete': []
   'schedule-today': []
   'schedule-tomorrow': []
 }>()
@@ -33,7 +34,7 @@ const dateDisplay = computed(() => {
         class="task-item__check"
         :class="{ 'task-item__check--done': statusCategory === 'DONE' }"
         :checked="statusCategory === 'DONE'"
-        disabled
+        @change="$emit('complete')"
       />
       <div class="task-item__info">
         <span
@@ -95,7 +96,7 @@ const dateDisplay = computed(() => {
     appearance: none;
     margin: 0;
     padding: 0;
-    cursor: default;
+    cursor: pointer;
     width: 20px;
     height: 20px;
     border: 1px solid color('text-disabled');

@@ -10,6 +10,7 @@ const {
   tomorrowStr,
   addTask,
   scheduleTask,
+  completeTask,
 } = useTaskStore()
 </script>
 
@@ -51,6 +52,7 @@ const {
             :task="task"
             :status-name="getStatus(task.status_id)?.name ?? ''"
             :status-category="getStatus(task.status_id)?.category ?? 'TODO'"
+            @complete="completeTask(task.id)"
             @schedule-today="scheduleTask(task.id, todayStr)"
             @schedule-tomorrow="scheduleTask(task.id, tomorrowStr)"
           />

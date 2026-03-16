@@ -113,6 +113,17 @@ export const useTaskStore = () => {
     if (task) task.scheduled_date = date
   }
 
+  function completeTask(taskId: string) {
+    const task = tasks.value.find(t => t.id === taskId)
+    if (!task) return
+    const currentStatus = statuses.value.find(s => s.id === task.status_id)
+    const targetCategory = currentStatus?.category === 'DONE' ? 'TODO' : 'DONE'
+    const newStatus = statuses.value.find(
+      s => s.list_id === task.list_id && s.category === targetCategory,
+    )
+    if (newStatus) task.status_id = newStatus.id
+  }
+
   return {
     lists,
     statuses,
@@ -131,5 +142,6 @@ export const useTaskStore = () => {
     formatDate,
     addTask,
     scheduleTask,
+    completeTask,
   }
 }
