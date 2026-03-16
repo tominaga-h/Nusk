@@ -28,9 +28,12 @@ const dateDisplay = computed(() => {
 <template>
   <article class="task-item">
     <div class="task-item__content">
-      <div
+      <input
+        type="checkbox"
         class="task-item__check"
         :class="{ 'task-item__check--done': statusCategory === 'DONE' }"
+        :checked="statusCategory === 'DONE'"
+        disabled
       />
       <div class="task-item__info">
         <span
@@ -89,6 +92,10 @@ const dateDisplay = computed(() => {
   }
 
   &__check {
+    appearance: none;
+    margin: 0;
+    padding: 0;
+    cursor: default;
     width: 20px;
     height: 20px;
     border: 1px solid color('text-disabled');
