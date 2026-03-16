@@ -5,6 +5,7 @@ alwaysApply: true
 # General Rule
 
 - 最初にかならず `docs/OVERVIEW.md` を読み込んで、今プロジェクトの情報を確認してください。
+- devサーバーの起動は不要
 
 ## Vue
 

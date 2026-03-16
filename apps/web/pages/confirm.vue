@@ -6,7 +6,8 @@ const errorMsg = ref<string | null>(null)
 
 watch(user, (newUser) => {
   if (newUser) {
-    navigateTo('/')
+    const isSetupComplete = newUser.user_metadata?.is_setup_complete
+    navigateTo(isSetupComplete ? '/tasks' : '/config')
   }
 }, { immediate: true })
 

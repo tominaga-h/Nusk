@@ -20,6 +20,7 @@ export type Database = {
           id: string
           is_inbox: boolean | null
           name: string
+          sort_order: number
           updated_at: string | null
           user_id: string
         }
@@ -28,6 +29,7 @@ export type Database = {
           id?: string
           is_inbox?: boolean | null
           name: string
+          sort_order?: number
           updated_at?: string | null
           user_id: string
         }
@@ -36,6 +38,7 @@ export type Database = {
           id?: string
           is_inbox?: boolean | null
           name?: string
+          sort_order?: number
           updated_at?: string | null
           user_id?: string
         }
@@ -101,30 +104,36 @@ export type Database = {
       statuses: {
         Row: {
           category: Database["public"]["Enums"]["status_category"]
+          color: string | null
           created_at: string | null
           id: string
-          list_id: string
+          list_id: string | null
           name: string
           sort_order: number
           updated_at: string | null
+          user_id: string
         }
         Insert: {
           category?: Database["public"]["Enums"]["status_category"]
+          color?: string | null
           created_at?: string | null
           id?: string
-          list_id: string
+          list_id?: string | null
           name: string
           sort_order?: number
           updated_at?: string | null
+          user_id: string
         }
         Update: {
           category?: Database["public"]["Enums"]["status_category"]
+          color?: string | null
           created_at?: string | null
           id?: string
-          list_id?: string
+          list_id?: string | null
           name?: string
           sort_order?: number
           updated_at?: string | null
+          user_id?: string
         }
         Relationships: [
           {

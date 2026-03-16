@@ -24,6 +24,7 @@ CREATE TABLE statuses (
   list_id UUID REFERENCES lists(id) ON DELETE CASCADE,
   name TEXT NOT NULL, -- 例: "未対応", "レビュー中"
   category status_category NOT NULL DEFAULT 'TODO', -- システムが「完了」などを判定するため
+  color TEXT DEFAULT '#94a3b8', -- ステータスバッジの表示色 (HEX)
   sort_order INTEGER NOT NULL DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -112,6 +113,7 @@ erDiagram
         uuid list_id FK "nullable"
         text name
         status_category category
+        text color
         integer sort_order
         timestamptz created_at
         timestamptz updated_at

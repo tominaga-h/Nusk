@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Calendar, AlarmClock, LogOut } from 'lucide-vue-next'
+import { Calendar, AlarmClock, LogOut, Settings } from 'lucide-vue-next'
 
 const client = useSupabaseClient()
 const user = useSupabaseUser()
@@ -73,6 +73,10 @@ async function logout() {
         />
         <span class="sidebar__user-name">{{ user.user_metadata?.full_name || user.email }}</span>
       </div>
+      <NuxtLink to="/config" class="sidebar__settings">
+        <Settings :size="16" :stroke-width="1.5" />
+        システム設定
+      </NuxtLink>
       <button class="sidebar__logout" @click="logout">
         <LogOut :size="16" :stroke-width="1.5" />
         ログアウト
@@ -218,6 +222,17 @@ async function logout() {
     @include typography('base', 'medium');
     @include truncate;
     color: color('text');
+  }
+
+  &__settings {
+    @include btn-ghost;
+    width: 100%;
+    padding: spacing(1) spacing(2);
+    font-size: font-size('base');
+    color: color('text-secondary');
+    justify-content: flex-start;
+    gap: spacing(2);
+    text-decoration: none;
   }
 
   &__logout {
