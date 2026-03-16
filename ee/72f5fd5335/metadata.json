@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "ee72f5fd5335",
+  "strategy": "manual-commit",
+  "branch": "feature/phase3",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".cursor/plans/db型ディレクトリ再構成_1f3d0fab.plan.md",
+    ".cursor/plans/task_page_db_integration_e56da708.plan.md",
+    ".cursor/rules/general.mdc",
+    "apps/web/composables/useApi.ts",
+    "apps/web/composables/useTaskStore.ts",
+    "apps/web/layouts/default.vue",
+    "apps/web/pages/config.vue",
+    "apps/web/pages/tasks.vue",
+    "packages/shared/index.ts",
+    "packages/shared/lib/api.ts",
+    "packages/shared/types/api.ts",
+    "packages/shared/types/database.ts",
+    "packages/shared/types/database/database.ts",
+    "packages/shared/types/database/index.ts",
+    "supabase/config.toml"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ee/72f5fd5335/0/metadata.json",
+      "transcript": "/ee/72f5fd5335/0/full.jsonl",
+      "content_hash": "/ee/72f5fd5335/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
