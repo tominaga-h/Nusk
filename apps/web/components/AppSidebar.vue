@@ -14,8 +14,7 @@ async function logout() {
 <template>
   <aside class="sidebar">
     <div class="sidebar__logo">
-      <img class="sidebar__logo-icon" src="/img/icon.png" alt="Nusk">
-      <h1 class="sidebar__logo-text">Nusk</h1>
+      <AppLogo />
     </div>
 
     <nav class="sidebar__nav">
@@ -95,24 +94,7 @@ async function logout() {
   top: 0;
 
   &__logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     padding: spacing(6);
-  }
-
-  &__logo-icon {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-  }
-
-  &__logo-text {
-    margin: 0;
-    font-family: $font-family-logo;
-    font-size: font-size('lg');
-    font-weight: font-weight('bold');
-    color: color('text');
   }
 
   &__nav {

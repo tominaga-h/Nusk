@@ -26,7 +26,9 @@ async function login(provider: 'google' | 'github') {
 <template>
   <div class="login">
     <div class="login__card">
-      <h1 class="login__title">Nusk</h1>
+      <h1 class="login__title">
+        <AppLogo size="lg" />
+      </h1>
       <p class="login__subtitle">次世代タスク管理システム</p>
 
       <div class="login__divider" />
@@ -73,10 +75,6 @@ async function login(provider: 'google' | 'github') {
 
   &__title {
     margin: 0;
-    font-family: $font-family-logo;
-    font-size: font-size('xl');
-    font-weight: font-weight('bold');
-    color: color('text');
   }
 
   &__subtitle {
