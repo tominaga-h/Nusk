@@ -5,3 +5,25 @@ alwaysApply: true
 # General Rule
 
 - 最初にかならず `docs/OVERVIEW.md` を読み込んで、今プロジェクトの情報を確認してください。
+
+## Vue
+
+- Vueファイルの構成はかならず script → template → styleにしてください。
+
+## HTML
+
+- クラス名のクラス設計は **BEM(block\_\_element--modifier)** をつかうこと。
+
+## CSS
+
+- Vueファイル内のCSSは必ず **SCSS** で書くこと。
+- BEMの構造は以下のようにネストで書くこと。
+
+  ```scss
+  .block {
+    &__element {
+      &--modifier {
+      }
+    }
+  }
+  ```
