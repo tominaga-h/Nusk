@@ -1,0 +1,12 @@
+@apps/web/ 
+既存の実装では、デザインのアイコンを独自のsvgで実装していますが、アイコンライブラリを導入したいです。このデザインにあるアイコンで、見た目が近いアイコンライブラリを教えてください。https://www.figma.com/design/z94xHuoDWxAMA25rHHvwmG/Nusk?node-id=4-2&t=HuxexeYvo2PSaLOa-4
+
+---
+
+Lucideめちゃくちゃ良いですね！Lucideのインストールと既存アイコンの入れ替えをプランにしてください。devサーバー起動によるテストは不要です。
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
