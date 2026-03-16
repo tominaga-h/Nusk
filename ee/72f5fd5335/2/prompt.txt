@@ -1,0 +1,44 @@
+@apps/web/composables/useTaskStore.ts @apps/web/composables/useApi.ts @packages/shared/lib/api.ts @.cursor/rules/general.mdc 
+各tsファイルにコメントを付与してください
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+---
+
+@packages/shared/lib/api.ts 
+それぞれのcreateやupdate等のペイロードを型にして
+
+---
+
+APIの型は `packages/shared/types/api.ts` に移譲してimportすること
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+---
+
+@packages/shared/types/database.ts @packages/shared/types/api.ts @packages/shared/index.ts 
+index.tsで `StatusCategory` を作成しているのに、 api.tsでも作成しているのでDRY原則違反です。
+index.tsでexportしている型を他のtsファイルでもimportできるようにしてほしい
+
+---
+
+index.tsを読み込むのは対症療法でしょ。
+`types/database/` のようにサブフォルダを切って、 `types/database/` に @packages/shared/types/database.ts と @packages/shared/index.ts を置いて、 `import * from './database'` のようにすべき。
+
+---
+
+このプランでsupabaseの自動生成先を `types/database/database.ts` に変更できるの？
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
