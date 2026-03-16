@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "7b66942540e4",
+  "session_id": "d5867719-0a15-477d-ac38-f5c4e3f29c8f",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-16T13:46:47.321082Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/web/components/TaskFilterBar.vue",
+    "apps/web/pages/tasks.vue"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "426c8cefcf48",
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-16T13:46:47.262852Z",
+    "agent_lines": 7,
+    "human_added": 0,
+    "human_modified": 2,
+    "human_removed": 1,
+    "total_committed": 9,
+    "agent_percentage": 77.77777777777779
+  }
+}
