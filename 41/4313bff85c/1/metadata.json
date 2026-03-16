@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "414313bff85c",
+  "session_id": "d40d48ce-365b-461b-841e-a81383fd3581",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-16T12:38:42.014073Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/components/TaskItem.vue"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "64c0bfecc18d",
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-16T12:38:41.954953Z",
+    "agent_lines": 8,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 8,
+    "agent_percentage": 100
+  }
+}
