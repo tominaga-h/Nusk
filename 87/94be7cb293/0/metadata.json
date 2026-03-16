@@ -1,0 +1,38 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "8794be7cb293",
+  "session_id": "40daadfc-07c5-4722-beb7-f6069e523362",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-16T12:00:33.294344Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/web/app.vue",
+    "apps/web/components/AppSidebar.vue",
+    "apps/web/components/MiniCalendar.vue",
+    "apps/web/components/TaskFilterBar.vue",
+    "apps/web/components/TaskInput.vue",
+    "apps/web/components/TaskItem.vue",
+    "apps/web/composables/useTaskStore.ts",
+    "apps/web/layouts/default.vue",
+    "apps/web/pages/confirm.vue",
+    "apps/web/pages/index.vue",
+    "apps/web/pages/login.vue",
+    "apps/web/pages/tasks.vue"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "daaa1a08a082",
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-16T12:00:33.21793Z",
+    "agent_lines": 1049,
+    "human_added": 168,
+    "human_modified": 45,
+    "human_removed": 0,
+    "total_committed": 1262,
+    "agent_percentage": 83.12202852614897
+  }
+}

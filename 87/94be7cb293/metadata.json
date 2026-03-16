@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "8794be7cb293",
+  "strategy": "manual-commit",
+  "branch": "feature/phase3",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/web/app.vue",
+    "apps/web/components/AppSidebar.vue",
+    "apps/web/components/MiniCalendar.vue",
+    "apps/web/components/TaskFilterBar.vue",
+    "apps/web/components/TaskInput.vue",
+    "apps/web/components/TaskItem.vue",
+    "apps/web/composables/useTaskStore.ts",
+    "apps/web/layouts/default.vue",
+    "apps/web/pages/confirm.vue",
+    "apps/web/pages/index.vue",
+    "apps/web/pages/login.vue",
+    "apps/web/pages/tasks.vue"
+  ],
+  "sessions": [
+    {
+      "metadata": "/87/94be7cb293/0/metadata.json",
+      "transcript": "/87/94be7cb293/0/full.jsonl",
+      "content_hash": "/87/94be7cb293/0/content_hash.txt",
+      "prompt": "/87/94be7cb293/0/prompt.txt"
+    }
+  ]
+}
