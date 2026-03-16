@@ -1,0 +1,2 @@
+@apps/web/components/MiniCalendar.vue 
+`calender__header` に today ボタンを追加して。クリックすると当月のカレンダーに戻る。

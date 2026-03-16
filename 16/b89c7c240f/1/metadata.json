@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "16b89c7c240f",
+  "session_id": "8db91707-2e43-47df-9403-c8dec3be6cb1",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-16T12:12:39.609714Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/components/MiniCalendar.vue"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "eaf6f6342c73",
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-16T12:12:39.555237Z",
+    "agent_lines": 24,
+    "human_added": 0,
+    "human_modified": 2,
+    "human_removed": 8,
+    "total_committed": 26,
+    "agent_percentage": 92.3076923076923
+  }
+}
