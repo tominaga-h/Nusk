@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { SlidersHorizontal, ArrowUpFromLine, Calendar, CircleCheck } from 'lucide-vue-next'
+
+defineProps<{
+  count: number
+}>()
 </script>
 
 <template>
@@ -8,7 +12,7 @@ import { SlidersHorizontal, ArrowUpFromLine, Calendar, CircleCheck } from 'lucid
       <SlidersHorizontal :size="14" :stroke-width="1.5" />
       <span>フィルター</span>
     </div>
-    <div class="filter-bar__divider" />
+    <span class="filter-bar__count">{{ count }} item{{ count > 1 ? 's' : '' }}</span>
     <div class="filter-bar__buttons">
       <button class="filter-bar__btn">
         <ArrowUpFromLine :size="14" :stroke-width="1.5" />
@@ -42,8 +46,12 @@ import { SlidersHorizontal, ArrowUpFromLine, Calendar, CircleCheck } from 'lucid
     border-right: 1px solid color('text-disabled');
   }
 
-  &__divider {
-    display: none;
+  &__count {
+    padding: 5px 9px;
+    border: 1px solid color('border');
+    border-radius: radius('sm');
+    font-size: font-size('base');
+    color: color('text-secondary');
   }
 
   &__buttons {

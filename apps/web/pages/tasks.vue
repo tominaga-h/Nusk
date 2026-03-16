@@ -19,7 +19,6 @@ const {
     <header class="tasks__header">
       <div class="tasks__title-row">
         <h2 class="tasks__title">{{ selectedList.name }}</h2>
-        <span class="tasks__count-badge">{{ filteredTasks.length }}件のタスク</span>
       </div>
       <div class="tasks__view-toggle">
         <button
@@ -44,7 +43,7 @@ const {
     <div class="tasks__body">
       <div class="tasks__content">
         <TaskInput @add="addTask" />
-        <TaskFilterBar />
+        <TaskFilterBar :count="filteredTasks.length" />
         <div class="tasks__list">
           <TaskItem
             v-for="task in filteredTasks"
@@ -90,15 +89,6 @@ const {
     font-size: font-size('lg');
     font-weight: font-weight('bold');
     color: color('text');
-  }
-
-  &__count-badge {
-    padding: 5px 9px;
-    background: color('surface');
-    border: 1px solid color('border');
-    border-radius: radius('pill');
-    font-size: font-size('base');
-    color: color('text-secondary');
   }
 
   &__view-toggle {
