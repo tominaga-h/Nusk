@@ -5,7 +5,7 @@ const client = useSupabaseClient()
 const loading = ref(false)
 const error = ref<string | null>(null)
 
-const login = async (provider: 'google' | 'github') => {
+async function login(provider: 'google' | 'github') {
   loading.value = true
   error.value = null
 

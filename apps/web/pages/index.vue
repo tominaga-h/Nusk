@@ -4,7 +4,7 @@ definePageMeta({ layout: false })
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 
-const logout = async () => {
+async function logout() {
   await client.auth.signOut()
   navigateTo('/login')
 }

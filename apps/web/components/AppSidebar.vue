@@ -3,7 +3,7 @@ const client = useSupabaseClient()
 const user = useSupabaseUser()
 const { lists, selectedListId, taskCount, todayCount, tomorrowCount } = useTaskStore()
 
-const logout = async () => {
+async function logout() {
   await client.auth.signOut()
   navigateTo('/login')
 }

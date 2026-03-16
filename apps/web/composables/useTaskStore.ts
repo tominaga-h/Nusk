@@ -94,7 +94,7 @@ export const useTaskStore = () => {
     return `${d.getMonth() + 1}/${d.getDate()}`
   }
 
-  const addTask = (title: string) => {
+  function addTask(title: string) {
     const defaultStatus = statuses.value.find(
       s => s.list_id === selectedListId.value && s.category === 'TODO',
     )
@@ -108,7 +108,7 @@ export const useTaskStore = () => {
     })
   }
 
-  const scheduleTask = (taskId: string, date: string) => {
+  function scheduleTask(taskId: string, date: string) {
     const task = tasks.value.find(t => t.id === taskId)
     if (task) task.scheduled_date = date
   }

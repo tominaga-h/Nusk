@@ -53,7 +53,7 @@ const calendarDays = computed<CalendarDay[]>(() => {
   return days
 })
 
-const prevMonth = () => {
+function prevMonth() {
   if (currentMonth.value === 0) {
     currentMonth.value = 11
     currentYear.value--
@@ -63,7 +63,7 @@ const prevMonth = () => {
   }
 }
 
-const nextMonth = () => {
+function nextMonth() {
   if (currentMonth.value === 11) {
     currentMonth.value = 0
     currentYear.value++
@@ -73,7 +73,7 @@ const nextMonth = () => {
   }
 }
 
-const goToday = () => {
+function goToday() {
   currentYear.value = today.getFullYear()
   currentMonth.value = today.getMonth()
 }

@@ -5,7 +5,7 @@ const emit = defineEmits<{
 
 const title = ref('')
 
-const submit = () => {
+function submit() {
   const trimmed = title.value.trim()
   if (!trimmed) return
   emit('add', trimmed)
