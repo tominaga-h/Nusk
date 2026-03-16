@@ -3,6 +3,7 @@ import { GripVertical, Plus, Pencil, Trash2, Settings, LayoutList, X } from 'luc
 
 definePageMeta({ layout: false })
 
+const api = useApi()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 
@@ -71,8 +72,8 @@ async function loadData() {
 
   try {
     const [listsRes, statusesRes] = await Promise.all([
-      $fetch('/api/v1/lists'),
-      $fetch('/api/v1/statuses'),
+      api.lists.getAll(),
+      api.statuses.getAll(),
     ])
 
     if ((listsRes as ListItem[]).length > 0) {
@@ -256,12 +257,9 @@ async function handleSave() {
 
   try {
     if (isInitialSetup.value) {
-      await $fetch('/api/v1/setup/init', {
-        method: 'POST',
-        body: {
-          lists: lists.value.map((l) => ({ name: l.name, is_inbox: l.is_inbox })),
-          statuses: statuses.value.map((s) => ({ name: s.name, category: s.category, color: s.color })),
-        },
+      await api.setup.init({
+        lists: lists.value.map((l) => ({ name: l.name, is_inbox: l.is_inbox })),
+        statuses: statuses.value.map((s) => ({ name: s.name, category: s.category, color: s.color })),
       })
 
       await client.auth.refreshSession()
@@ -269,29 +267,17 @@ async function handleSave() {
     } else {
       for (const list of lists.value) {
         if (list.isNew) {
-          await $fetch('/api/v1/lists', {
-            method: 'POST',
-            body: { name: list.name, is_inbox: list.is_inbox, sort_order: list.sort_order },
-          })
+          await api.lists.create({ name: list.name, is_inbox: list.is_inbox, sort_order: list.sort_order })
         } else {
-          await $fetch(`/api/v1/lists/${list.id}`, {
-            method: 'PATCH',
-            body: { name: list.name, sort_order: list.sort_order },
-          })
+          await api.lists.update(list.id, { name: list.name, sort_order: list.sort_order })
         }
       }
 
       for (const status of statuses.value) {
         if (status.isNew) {
-          await $fetch('/api/v1/statuses', {
-            method: 'POST',
-            body: { name: status.name, category: status.category, color: status.color, sort_order: status.sort_order },
-          })
+          await api.statuses.create({ name: status.name, category: status.category, color: status.color, sort_order: status.sort_order })
         } else {
-          await $fetch(`/api/v1/statuses/${status.id}`, {
-            method: 'PATCH',
-            body: { name: status.name, category: status.category, color: status.color, sort_order: status.sort_order },
-          })
+          await api.statuses.update(status.id, { name: status.name, category: status.category, color: status.color, sort_order: status.sort_order })
         }
       }
 

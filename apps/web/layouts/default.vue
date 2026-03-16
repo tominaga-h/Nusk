@@ -1,4 +1,9 @@
 <script setup lang="ts">
+const { fetchData } = useTaskStore()
+
+onMounted(() => {
+  fetchData()
+})
 </script>
 
 <template>

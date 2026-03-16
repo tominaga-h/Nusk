@@ -2,6 +2,7 @@
 import { List, Calendar } from 'lucide-vue-next'
 
 const {
+  loading,
   viewMode,
   selectedList,
   filteredTasks,
@@ -16,9 +17,12 @@ const {
 
 <template>
   <div class="tasks">
+    <div v-if="loading" class="tasks__loading">読み込み中...</div>
+
+    <template v-else>
     <header class="tasks__header">
       <div class="tasks__title-row">
-        <h2 class="tasks__title">{{ selectedList.name }}</h2>
+        <h2 class="tasks__title">{{ selectedList?.name }}</h2>
       </div>
       <div class="tasks__view-toggle">
         <button
@@ -61,6 +65,7 @@ const {
         </div>
       </div>
     </div>
+    </template>
   </div>
 </template>
 
@@ -139,6 +144,15 @@ const {
     padding: spacing(12) 0;
     color: color('text-secondary');
     font-size: font-size('base');
+  }
+
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: color('text-secondary');
+    font-size: font-size('md');
   }
 }
 </style>

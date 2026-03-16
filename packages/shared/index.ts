@@ -1,21 +1,15 @@
-export {
-  type Database,
-  type Json,
-  type TablesInsert,
-  type TablesUpdate,
-  type CompositeTypes,
-  Constants,
-} from './types/database';
+/**
+ * @nusk/shared パッケージのエントリーポイント
+ *
+ * 全ての型定義・APIクライアントを再エクスポートするバレルファイル。
+ * 外部パッケージ（web, cli）はここを経由して型やAPIクライアントにアクセスする。
+ */
 
-import type { Database } from './types/database';
+// DB型・エンティティ型・Enum型
+export * from './types/database/index';
 
-export type Tables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Row'];
-export type Enums<T extends keyof Database['public']['Enums']> = Database['public']['Enums'][T];
+// APIペイロード・クエリ型
+export * from './types/api';
 
-export type Task = Tables<'tasks'>;
-export type List = Tables<'lists'>;
-export type Status = Tables<'statuses'>;
-export type PersonalAccessToken = Tables<'personal_access_tokens'>;
-export type PushSubscription = Tables<'push_subscriptions'>;
-
-export type StatusCategory = Enums<'status_category'>;
+// APIクライアント
+export { createApiClient, type ApiClient } from './lib/api';
