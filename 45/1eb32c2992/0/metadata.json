@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "451eb32c2992",
+  "session_id": "9f14c423-b2cd-4bd4-a974-2703fdb23fc2",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-16T12:45:50.671605Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/pages/tasks.vue",
+    ".cursor/plans/completetask_implementation_4d904588.plan.md",
+    "apps/web/components/TaskItem.vue",
+    "apps/web/composables/useTaskStore.ts"
+  ],
+  "agent": "Cursor",
+  "model": "default",
+  "turn_id": "c5267f974670",
+  "initial_attribution": {
+    "calculated_at": "2026-03-16T12:45:50.669786Z",
+    "agent_lines": 17,
+    "human_added": 65,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 82,
+    "agent_percentage": 20.73170731707317
+  }
+}
