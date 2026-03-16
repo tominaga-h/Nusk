@@ -3,7 +3,7 @@
   "checkpoint_id": "f958836cf6ea",
   "strategy": "manual-commit",
   "branch": "feature/phase3",
-  "checkpoints_count": 0,
+  "checkpoints_count": 3,
   "files_touched": [
     ".cursor/plans/lucide_icons_migration_599c8a2d.plan.md",
     "apps/web/components/AppSidebar.vue",
@@ -21,6 +21,12 @@
       "transcript": "/f9/58836cf6ea/0/full.jsonl",
       "content_hash": "/f9/58836cf6ea/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/f9/58836cf6ea/1/metadata.json",
+      "transcript": "/f9/58836cf6ea/1/full.jsonl",
+      "content_hash": "/f9/58836cf6ea/1/content_hash.txt",
+      "prompt": "/f9/58836cf6ea/1/prompt.txt"
     }
   ]
 }
