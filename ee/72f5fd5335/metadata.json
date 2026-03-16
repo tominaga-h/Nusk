@@ -3,7 +3,7 @@
   "checkpoint_id": "ee72f5fd5335",
   "strategy": "manual-commit",
   "branch": "feature/phase3",
-  "checkpoints_count": 12,
+  "checkpoints_count": 13,
   "files_touched": [
     ".cursor/plans/db型ディレクトリ再構成_1f3d0fab.plan.md",
     ".cursor/plans/task_page_db_integration_e56da708.plan.md",
@@ -39,6 +39,12 @@
       "transcript": "/ee/72f5fd5335/2/full.jsonl",
       "content_hash": "/ee/72f5fd5335/2/content_hash.txt",
       "prompt": "/ee/72f5fd5335/2/prompt.txt"
+    },
+    {
+      "metadata": "/ee/72f5fd5335/3/metadata.json",
+      "transcript": "/ee/72f5fd5335/3/full.jsonl",
+      "content_hash": "/ee/72f5fd5335/3/content_hash.txt",
+      "prompt": "/ee/72f5fd5335/3/prompt.txt"
     }
   ]
 }

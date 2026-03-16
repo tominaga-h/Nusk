@@ -1,0 +1,33 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "ee72f5fd5335",
+  "session_id": "df8570b1-a47f-47dd-a5a0-9ce54d4b3c3b",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-16T23:53:42.104791Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/composables/useApi.ts",
+    "apps/web/composables/useTaskStore.ts",
+    "apps/web/layouts/default.vue",
+    "apps/web/pages/config.vue",
+    "apps/web/pages/tasks.vue",
+    "packages/shared/index.ts",
+    "packages/shared/lib/api.ts"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "4f15952c604d",
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-16T23:53:42.074478Z",
+    "agent_lines": 277,
+    "human_added": 778,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 1055,
+    "agent_percentage": 26.25592417061611
+  }
+}
