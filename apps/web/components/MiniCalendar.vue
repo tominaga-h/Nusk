@@ -72,6 +72,11 @@ const nextMonth = () => {
     currentMonth.value++
   }
 }
+
+const goToday = () => {
+  currentYear.value = today.getFullYear()
+  currentMonth.value = today.getMonth()
+}
 </script>
 
 <template>
@@ -79,6 +84,9 @@ const nextMonth = () => {
     <div class="calendar__header">
       <span class="calendar__title">{{ headerLabel }}</span>
       <div class="calendar__nav">
+        <button class="calendar__today-btn" @click="goToday">
+          Today
+        </button>
         <button class="calendar__nav-btn" @click="prevMonth">
           <svg width="5" height="8" viewBox="0 0 5 8" fill="none">
             <path d="M4 1L1 4L4 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
@@ -136,7 +144,25 @@ const nextMonth = () => {
 
   &__nav {
     display: flex;
+    align-items: center;
     gap: 4px;
+  }
+
+  &__today-btn {
+    font-size: font-size('xs');
+    font-weight: font-weight('medium');
+    color: color('text-calendar');
+    background: none;
+    border: 1px solid color('border');
+    border-radius: radius('sm');
+    padding: 1px 6px;
+    cursor: pointer;
+    line-height: 1.4;
+
+    &:hover {
+      color: color('text');
+      border-color: color('text-muted');
+    }
   }
 
   &__nav-btn {
