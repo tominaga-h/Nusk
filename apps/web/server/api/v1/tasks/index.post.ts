@@ -28,22 +28,35 @@ export default defineEventHandler(async (event) => {
 
   let statusId: string = body.status_id
   if (!statusId) {
-    const { data: defaultStatus, error: statusError } = await client
+    const { data: listStatus } = await client
       .from('statuses')
       .select('id')
       .eq('list_id', listId)
       .eq('category', 'TODO')
       .order('sort_order', { ascending: true })
       .limit(1)
-      .single()
+      .maybeSingle()
 
-    if (statusError || !defaultStatus) {
-      throw createError({
-        statusCode: 404,
-        statusMessage: 'Default status not found for the target list.',
-      })
+    if (listStatus) {
+      statusId = listStatus.id
+    } else {
+      const { data: globalStatus, error: statusError } = await client
+        .from('statuses')
+        .select('id')
+        .is('list_id', null)
+        .eq('category', 'TODO')
+        .order('sort_order', { ascending: true })
+        .limit(1)
+        .single()
+
+      if (statusError || !globalStatus) {
+        throw createError({
+          statusCode: 404,
+          statusMessage: 'Default status not found. Please create a TODO status first.',
+        })
+      }
+      statusId = globalStatus.id
     }
-    statusId = defaultStatus.id
   }
 
   const insertData = {

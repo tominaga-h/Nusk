@@ -43,19 +43,19 @@ DECLARE
   status_todo UUID;
 BEGIN
   -- Inbox リスト
-  INSERT INTO lists (user_id, name, is_inbox)
-  VALUES (test_user_id, 'Inbox', TRUE)
+  INSERT INTO lists (user_id, name, is_inbox, sort_order)
+  VALUES (test_user_id, 'Inbox', TRUE, 0)
   RETURNING id INTO inbox_id;
 
-  -- デフォルトステータス
-  INSERT INTO statuses (list_id, name, category, sort_order)
+  -- グローバルステータス（全リスト共通、list_id = NULL）
+  INSERT INTO statuses (user_id, name, category, sort_order)
   VALUES
-    (inbox_id, '未対応', 'TODO', 0),
-    (inbox_id, '対応中', 'IN_PROGRESS', 1),
-    (inbox_id, '完了', 'DONE', 2);
+    (test_user_id, '未対応', 'TODO', 0),
+    (test_user_id, '対応中', 'IN_PROGRESS', 1),
+    (test_user_id, '完了', 'DONE', 2);
 
   SELECT id INTO status_todo FROM statuses
-    WHERE list_id = inbox_id AND category = 'TODO' LIMIT 1;
+    WHERE user_id = test_user_id AND list_id IS NULL AND category = 'TODO' LIMIT 1;
 
   -- サンプルタスク
   INSERT INTO tasks (user_id, list_id, status_id, title, scheduled_date, sort_order)

@@ -10,15 +10,18 @@ CREATE TABLE lists (
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   name TEXT NOT NULL,
   is_inbox BOOLEAN DEFAULT FALSE,
+  sort_order INTEGER NOT NULL DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- 3. Statuses (状態) テーブル
--- ※リストごとに独自の状態を持てるように list_id に紐付ける
+-- ※list_id が NULL の場合はグローバルステータス（全リスト共通）
+-- ※list_id が指定されている場合はそのリスト固有のステータス
 CREATE TABLE statuses (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  list_id UUID NOT NULL REFERENCES lists(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  list_id UUID REFERENCES lists(id) ON DELETE CASCADE,
   name TEXT NOT NULL, -- 例: "未対応", "レビュー中"
   category status_category NOT NULL DEFAULT 'TODO', -- システムが「完了」などを判定するため
   sort_order INTEGER NOT NULL DEFAULT 0,
@@ -69,6 +72,7 @@ CREATE INDEX idx_tasks_user_id ON tasks(user_id);
 CREATE INDEX idx_tasks_list_id ON tasks(list_id);
 CREATE INDEX idx_tasks_scheduled_date ON tasks(scheduled_date);
 CREATE INDEX idx_tasks_deleted_at ON tasks(deleted_at);
+CREATE INDEX idx_statuses_user_id ON statuses(user_id);
 CREATE INDEX idx_pat_user_id ON personal_access_tokens(user_id);
 CREATE INDEX idx_push_sub_user_id ON push_subscriptions(user_id);
 ```
@@ -78,11 +82,12 @@ CREATE INDEX idx_push_sub_user_id ON push_subscriptions(user_id);
 ```mermaid
 erDiagram
     auth_users ||--o{ lists : "has"
+    auth_users ||--o{ statuses : "has"
     auth_users ||--o{ tasks : "has"
     auth_users ||--o{ personal_access_tokens : "has"
     auth_users ||--o{ push_subscriptions : "has"
 
-    lists ||--o{ statuses : "has"
+    lists |o--o{ statuses : "has"
     lists ||--o{ tasks : "has"
 
     statuses ||--o{ tasks : "has"
@@ -96,13 +101,15 @@ erDiagram
         uuid user_id FK
         text name
         boolean is_inbox
+        integer sort_order
         timestamptz created_at
         timestamptz updated_at
     }
 
     statuses {
         uuid id PK
-        uuid list_id FK
+        uuid user_id FK
+        uuid list_id FK "nullable"
         text name
         status_category category
         integer sort_order

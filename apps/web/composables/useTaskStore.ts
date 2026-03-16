@@ -2,11 +2,13 @@ export interface List {
   id: string
   name: string
   is_inbox: boolean
+  sort_order: number
 }
 
 export interface Status {
   id: string
-  list_id: string
+  user_id: string
+  list_id: string | null
   name: string
   category: 'TODO' | 'IN_PROGRESS' | 'DONE'
 }
@@ -25,32 +27,26 @@ const toDateStr = (d: Date) =>
 
 export const useTaskStore = () => {
   const lists = useState<List[]>('task-lists', () => [
-    { id: 'list-1', name: 'Inbox', is_inbox: true },
-    { id: 'list-2', name: '仕事', is_inbox: false },
-    { id: 'list-3', name: 'プライベート', is_inbox: false },
+    { id: 'list-1', name: 'Inbox', is_inbox: true, sort_order: 0 },
+    { id: 'list-2', name: '仕事', is_inbox: false, sort_order: 1 },
+    { id: 'list-3', name: 'プライベート', is_inbox: false, sort_order: 2 },
   ])
 
   const statuses = useState<Status[]>('task-statuses', () => [
-    { id: 'status-1', list_id: 'list-1', name: '未対応', category: 'TODO' },
-    { id: 'status-2', list_id: 'list-1', name: '対応中', category: 'IN_PROGRESS' },
-    { id: 'status-3', list_id: 'list-1', name: '完了', category: 'DONE' },
-    { id: 'status-4', list_id: 'list-2', name: '未対応', category: 'TODO' },
-    { id: 'status-5', list_id: 'list-2', name: '対応中', category: 'IN_PROGRESS' },
-    { id: 'status-6', list_id: 'list-2', name: '完了', category: 'DONE' },
-    { id: 'status-7', list_id: 'list-3', name: '未対応', category: 'TODO' },
-    { id: 'status-8', list_id: 'list-3', name: '対応中', category: 'IN_PROGRESS' },
-    { id: 'status-9', list_id: 'list-3', name: '完了', category: 'DONE' },
+    { id: 'status-1', user_id: 'user-1', list_id: null, name: '未対応', category: 'TODO' },
+    { id: 'status-2', user_id: 'user-1', list_id: null, name: '対応中', category: 'IN_PROGRESS' },
+    { id: 'status-3', user_id: 'user-1', list_id: null, name: '完了', category: 'DONE' },
   ])
 
   const tasks = useState<Task[]>('task-items', () => [
     { id: 'task-1', list_id: 'list-1', status_id: 'status-1', title: 'プロジェクト計画書を作成する', scheduled_date: '2026-03-17', sort_order: 0 },
     { id: 'task-2', list_id: 'list-1', status_id: 'status-2', title: 'デザインレビューの準備', scheduled_date: '2026-03-16', sort_order: 1 },
     { id: 'task-3', list_id: 'list-1', status_id: 'status-1', title: '新しいライブラリの調査', scheduled_date: null, sort_order: 2 },
-    { id: 'task-4', list_id: 'list-2', status_id: 'status-4', title: 'API エンドポイントの実装', scheduled_date: '2026-03-18', sort_order: 0 },
-    { id: 'task-5', list_id: 'list-2', status_id: 'status-5', title: 'ユニットテストを書く', scheduled_date: '2026-03-16', sort_order: 1 },
-    { id: 'task-6', list_id: 'list-2', status_id: 'status-6', title: 'CI/CD パイプラインの設定', scheduled_date: '2026-03-15', sort_order: 2 },
-    { id: 'task-7', list_id: 'list-3', status_id: 'status-7', title: '歯医者の予約を取る', scheduled_date: '2026-03-20', sort_order: 0 },
-    { id: 'task-8', list_id: 'list-3', status_id: 'status-9', title: '本を返却する', scheduled_date: '2026-03-14', sort_order: 1 },
+    { id: 'task-4', list_id: 'list-2', status_id: 'status-1', title: 'API エンドポイントの実装', scheduled_date: '2026-03-18', sort_order: 0 },
+    { id: 'task-5', list_id: 'list-2', status_id: 'status-2', title: 'ユニットテストを書く', scheduled_date: '2026-03-16', sort_order: 1 },
+    { id: 'task-6', list_id: 'list-2', status_id: 'status-3', title: 'CI/CD パイプラインの設定', scheduled_date: '2026-03-15', sort_order: 2 },
+    { id: 'task-7', list_id: 'list-3', status_id: 'status-1', title: '歯医者の予約を取る', scheduled_date: '2026-03-20', sort_order: 0 },
+    { id: 'task-8', list_id: 'list-3', status_id: 'status-3', title: '本を返却する', scheduled_date: '2026-03-14', sort_order: 1 },
   ])
 
   const selectedListId = useState('selected-list-id', () => 'list-1')
@@ -96,7 +92,7 @@ export const useTaskStore = () => {
 
   function addTask(title: string) {
     const defaultStatus = statuses.value.find(
-      s => s.list_id === selectedListId.value && s.category === 'TODO',
+      s => (s.list_id === selectedListId.value || s.list_id === null) && s.category === 'TODO',
     )
     tasks.value.push({
       id: `task-${Date.now()}`,
@@ -119,7 +115,7 @@ export const useTaskStore = () => {
     const currentStatus = statuses.value.find(s => s.id === task.status_id)
     const targetCategory = currentStatus?.category === 'DONE' ? 'TODO' : 'DONE'
     const newStatus = statuses.value.find(
-      s => s.list_id === task.list_id && s.category === targetCategory,
+      s => (s.list_id === task.list_id || s.list_id === null) && s.category === targetCategory,
     )
     if (newStatus) task.status_id = newStatus.id
   }
