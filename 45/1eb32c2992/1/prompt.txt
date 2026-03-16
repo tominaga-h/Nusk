@@ -1,0 +1,8 @@
+@apps/web/composables/useTaskStore.ts @apps/web/components/TaskItem.vue 
+`completeTask` を実装して、チェックボックスを押したらタスクが完了になるようにして
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.

@@ -3,7 +3,7 @@
   "checkpoint_id": "451eb32c2992",
   "strategy": "manual-commit",
   "branch": "feature/phase3",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     ".cursor/plans/completetask_implementation_4d904588.plan.md",
     "apps/web/components/TaskItem.vue",
@@ -16,6 +16,12 @@
       "transcript": "/45/1eb32c2992/0/full.jsonl",
       "content_hash": "/45/1eb32c2992/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/45/1eb32c2992/1/metadata.json",
+      "transcript": "/45/1eb32c2992/1/full.jsonl",
+      "content_hash": "/45/1eb32c2992/1/content_hash.txt",
+      "prompt": "/45/1eb32c2992/1/prompt.txt"
     }
   ]
 }
