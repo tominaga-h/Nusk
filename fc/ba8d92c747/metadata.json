@@ -1,0 +1,18 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "fcba8d92c747",
+  "strategy": "manual-commit",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/public/favicon.ico"
+  ],
+  "sessions": [
+    {
+      "metadata": "/fc/ba8d92c747/0/metadata.json",
+      "transcript": "/fc/ba8d92c747/0/full.jsonl",
+      "content_hash": "/fc/ba8d92c747/0/content_hash.txt",
+      "prompt": "/fc/ba8d92c747/0/prompt.txt"
+    }
+  ]
+}

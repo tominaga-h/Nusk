@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "fcba8d92c747",
+  "session_id": "4f5b37d6-0b14-4d2f-9a40-e09994dfba3f",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-16T11:25:33.032358Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/public/favicon.ico"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "0442cc59ce7c",
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-16T11:25:32.986701Z",
+    "agent_lines": 0,
+    "human_added": 1401,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 1401,
+    "agent_percentage": 0
+  }
+}
