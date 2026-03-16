@@ -1,0 +1,19 @@
+@apps/web/composables/useTaskStore.ts
+
+---
+
+@apps/web/composables/useTaskStore.ts 
+taskCountがただの関数になっているので、tasksに変化があった際に実行されません。なのでcomputedにしてください。
+
+---
+
+```
+computed(() => (listID) => {})
+```
+この形式にすれば従来どおりリストIDの指定でカウントを取得できると思います
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
