@@ -9,9 +9,9 @@ import type { Task } from '@nusk/shared'
 import type { DateGroupKey } from '~/composables/useTaskStore'
 
 const props = defineProps<{
-  /** グループのキー（today/tomorrow/laterThisWeek/undated） */
+  /** グループのキー（overdue/today/tomorrow/upcoming/undated） */
   groupKey: DateGroupKey
-  /** グループのラベル（例: "今日 (3/17)"） */
+  /** グループのラベル（例: "今日 (3月17日)"） */
   label: string
   /** グループに属するタスク配列 */
   tasks: Task[]

@@ -8,7 +8,7 @@
 import type { List, Status, Task } from '@nusk/shared'
 
 /** 日付グルーピング用のグループキー */
-export type DateGroupKey = 'today' | 'tomorrow' | 'laterThisWeek' | 'undated'
+export type DateGroupKey = 'overdue' | 'today' | 'tomorrow' | 'upcoming' | 'undated'
 
 /** 日付ビューで使用するグループ構造体 */
 export interface DateGroup {
@@ -27,17 +27,6 @@ const toJpDateLabel = (dateStr: string) => {
   return `${d.getMonth() + 1}月${d.getDate()}日`
 }
 
-/**
- * 今週の日曜日（週末）の日付文字列を返す
- * 日曜始まりの場合、今週の最終日は土曜。ここでは日曜＝週の最終日として扱う。
- */
-const getEndOfWeekStr = (today: Date) => {
-  const dayOfWeek = today.getDay()
-  const daysUntilSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek
-  const endOfWeek = new Date(today)
-  endOfWeek.setDate(today.getDate() + daysUntilSunday)
-  return toDateStr(endOfWeek)
-}
 
 export const useTaskStore = () => {
   const api = useApi()
@@ -111,9 +100,6 @@ export const useTaskStore = () => {
     return toDateStr(d)
   })
 
-  /** 今週末（日曜）の日付文字列 */
-  const endOfWeekStr = computed(() => getEndOfWeekStr(new Date()))
-
   /** 着手予定日が今日のタスク数 */
   const todayCount = computed(() =>
     tasks.value.filter(t => t.scheduled_date === todayStr.value).length,
@@ -122,6 +108,21 @@ export const useTaskStore = () => {
   /** 着手予定日が明日のタスク数 */
   const tomorrowCount = computed(() =>
     tasks.value.filter(t => t.scheduled_date === tomorrowStr.value).length,
+  )
+
+  /** 着手予定日が明後日以降のタスク数 */
+  const upcomingCount = computed(() =>
+    tasks.value.filter(t => t.scheduled_date && t.scheduled_date > tomorrowStr.value).length,
+  )
+
+  /** 着手予定日が過去（今日より前）のタスク数 */
+  const overdueCount = computed(() =>
+    tasks.value.filter(t => t.scheduled_date && t.scheduled_date < todayStr.value).length,
+  )
+
+  /** 着手予定日が未設定のタスク数 */
+  const undatedCount = computed(() =>
+    tasks.value.filter(t => !t.scheduled_date).length,
   )
 
   /** 指定日付が今日かどうかを判定 */
@@ -154,39 +155,46 @@ export const useTaskStore = () => {
   }
 
   /**
-   * 日付ビュー用: 全タスクを「今日/明日/今週後半/未定」の4グループに分類
+   * 日付ビュー用: 全タスクを「過去/今日/明日/明日以降/未定」の5グループに分類
    *
+   * - 過去: scheduled_date が今日より前（期限超過）
    * - 今日: scheduled_date が今日
    * - 明日: scheduled_date が明日
-   * - 今週後半: scheduled_date が明後日〜今週日曜
+   * - 明日以降: scheduled_date が明後日以降（期限なし）
    * - 未定: scheduled_date が null
    * ステータスフィルターも適用済み。
    */
   const dateGroupedTasks = computed<DateGroup[]>(() => {
     const today = todayStr.value
     const tomorrow = tomorrowStr.value
-    const endOfWeek = endOfWeekStr.value
 
+    const overdueTasks: Task[] = []
     const todayTasks: Task[] = []
     const tomorrowTasks: Task[] = []
-    const laterThisWeekTasks: Task[] = []
+    const upcomingTasks: Task[] = []
     const undatedTasks: Task[] = []
 
     for (const t of tasks.value) {
       const d = t.scheduled_date
       if (!d) {
         undatedTasks.push(t)
+      } else if (d < today) {
+        overdueTasks.push(t)
       } else if (d === today) {
         todayTasks.push(t)
       } else if (d === tomorrow) {
         tomorrowTasks.push(t)
-      } else if (d > tomorrow && d <= endOfWeek) {
-        laterThisWeekTasks.push(t)
+      } else {
+        upcomingTasks.push(t)
       }
-      // 今週以降のタスクは現時点では表示対象外
     }
 
     return [
+      {
+        key: 'overdue' as DateGroupKey,
+        label: '過去',
+        tasks: applyStatusFilter(overdueTasks),
+      },
       {
         key: 'today' as DateGroupKey,
         label: `今日 (${toJpDateLabel(today)})`,
@@ -198,9 +206,9 @@ export const useTaskStore = () => {
         tasks: applyStatusFilter(tomorrowTasks),
       },
       {
-        key: 'laterThisWeek' as DateGroupKey,
-        label: '今週後半',
-        tasks: applyStatusFilter(laterThisWeekTasks),
+        key: 'upcoming' as DateGroupKey,
+        label: '明日以降',
+        tasks: applyStatusFilter(upcomingTasks),
       },
       {
         key: 'undated' as DateGroupKey,
@@ -393,6 +401,9 @@ export const useTaskStore = () => {
     tomorrowStr,
     todayCount,
     tomorrowCount,
+    upcomingCount,
+    overdueCount,
+    undatedCount,
     isToday,
     formatDate,
     // アクション

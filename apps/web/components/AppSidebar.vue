@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Calendar, AlarmClock, LogOut, Settings } from 'lucide-vue-next'
+import { Calendar, AlarmClock, ArrowRight, History, CircleHelp, LogOut, Settings } from 'lucide-vue-next'
 
 const client = useSupabaseClient()
 const user = useSupabaseUser()
@@ -11,6 +11,9 @@ const {
   taskCount,
   todayCount,
   tomorrowCount,
+  upcomingCount,
+  overdueCount,
+  undatedCount,
   switchToDateView,
   switchToListView,
 } = useTaskStore()
@@ -72,6 +75,42 @@ async function logout() {
                 <span class="sidebar__item-name">明日</span>
               </span>
               <span class="sidebar__item-count">{{ tomorrowCount }}</span>
+            </button>
+            <!-- 明日以降（明後日〜） -->
+            <button
+              class="sidebar__item"
+              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === 'upcoming' }"
+              @click="switchToDateView('upcoming')"
+            >
+              <span class="sidebar__item-left">
+                <ArrowRight class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
+                <span class="sidebar__item-name">明日以降</span>
+              </span>
+              <span class="sidebar__item-count">{{ upcomingCount }}</span>
+            </button>
+            <!-- 過去（期限超過） -->
+            <button
+              class="sidebar__item"
+              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === 'overdue' }"
+              @click="switchToDateView('overdue')"
+            >
+              <span class="sidebar__item-left">
+                <History class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
+                <span class="sidebar__item-name">過去</span>
+              </span>
+              <span class="sidebar__item-count">{{ overdueCount }}</span>
+            </button>
+            <!-- 未定（日付未設定） -->
+            <button
+              class="sidebar__item"
+              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === 'undated' }"
+              @click="switchToDateView('undated')"
+            >
+              <span class="sidebar__item-left">
+                <CircleHelp class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
+                <span class="sidebar__item-name">未定</span>
+              </span>
+              <span class="sidebar__item-count">{{ undatedCount }}</span>
             </button>
           </div>
         </div>
