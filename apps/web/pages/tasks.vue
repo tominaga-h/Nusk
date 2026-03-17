@@ -5,6 +5,7 @@ const {
   loading,
   viewMode,
   selectedList,
+  selectedDateGroup,
   filteredTasks,
   dateGroupedTasks,
   dateViewTotalCount,
@@ -14,7 +15,21 @@ const {
   addTask,
   scheduleTask,
   completeTask,
+  switchToDateView,
 } = useTaskStore()
+
+/**
+ * selectedDateGroup の変更を監視し、日付ビュー時に該当セクションへスクロールする。
+ * DOM描画完了後（nextTick）にスクロールを実行する。
+ */
+watch(selectedDateGroup, (group) => {
+  if (viewMode.value !== 'date') return
+  nextTick(() => {
+    document
+      .getElementById(`date-section-${group}`)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  })
+})
 </script>
 
 <template>
@@ -44,7 +59,7 @@ const {
         <button
           class="tasks__view-btn"
           :class="{ 'tasks__view-btn--active': viewMode === 'date' }"
-          @click="viewMode = 'date'"
+          @click="switchToDateView()"
         >
           <Calendar :size="16" :stroke-width="1.3" />
           日付

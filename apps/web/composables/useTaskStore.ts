@@ -58,6 +58,8 @@ export const useTaskStore = () => {
   const viewMode = useState<'list' | 'date'>('view-mode', () => 'list')
   /** ステータスフィルター: all=全件, incomplete=未完了(TODO/IN_PROGRESS), done=完了(DONE) */
   const statusFilter = useState<'all' | 'incomplete' | 'done'>('status-filter', () => 'all')
+  /** 日付ビューで選択中のグループ（サイドバーのアクティブ表示・スクロール制御に使用） */
+  const selectedDateGroup = useState<DateGroupKey>('selected-date-group', () => 'today')
 
   // --- 算出プロパティ（派生データ） ---
 
@@ -295,11 +297,13 @@ export const useTaskStore = () => {
   }
 
   /**
-   * 日付ビューに切り替える
-   * サイドバーの「日付ビュー」「今日」「明日」クリック時に呼ばれる。
+   * 日付ビューに切り替え、指定グループを選択する
+   * サイドバーの「今日」「明日」クリック時や、ヘッダーの日付トグルから呼ばれる。
+   * @param group - スクロール先の日付グループ（デフォルト: 'today'）
    */
-  function switchToDateView() {
+  function switchToDateView(group: DateGroupKey = 'today') {
     viewMode.value = 'date'
+    selectedDateGroup.value = group
   }
 
   /**
@@ -322,6 +326,7 @@ export const useTaskStore = () => {
     selectedListId,
     viewMode,
     statusFilter,
+    selectedDateGroup,
     // 算出プロパティ
     selectedList,
     listedTasks,

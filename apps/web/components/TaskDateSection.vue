@@ -33,7 +33,7 @@ const hideScheduleTomorrow = computed(() => props.groupKey === 'tomorrow')
 </script>
 
 <template>
-  <section class="date-section">
+  <section :id="'date-section-' + groupKey" class="date-section">
     <!-- 区切り線 + グループラベル -->
     <div class="date-section__header">
       <span class="date-section__label">{{ label }}</span>

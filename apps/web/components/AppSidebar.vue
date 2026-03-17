@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Calendar, AlarmClock, LogOut, Settings, CalendarDays } from 'lucide-vue-next'
+import { Calendar, AlarmClock, LogOut, Settings } from 'lucide-vue-next'
 
 const client = useSupabaseClient()
 const user = useSupabaseUser()
@@ -7,8 +7,8 @@ const {
   lists,
   viewMode,
   selectedListId,
+  selectedDateGroup,
   taskCount,
-  dateViewTotalCount,
   todayCount,
   tomorrowCount,
   switchToDateView,
@@ -32,18 +32,6 @@ async function logout() {
         <div class="sidebar__section">
           <span class="sidebar__section-label">リスト</span>
           <div class="sidebar__list">
-            <!-- 日付ビュー切り替えボタン -->
-            <button
-              class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' }"
-              @click="switchToDateView()"
-            >
-              <span class="sidebar__item-left">
-                <CalendarDays class="sidebar__item-svg" :size="16" :stroke-width="1.5" />
-                <span class="sidebar__item-name">日付ビュー</span>
-              </span>
-              <span class="sidebar__item-count">{{ dateViewTotalCount }}</span>
-            </button>
             <!-- リスト一覧 -->
             <button
               v-for="list in lists"
@@ -65,7 +53,8 @@ async function logout() {
           <div class="sidebar__list">
             <button
               class="sidebar__item"
-              @click="switchToDateView()"
+              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === 'today' }"
+              @click="switchToDateView('today')"
             >
               <span class="sidebar__item-left">
                 <Calendar class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
@@ -75,7 +64,8 @@ async function logout() {
             </button>
             <button
               class="sidebar__item"
-              @click="switchToDateView()"
+              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === 'tomorrow' }"
+              @click="switchToDateView('tomorrow')"
             >
               <span class="sidebar__item-left">
                 <AlarmClock class="sidebar__item-svg" :size="15" :stroke-width="1.5" />
