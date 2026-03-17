@@ -1,0 +1,18 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "ba5960b0aac2",
+  "strategy": "manual-commit",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/nuxt.config.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ba/5960b0aac2/0/metadata.json",
+      "transcript": "/ba/5960b0aac2/0/full.jsonl",
+      "content_hash": "/ba/5960b0aac2/0/content_hash.txt",
+      "prompt": "/ba/5960b0aac2/0/prompt.txt"
+    }
+  ]
+}
