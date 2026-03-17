@@ -7,9 +7,37 @@
  */
 import type { List, Status, Task } from '@nusk/shared'
 
+/** 日付グルーピング用のグループキー */
+export type DateGroupKey = 'today' | 'tomorrow' | 'laterThisWeek' | 'undated'
+
+/** 日付ビューで使用するグループ構造体 */
+export interface DateGroup {
+  key: DateGroupKey
+  label: string
+  tasks: Task[]
+}
+
 /** Date オブジェクトを "YYYY-MM-DD" 形式の文字列に変換するユーティリティ */
 const toDateStr = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+
+/** 日付文字列を "M月D日" 形式にフォーマットするユーティリティ */
+const toJpDateLabel = (dateStr: string) => {
+  const d = new Date(dateStr + 'T00:00:00')
+  return `${d.getMonth() + 1}月${d.getDate()}日`
+}
+
+/**
+ * 今週の日曜日（週末）の日付文字列を返す
+ * 日曜始まりの場合、今週の最終日は土曜。ここでは日曜＝週の最終日として扱う。
+ */
+const getEndOfWeekStr = (today: Date) => {
+  const dayOfWeek = today.getDay()
+  const daysUntilSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek
+  const endOfWeek = new Date(today)
+  endOfWeek.setDate(today.getDate() + daysUntilSunday)
+  return toDateStr(endOfWeek)
+}
 
 export const useTaskStore = () => {
   const api = useApi()
@@ -81,6 +109,9 @@ export const useTaskStore = () => {
     return toDateStr(d)
   })
 
+  /** 今週末（日曜）の日付文字列 */
+  const endOfWeekStr = computed(() => getEndOfWeekStr(new Date()))
+
   /** 着手予定日が今日のタスク数 */
   const todayCount = computed(() =>
     tasks.value.filter(t => t.scheduled_date === todayStr.value).length,
@@ -100,6 +131,87 @@ export const useTaskStore = () => {
     const d = new Date(date + 'T00:00:00')
     return `${d.getMonth() + 1}/${d.getDate()}`
   }
+
+  // --- 日付ビュー用 computed ---
+
+  /** ステータスフィルターをタスク配列に適用するヘルパー */
+  const applyStatusFilter = (taskList: Task[]): Task[] => {
+    if (statusFilter.value === 'incomplete') {
+      return taskList.filter(t => {
+        const status = statuses.value.find(s => s.id === t.status_id)
+        return status?.category !== 'DONE'
+      })
+    }
+    if (statusFilter.value === 'done') {
+      return taskList.filter(t => {
+        const status = statuses.value.find(s => s.id === t.status_id)
+        return status?.category === 'DONE'
+      })
+    }
+    return taskList
+  }
+
+  /**
+   * 日付ビュー用: 全タスクを「今日/明日/今週後半/未定」の4グループに分類
+   *
+   * - 今日: scheduled_date が今日
+   * - 明日: scheduled_date が明日
+   * - 今週後半: scheduled_date が明後日〜今週日曜
+   * - 未定: scheduled_date が null
+   * ステータスフィルターも適用済み。
+   */
+  const dateGroupedTasks = computed<DateGroup[]>(() => {
+    const today = todayStr.value
+    const tomorrow = tomorrowStr.value
+    const endOfWeek = endOfWeekStr.value
+
+    const todayTasks: Task[] = []
+    const tomorrowTasks: Task[] = []
+    const laterThisWeekTasks: Task[] = []
+    const undatedTasks: Task[] = []
+
+    for (const t of tasks.value) {
+      const d = t.scheduled_date
+      if (!d) {
+        undatedTasks.push(t)
+      } else if (d === today) {
+        todayTasks.push(t)
+      } else if (d === tomorrow) {
+        tomorrowTasks.push(t)
+      } else if (d > tomorrow && d <= endOfWeek) {
+        laterThisWeekTasks.push(t)
+      }
+      // 今週以降のタスクは現時点では表示対象外
+    }
+
+    return [
+      {
+        key: 'today' as DateGroupKey,
+        label: `今日 (${toJpDateLabel(today)})`,
+        tasks: applyStatusFilter(todayTasks),
+      },
+      {
+        key: 'tomorrow' as DateGroupKey,
+        label: `明日 (${toJpDateLabel(tomorrow)})`,
+        tasks: applyStatusFilter(tomorrowTasks),
+      },
+      {
+        key: 'laterThisWeek' as DateGroupKey,
+        label: '今週後半',
+        tasks: applyStatusFilter(laterThisWeekTasks),
+      },
+      {
+        key: 'undated' as DateGroupKey,
+        label: '未定',
+        tasks: applyStatusFilter(undatedTasks),
+      },
+    ]
+  })
+
+  /** 日付ビュー時の全グループ合計タスク数 */
+  const dateViewTotalCount = computed(() =>
+    dateGroupedTasks.value.reduce((sum, g) => sum + g.tasks.length, 0),
+  )
 
   // --- アクション関数（API通信を伴うデータ操作） ---
 
@@ -177,13 +289,27 @@ export const useTaskStore = () => {
     )
     if (!newStatus) return
 
-    console.log(`[completeTask] taskId: ${taskId}, newStatus:`, newStatus);
-
     const updated = await api.tasks.update(taskId, { status_id: newStatus.id })
     const index = tasks.value.findIndex(t => t.id === taskId)
     if (index !== -1) tasks.value[index] = updated
+  }
 
-    console.log(`[completeTask] updated: `, updated);
+  /**
+   * 日付ビューに切り替える
+   * サイドバーの「日付ビュー」「今日」「明日」クリック時に呼ばれる。
+   */
+  function switchToDateView() {
+    viewMode.value = 'date'
+  }
+
+  /**
+   * リストビューに切り替え、指定リストを選択する
+   * サイドバーのリスト項目クリック時に呼ばれる。
+   * @param listId - 選択するリストのID
+   */
+  function switchToListView(listId: string) {
+    viewMode.value = 'list'
+    selectedListId.value = listId
   }
 
   return {
@@ -201,6 +327,8 @@ export const useTaskStore = () => {
     listedTasks,
     filteredTasks,
     taskCount,
+    dateGroupedTasks,
+    dateViewTotalCount,
     // ユーティリティ
     getStatus,
     todayStr,
@@ -214,5 +342,7 @@ export const useTaskStore = () => {
     addTask,
     scheduleTask,
     completeTask,
+    switchToDateView,
+    switchToListView,
   }
 }

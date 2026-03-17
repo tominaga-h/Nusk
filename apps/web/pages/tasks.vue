@@ -6,6 +6,8 @@ const {
   viewMode,
   selectedList,
   filteredTasks,
+  dateGroupedTasks,
+  dateViewTotalCount,
   getStatus,
   todayStr,
   tomorrowStr,
@@ -22,7 +24,13 @@ const {
     <template v-else>
     <header class="tasks__header">
       <div class="tasks__title-row">
-        <h2 class="tasks__title">{{ selectedList?.name }}</h2>
+        <!-- リストビュー: リスト名、日付ビュー: "今後のタスク N件" -->
+        <h2 class="tasks__title">
+          {{ viewMode === 'date' ? '今後のタスク' : selectedList?.name }}
+        </h2>
+        <span v-if="viewMode === 'date'" class="tasks__count-badge">
+          {{ dateViewTotalCount }}件
+        </span>
       </div>
       <div class="tasks__view-toggle">
         <button
@@ -47,8 +55,13 @@ const {
     <div class="tasks__body">
       <div class="tasks__content">
         <TaskInput @add="addTask" />
-        <TaskFilterBar :count="filteredTasks.length" />
-        <div class="tasks__list">
+        <TaskFilterBar
+          :count="viewMode === 'date' ? dateViewTotalCount : filteredTasks.length"
+          :hide-due-filter="viewMode === 'date'"
+        />
+
+        <!-- リストビュー: フラットなタスク一覧 -->
+        <div v-if="viewMode === 'list'" class="tasks__list">
           <TaskItem
             v-for="task in filteredTasks"
             :key="task.id"
@@ -62,6 +75,17 @@ const {
           <div v-if="filteredTasks.length === 0" class="tasks__empty">
             タスクがありません
           </div>
+        </div>
+
+        <!-- 日付ビュー: グループごとのタスク一覧 -->
+        <div v-else class="tasks__date-groups">
+          <TaskDateSection
+            v-for="group in dateGroupedTasks"
+            :key="group.key"
+            :group-key="group.key"
+            :label="group.label"
+            :tasks="group.tasks"
+          />
         </div>
       </div>
     </div>
@@ -94,6 +118,15 @@ const {
     font-size: font-size('lg');
     font-weight: font-weight('bold');
     color: color('text');
+  }
+
+  &__count-badge {
+    font-size: font-size('base');
+    font-weight: font-weight('regular');
+    color: color('text-secondary');
+    padding: spacing(1) spacing(2);
+    background: color('border-light');
+    border-radius: radius('sm');
   }
 
   &__view-toggle {
@@ -137,6 +170,12 @@ const {
     display: flex;
     flex-direction: column;
     gap: spacing(3);
+  }
+
+  &__date-groups {
+    display: flex;
+    flex-direction: column;
+    gap: spacing(6);
   }
 
   &__empty {

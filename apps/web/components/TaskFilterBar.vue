@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { SlidersHorizontal, ArrowUpFromLine, Calendar, CircleCheck } from 'lucide-vue-next'
 
-defineProps<{
+withDefaults(defineProps<{
   count: number
-}>()
+  /** trueの場合「期限」ボタンを非表示（日付ビュー時はグルーピングで代替するため） */
+  hideDueFilter?: boolean
+}>(), {
+  hideDueFilter: false,
+})
 
 const { statusFilter } = useTaskStore()
 
@@ -25,7 +29,7 @@ function setStatusFilter(value: 'all' | 'incomplete' | 'done') {
         <ArrowUpFromLine :size="14" :stroke-width="1.5" />
         優先度
       </button>
-      <button class="filter-bar__btn">
+      <button v-if="!hideDueFilter" class="filter-bar__btn">
         <Calendar :size="14" :stroke-width="1.5" />
         期限
       </button>

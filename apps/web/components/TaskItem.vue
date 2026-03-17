@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { Calendar } from 'lucide-vue-next'
-import type { Task } from '~/composables/useTaskStore'
+import type { Task } from '@nusk/shared'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   task: Task
   statusName: string
   statusCategory: 'TODO' | 'IN_PROGRESS' | 'DONE'
-}>()
+  /** trueの場合「今日やる」ボタンを非表示（日付ビュー: 今日グループ用） */
+  hideScheduleToday?: boolean
+  /** trueの場合「明日やる」ボタンを非表示（日付ビュー: 明日グループ用） */
+  hideScheduleTomorrow?: boolean
+}>(), {
+  hideScheduleToday: false,
+  hideScheduleTomorrow: false,
+})
 
 defineEmits<{
   'complete': []
@@ -63,11 +70,19 @@ const dateDisplay = computed(() => {
         </span>
       </div>
     </div>
-    <div class="task-item__actions">
-      <button class="task-item__action-btn" @click="$emit('schedule-today')">
+    <div v-if="!hideScheduleToday || !hideScheduleTomorrow" class="task-item__actions">
+      <button
+        v-if="!hideScheduleToday"
+        class="task-item__action-btn"
+        @click="$emit('schedule-today')"
+      >
         今日やる
       </button>
-      <button class="task-item__action-btn" @click="$emit('schedule-tomorrow')">
+      <button
+        v-if="!hideScheduleTomorrow"
+        class="task-item__action-btn"
+        @click="$emit('schedule-tomorrow')"
+      >
         明日やる
       </button>
     </div>

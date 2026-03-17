@@ -1,9 +1,19 @@
 <script setup lang="ts">
-import { Calendar, AlarmClock, LogOut, Settings } from 'lucide-vue-next'
+import { Calendar, AlarmClock, LogOut, Settings, CalendarDays } from 'lucide-vue-next'
 
 const client = useSupabaseClient()
 const user = useSupabaseUser()
-const { lists, selectedListId, taskCount, todayCount, tomorrowCount } = useTaskStore()
+const {
+  lists,
+  viewMode,
+  selectedListId,
+  taskCount,
+  dateViewTotalCount,
+  todayCount,
+  tomorrowCount,
+  switchToDateView,
+  switchToListView,
+} = useTaskStore()
 
 async function logout() {
   await client.auth.signOut()
@@ -22,12 +32,25 @@ async function logout() {
         <div class="sidebar__section">
           <span class="sidebar__section-label">リスト</span>
           <div class="sidebar__list">
+            <!-- 日付ビュー切り替えボタン -->
+            <button
+              class="sidebar__item"
+              :class="{ 'sidebar__item--active': viewMode === 'date' }"
+              @click="switchToDateView()"
+            >
+              <span class="sidebar__item-left">
+                <CalendarDays class="sidebar__item-svg" :size="16" :stroke-width="1.5" />
+                <span class="sidebar__item-name">日付ビュー</span>
+              </span>
+              <span class="sidebar__item-count">{{ dateViewTotalCount }}</span>
+            </button>
+            <!-- リスト一覧 -->
             <button
               v-for="list in lists"
               :key="list.id"
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': list.id === selectedListId }"
-              @click="selectedListId = list.id"
+              :class="{ 'sidebar__item--active': viewMode === 'list' && list.id === selectedListId }"
+              @click="switchToListView(list.id)"
             >
               <span class="sidebar__item-left">
                 <span class="sidebar__item-icon">{{ list.is_inbox ? '📥' : '📁' }}</span>
@@ -40,14 +63,20 @@ async function logout() {
         <div class="sidebar__section">
           <span class="sidebar__section-label">日付</span>
           <div class="sidebar__list">
-            <button class="sidebar__item">
+            <button
+              class="sidebar__item"
+              @click="switchToDateView()"
+            >
               <span class="sidebar__item-left">
                 <Calendar class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
                 <span class="sidebar__item-name">今日</span>
               </span>
               <span class="sidebar__item-count">{{ todayCount }}</span>
             </button>
-            <button class="sidebar__item">
+            <button
+              class="sidebar__item"
+              @click="switchToDateView()"
+            >
               <span class="sidebar__item-left">
                 <AlarmClock class="sidebar__item-svg" :size="15" :stroke-width="1.5" />
                 <span class="sidebar__item-name">明日</span>
