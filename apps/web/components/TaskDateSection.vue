@@ -30,6 +30,18 @@ const {
   completeTask,
 } = useTaskStore()
 
+const { showToast } = useToast()
+
+/**
+ * 完了トグルハンドラ: 完了/未完了を切り替え、Toast で通知
+ */
+async function handleComplete(task: Task) {
+  const currentStatus = getStatus(task.status_id)
+  const wasDone = currentStatus?.category === 'DONE'
+  await completeTask(task.id)
+  showToast(wasDone ? `「${task.title}」を未完了に戻しました` : `「${task.title}」を完了しました`)
+}
+
 /** task.list_id から所属リスト名を引く */
 function getListName(listId: string) {
   const list = lists.value.find(l => l.id === listId)
@@ -64,7 +76,7 @@ const hideScheduleTomorrow = computed(() => props.groupKey === DateGroup.TOMORRO
         :status-category="getStatus(task.status_id)?.category ?? 'TODO'"
         :hide-schedule-today="hideScheduleToday"
         :hide-schedule-tomorrow="hideScheduleTomorrow"
-        @complete="completeTask(task.id)"
+        @complete="handleComplete(task)"
         @schedule-today="emit('schedule-task', task.id, todayStr, task.scheduled_date, task.title)"
         @schedule-tomorrow="emit('schedule-task', task.id, tomorrowStr, task.scheduled_date, task.title)"
       />

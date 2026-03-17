@@ -10,6 +10,7 @@ const {
   selectedListId,
   todayStr,
   tomorrowStr,
+  tasks,
   filteredTasks,
   dateGroupedTasks,
   dateViewTotalCount,
@@ -22,6 +23,8 @@ const {
   syncFromRoute,
 } = useTaskStore()
 
+const { showToast } = useToast()
+
 const isListView = computed(() => viewMode.value === ViewMode.LIST);
 const isDateView = computed(() => viewMode.value === ViewMode.DATE);
 const listViewTitle = computed(() => {
@@ -32,49 +35,34 @@ const totalVisibleCount = computed(() =>
   viewMode.value === ViewMode.DATE ? dateViewTotalCount.value : filteredTasks.value.length,
 )
 
-const undoTaskId = ref<string | null>(null)
-const undoPrevDate = ref<string | null>(null)
-const undoMessage = ref('')
-const showUndo = ref(false)
-const undoTimer = ref<ReturnType<typeof setTimeout> | null>(null)
-
-function handleAddTask(payload: { title: string, scheduledDate: string | null }) {
-  addTask(payload.title, payload.scheduledDate)
+/**
+ * タスク追加ハンドラ: API経由で追加し、Toast で通知
+ */
+async function handleAddTask(payload: { title: string, scheduledDate: string | null }) {
+  await addTask(payload.title, payload.scheduledDate)
+  showToast(`「${payload.title}」を追加しました`)
 }
 
-function clearUndoTimer() {
-  if (!undoTimer.value) return
-  clearTimeout(undoTimer.value)
-  undoTimer.value = null
-}
-
-function openUndoToast(message: string, taskId: string, previousDate: string | null) {
-  clearUndoTimer()
-  undoMessage.value = message
-  undoTaskId.value = taskId
-  undoPrevDate.value = previousDate
-  showUndo.value = true
-  undoTimer.value = setTimeout(() => {
-    showUndo.value = false
-    undoTaskId.value = null
-    undoPrevDate.value = null
-    undoMessage.value = ''
-    undoTimer.value = null
-  }, 5000)
-}
-
-async function scheduleWithUndo(taskId: string, targetDate: string, previousDate: string | null, taskTitle: string) {
+/**
+ * スケジュール変更ハンドラ: 着手予定日を更新し、Toast で通知
+ */
+async function handleSchedule(taskId: string, targetDate: string, previousDate: string | null, taskTitle: string) {
   if (previousDate === targetDate) return
   await scheduleTask(taskId, targetDate)
   const targetLabel = targetDate === todayStr.value ? '今日' : '明日'
-  openUndoToast(`「${taskTitle}」を${targetLabel}に移動しました`, taskId, previousDate)
+  showToast(`「${taskTitle}」を${targetLabel}に移動しました`)
 }
 
-async function undoSchedule() {
-  if (!undoTaskId.value) return
-  await scheduleTask(undoTaskId.value, undoPrevDate.value)
-  clearUndoTimer()
-  showUndo.value = false
+/**
+ * 完了トグルハンドラ: 完了/未完了を切り替え、Toast で通知
+ */
+async function handleComplete(taskId: string) {
+  const task = tasks.value.find(t => t.id === taskId)
+  if (!task) return
+  const currentStatus = getStatus(task.status_id)
+  const wasDone = currentStatus?.category === 'DONE'
+  await completeTask(taskId)
+  showToast(wasDone ? `「${task.title}」を未完了に戻しました` : `「${task.title}」を完了しました`)
 }
 
 /**
@@ -139,9 +127,9 @@ watch(() => route.query, (query) => {
             :task="task"
             :status-name="getStatus(task.status_id)?.name ?? ''"
             :status-category="getStatus(task.status_id)?.category ?? 'TODO'"
-            @complete="completeTask(task.id)"
-            @schedule-today="scheduleWithUndo(task.id, todayStr, task.scheduled_date, task.title)"
-            @schedule-tomorrow="scheduleWithUndo(task.id, tomorrowStr, task.scheduled_date, task.title)"
+            @complete="handleComplete(task.id)"
+            @schedule-today="handleSchedule(task.id, todayStr, task.scheduled_date, task.title)"
+            @schedule-tomorrow="handleSchedule(task.id, tomorrowStr, task.scheduled_date, task.title)"
           />
           <div v-if="filteredTasks.length === 0" class="tasks__empty">
             タスクがありません
@@ -156,16 +144,10 @@ watch(() => route.query, (query) => {
             :group-key="group.key"
             :label="group.label"
             :tasks="group.tasks"
-            @schedule-task="scheduleWithUndo"
+            @schedule-task="handleSchedule"
           />
         </div>
       </div>
-    </div>
-    <div v-if="showUndo" class="tasks__undo-toast">
-      <span class="tasks__undo-message">{{ undoMessage }}</span>
-      <button class="tasks__undo-btn" @click="undoSchedule">
-        元に戻す
-      </button>
     </div>
     </template>
   </div>
@@ -272,31 +254,5 @@ watch(() => route.query, (query) => {
     font-size: font-size('md');
   }
 
-  &__undo-toast {
-    position: fixed;
-    right: spacing(8);
-    bottom: spacing(8);
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    gap: spacing(3);
-    padding: spacing(3) spacing(4);
-    border: 1px solid color('border');
-    border-radius: radius('md');
-    background: color('surface');
-    box-shadow: shadow('elevated');
-  }
-
-  &__undo-message {
-    font-size: font-size('base');
-    color: color('text');
-  }
-
-  &__undo-btn {
-    @include btn-ghost;
-    padding: spacing(1) spacing(2);
-    color: color('primary');
-    font-weight: font-weight('bold');
-  }
 }
 </style>

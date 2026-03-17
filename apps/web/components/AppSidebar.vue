@@ -6,6 +6,7 @@ const client = useSupabaseClient()
 const user = useSupabaseUser()
 const {
   lists,
+  tasks,
   viewMode,
   selectedListId,
   selectedDateGroup,
@@ -20,6 +21,8 @@ const {
   switchToListView,
   moveTaskToList,
 } = useTaskStore()
+
+const { showToast } = useToast()
 
 /** ドラッグオーバー中のリストID（ハイライト表示に使用） */
 const dragOverListId = ref<string | null>(null)
@@ -36,13 +39,19 @@ function onListDragOver(listId: string, event: DragEvent) {
 }
 
 /**
- * リスト項目へのドロップ: タスクを対象リストに移動
+ * リスト項目へのドロップ: タスクを対象リストに移動し、Toast で通知
  */
-function onListDrop(listId: string, event: DragEvent) {
+async function onListDrop(listId: string, event: DragEvent) {
   event.preventDefault()
   const taskId = event.dataTransfer?.getData('application/x-task-id')
   if (taskId) {
-    moveTaskToList(taskId, listId)
+    const task = tasks.value.find(t => t.id === taskId)
+    const list = lists.value.find(l => l.id === listId)
+    await moveTaskToList(taskId, listId)
+    if (task && list) {
+      const listName = list.is_inbox ? 'Inbox' : list.name
+      showToast(`「${task.title}」を「${listName}」に移動しました`)
+    }
   }
   dragOverListId.value = null
 }
