@@ -12,4 +12,4 @@ export * from './types/database/index';
 export * from './types/api';
 
 // APIクライアント
-export { createApiClient, type ApiClient } from './lib/api';
+export { createApiClient, type ApiClient, type Fetcher } from './lib/api';

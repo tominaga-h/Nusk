@@ -26,7 +26,7 @@ interface FetchOptions {
 }
 
 /** 汎用フェッチ関数の型エイリアス（Nuxtの$fetchやBunのfetchなどを受け取る） */
-type Fetcher = <T = unknown>(url: string, options?: FetchOptions) => Promise<T>
+export type Fetcher = <T = unknown>(url: string, options?: FetchOptions) => Promise<T>
 
 /**
  * APIクライアントを生成するファクトリ関数

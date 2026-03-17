@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Calendar, GripVertical } from 'lucide-vue-next'
+import { Calendar, GripVertical, LayoutList } from 'lucide-vue-next'
 import type { Task } from '@nusk/shared'
 
 const props = withDefaults(defineProps<{
@@ -82,7 +82,10 @@ const dateDisplay = computed(() => {
           :class="{ 'task-item__title--done': statusCategory === 'DONE' }"
         >{{ task.title }}</span>
         <!-- リスト名バッジ（日付ビュー時のみ親から渡される） -->
-        <span v-if="listName" class="task-item__list-name">{{ listName }}</span>
+        <span v-if="listName" class="task-item__list-name">
+          <LayoutList class="task-item__list-icon" :size="12" :stroke-width="1.5" />
+          {{ listName }}
+        </span>
         <span
           class="task-item__badge"
           :class="{
@@ -199,8 +202,10 @@ const dateDisplay = computed(() => {
 
   &__title {
     @include typography('md', 'medium');
+    @include truncate;
     color: color('text');
-    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
 
     &--done {
       text-decoration: line-through;
@@ -209,8 +214,15 @@ const dateDisplay = computed(() => {
   }
 
   &__list-name {
+    display: inline-flex;
+    align-items: center;
+    gap: spacing(1);
     flex-shrink: 0;
     @include status-badge(color('border-light'), color('text-secondary'));
+  }
+
+  &__list-icon {
+    flex-shrink: 0;
   }
 
   &__badge {

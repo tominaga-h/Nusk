@@ -5,7 +5,7 @@
  * SSR/CSR両対応のAPIクライアントインスタンスを返す。
  * コンポーネントや他のcomposableからAPI呼び出しを行う際のエントリーポイント。
  */
-import { createApiClient } from '@nusk/shared'
+import { createApiClient, type Fetcher } from '@nusk/shared'
 
 /** Nuxtの$fetchを使ったAPIクライアントを生成して返す */
-export const useApi = () => createApiClient($fetch)
+export const useApi = () => createApiClient($fetch as Fetcher)
