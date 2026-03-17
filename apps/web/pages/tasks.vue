@@ -24,6 +24,9 @@ const {
   scrollToDateSection,
 } = useTaskStore()
 
+const isListView = computed(() => viewMode.value === 'list');
+const isDateView = computed(() => viewMode.value === 'date');
+
 /**
  * URLクエリパラメータの変更を監視し、ストアステートを同期する。
  * 日付ビューの場合は該当セクションへのスクロールも実行する。
@@ -48,14 +51,14 @@ watch(() => route.query, (query) => {
         <h2 class="tasks__title">
           {{ viewMode === 'date' ? '今後のタスク' : selectedList?.name }}
         </h2>
-        <span v-if="viewMode === 'date'" class="tasks__count-badge">
+        <span v-if="isDateView" class="tasks__count-badge">
           {{ dateViewTotalCount }}件
         </span>
       </div>
       <div class="tasks__view-toggle">
         <button
           class="tasks__view-btn"
-          :class="{ 'tasks__view-btn--active': viewMode === 'list' }"
+          :class="{ 'tasks__view-btn--active': isListView }"
           @click="switchToListView(selectedListId)"
         >
           <List :size="16" :stroke-width="1.3" />
@@ -63,7 +66,7 @@ watch(() => route.query, (query) => {
         </button>
         <button
           class="tasks__view-btn"
-          :class="{ 'tasks__view-btn--active': viewMode === 'date' }"
+          :class="{ 'tasks__view-btn--active': isDateView }"
           @click="switchToDateView()"
         >
           <Calendar :size="16" :stroke-width="1.3" />
@@ -74,14 +77,17 @@ watch(() => route.query, (query) => {
 
     <div class="tasks__body">
       <div class="tasks__content">
+        <!-- タスク入力フォーム -->
         <TaskInput @add="addTask" />
+
+        <!-- フィルターバー -->
         <TaskFilterBar
           :count="viewMode === 'date' ? dateViewTotalCount : filteredTasks.length"
           :hide-due-filter="viewMode === 'date'"
         />
 
         <!-- リストビュー: フラットなタスク一覧 -->
-        <div v-if="viewMode === 'list'" class="tasks__list">
+        <div v-if="isListView" class="tasks__list">
           <TaskItem
             v-for="task in filteredTasks"
             :key="task.id"
