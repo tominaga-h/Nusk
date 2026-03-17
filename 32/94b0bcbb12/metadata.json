@@ -3,9 +3,15 @@
   "checkpoint_id": "3294b0bcbb12",
   "strategy": "manual-commit",
   "branch": "feature/phase3",
-  "checkpoints_count": 1,
+  "checkpoints_count": 3,
   "files_touched": [
-    "apps/web/composables/task-store/state.ts"
+    "apps/web/components/AppSidebar.vue",
+    "apps/web/components/TaskDateSection.vue",
+    "apps/web/components/TaskFilterBar.vue",
+    "apps/web/composables/task-store/filters.ts",
+    "apps/web/composables/task-store/navigation.ts",
+    "apps/web/composables/task-store/state.ts",
+    "apps/web/composables/task-store/types.ts"
   ],
   "sessions": [
     {
@@ -13,6 +19,12 @@
       "transcript": "/32/94b0bcbb12/0/full.jsonl",
       "content_hash": "/32/94b0bcbb12/0/content_hash.txt",
       "prompt": "/32/94b0bcbb12/0/prompt.txt"
+    },
+    {
+      "metadata": "/32/94b0bcbb12/1/metadata.json",
+      "transcript": "/32/94b0bcbb12/1/full.jsonl",
+      "content_hash": "/32/94b0bcbb12/1/content_hash.txt",
+      "prompt": "/32/94b0bcbb12/1/prompt.txt"
     }
   ]
 }
