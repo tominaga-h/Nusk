@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { List, Calendar } from 'lucide-vue-next'
+import type { DateGroupKey } from '~/composables/useTaskStore'
+
+const route = useRoute()
 
 const {
   loading,
   viewMode,
   selectedList,
-  selectedDateGroup,
+  selectedListId,
   filteredTasks,
   dateGroupedTasks,
   dateViewTotalCount,
@@ -16,20 +19,22 @@ const {
   scheduleTask,
   completeTask,
   switchToDateView,
+  switchToListView,
+  syncFromRoute,
+  scrollToDateSection,
 } = useTaskStore()
 
 /**
- * selectedDateGroup の変更を監視し、日付ビュー時に該当セクションへスクロールする。
- * DOM描画完了後（nextTick）にスクロールを実行する。
+ * URLクエリパラメータの変更を監視し、ストアステートを同期する。
+ * 日付ビューの場合は該当セクションへのスクロールも実行する。
+ * immediate: true で初回ロード時にもURLからステートを復元する。
  */
-watch(selectedDateGroup, (group) => {
-  if (viewMode.value !== 'date') return
-  nextTick(() => {
-    document
-      .getElementById(`date-section-${group}`)
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  })
-})
+watch(() => route.query, (query) => {
+  syncFromRoute(query as Record<string, string>)
+  if (query.view === 'date') {
+    scrollToDateSection((query.group as DateGroupKey) || 'today')
+  }
+}, { immediate: true })
 </script>
 
 <template>
@@ -51,7 +56,7 @@ watch(selectedDateGroup, (group) => {
         <button
           class="tasks__view-btn"
           :class="{ 'tasks__view-btn--active': viewMode === 'list' }"
-          @click="viewMode = 'list'"
+          @click="switchToListView(selectedListId)"
         >
           <List :size="16" :stroke-width="1.3" />
           リスト

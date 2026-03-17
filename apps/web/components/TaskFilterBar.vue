@@ -9,12 +9,7 @@ withDefaults(defineProps<{
   hideDueFilter: false,
 })
 
-const { statusFilter } = useTaskStore()
-
-/** ステータスフィルターを指定値に切り替える */
-function setStatusFilter(value: 'all' | 'incomplete' | 'done') {
-  statusFilter.value = value
-}
+const { statusFilter, switchStatusFilter } = useTaskStore()
 </script>
 
 <template>
@@ -41,21 +36,21 @@ function setStatusFilter(value: 'all' | 'incomplete' | 'done') {
       <button
         class="filter-bar__chip filter-bar__chip--all"
         :class="{ 'filter-bar__chip--active': statusFilter === 'all' }"
-        @click="setStatusFilter('all')"
+        @click="switchStatusFilter('all')"
       >
         全て
       </button>
       <button
         class="filter-bar__chip filter-bar__chip--incomplete"
         :class="{ 'filter-bar__chip--active': statusFilter === 'incomplete' }"
-        @click="setStatusFilter('incomplete')"
+        @click="switchStatusFilter('incomplete')"
       >
         未完了
       </button>
       <button
         class="filter-bar__chip filter-bar__chip--done"
         :class="{ 'filter-bar__chip--active': statusFilter === 'done' }"
-        @click="setStatusFilter('done')"
+        @click="switchStatusFilter('done')"
       >
         完了
       </button>

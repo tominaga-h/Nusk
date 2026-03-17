@@ -57,7 +57,7 @@ export const useTaskStore = () => {
   /** 表示モード: "list"（リスト別） or "date"（日付別） */
   const viewMode = useState<'list' | 'date'>('view-mode', () => 'list')
   /** ステータスフィルター: all=全件, incomplete=未完了(TODO/IN_PROGRESS), done=完了(DONE) */
-  const statusFilter = useState<'all' | 'incomplete' | 'done'>('status-filter', () => 'all')
+  const statusFilter = useState<'all' | 'incomplete' | 'done'>('status-filter', () => 'incomplete')
   /** 日付ビューで選択中のグループ（サイドバーのアクティブ表示・スクロール制御に使用） */
   const selectedDateGroup = useState<DateGroupKey>('selected-date-group', () => 'today')
 
@@ -297,23 +297,76 @@ export const useTaskStore = () => {
   }
 
   /**
+   * 日付ビューの指定セクションへスムーズスクロールする
+   * nextTick後にDOM要素を検索し、scrollIntoViewで移動する。
+   * @param group - スクロール先の日付グループキー
+   */
+  function scrollToDateSection(group: DateGroupKey) {
+    nextTick(() => {
+      document
+        .getElementById(`date-section-${group}`)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  }
+
+  /**
    * 日付ビューに切り替え、指定グループを選択する
    * サイドバーの「今日」「明日」クリック時や、ヘッダーの日付トグルから呼ばれる。
+   *
+   * 既に同じ日付ビュー・グループが選択済みの場合はURLを変更せず
+   * 直接スクロールのみ実行する（同一URL遷移は Vue Router に無視されるため）。
    * @param group - スクロール先の日付グループ（デフォルト: 'today'）
    */
   function switchToDateView(group: DateGroupKey = 'today') {
-    viewMode.value = 'date'
-    selectedDateGroup.value = group
+    if (viewMode.value === 'date' && selectedDateGroup.value === group) {
+      scrollToDateSection(group)
+      return
+    }
+    navigateTo({ path: '/tasks', query: { view: 'date', group, status: statusFilter.value } })
   }
 
   /**
    * リストビューに切り替え、指定リストを選択する
    * サイドバーのリスト項目クリック時に呼ばれる。
+   *
+   * 既に同じリストが選択済みの場合は何もしない。
    * @param listId - 選択するリストのID
    */
   function switchToListView(listId: string) {
-    viewMode.value = 'list'
-    selectedListId.value = listId
+    if (viewMode.value === 'list' && selectedListId.value === listId) return
+    navigateTo({ path: '/tasks', query: { view: 'list', list: listId, status: statusFilter.value } })
+  }
+
+  /**
+   * ステータスフィルターを変更し、URLクエリに反映する
+   * 現在の他のクエリパラメータ（view, list, group等）を保持したまま status のみ更新する。
+   * @param status - 新しいステータスフィルター値
+   */
+  function switchStatusFilter(status: 'all' | 'incomplete' | 'done') {
+    const route = useRoute()
+    navigateTo({ path: '/tasks', query: { ...route.query, status } })
+  }
+
+  /**
+   * URLクエリパラメータからストアステートを復元する
+   * tasks.vue の route.query watcher から呼ばれ、URL → ストアの同期を担う。
+   * クエリが空（/tasks）の場合はリストビュー + 現在のリスト選択を維持する。
+   * @param query - route.query オブジェクト
+   */
+  function syncFromRoute(query: Record<string, string>) {
+    const view = query.view as 'list' | 'date' | undefined
+    if (view === 'date') {
+      viewMode.value = 'date'
+      const group = (query.group as DateGroupKey) || 'today'
+      selectedDateGroup.value = group
+    } else if (view === 'list') {
+      viewMode.value = 'list'
+      if (query.list) selectedListId.value = query.list
+    }
+
+    // ステータスフィルターの復元（未指定時は未完了をデフォルトとする）
+    const status = query.status as 'all' | 'incomplete' | 'done' | undefined
+    statusFilter.value = status || 'incomplete'
   }
 
   return {
@@ -349,5 +402,9 @@ export const useTaskStore = () => {
     completeTask,
     switchToDateView,
     switchToListView,
+    switchStatusFilter,
+    // URL同期
+    syncFromRoute,
+    scrollToDateSection,
   }
 }
