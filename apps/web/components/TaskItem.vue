@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Calendar, CalendarClock, GripVertical, LayoutList, TriangleAlert } from 'lucide-vue-next'
+import { Calendar, CalendarClock, GripVertical, LayoutList, Pencil, TriangleAlert } from 'lucide-vue-next'
 import type { Task } from '@nusk/shared'
 
 const props = withDefaults(defineProps<{
@@ -22,6 +22,7 @@ defineEmits<{
   'complete': []
   'schedule-today': []
   'schedule-tomorrow': []
+  'edit': []
 }>()
 
 const { todayStr, tomorrowStr, formatDate, isDraggingTask } = useTaskStore()
@@ -132,7 +133,15 @@ const dateDisplay = computed(() => {
         </span>
       </div>
     </div>
-    <div v-if="!hideScheduleToday || !hideScheduleTomorrow" class="task-item__actions">
+    <div class="task-item__actions">
+      <button
+        class="task-item__action-btn task-item__action-btn--icon"
+        title="タスクを編集"
+        aria-label="タスクを編集"
+        @click="$emit('edit')"
+      >
+        <Pencil :size="14" :stroke-width="1.6" />
+      </button>
       <button
         v-if="!hideScheduleToday"
         class="task-item__action-btn"
@@ -318,6 +327,25 @@ const dateDisplay = computed(() => {
     &:hover {
       background: color('bg');
       border-color: color('text-disabled');
+    }
+
+    &--icon {
+      width: 30px;
+      padding: 0;
+      opacity: 0;
+      transition: opacity $transition-fast;
+    }
+  }
+
+  &:hover &__action-btn--icon {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .task-item {
+    &__action-btn--icon {
+      opacity: 1;
     }
   }
 }

@@ -5,6 +5,7 @@
  * 各関数は楽観的にローカルステートも更新する。
  */
 import type { TaskState } from './types'
+import type { UpdateTaskPayload } from '@nusk/shared'
 
 /**
  * ステートを受け取り、API通信を伴うアクション関数群を返す
@@ -70,6 +71,20 @@ export function useTaskActions(state: TaskState) {
   }
 
   /**
+   * タスクを任意フィールドで更新する
+   *
+   * 編集パネルからの保存処理で使用し、title/status/list/scheduled_date の
+   * 一括更新をAPI経由で反映する。
+   * @param taskId - 更新対象タスクのID
+   * @param payload - 更新内容（部分更新）
+   */
+  async function updateTask(taskId: string, payload: UpdateTaskPayload) {
+    const updated = await api.tasks.update(taskId, payload)
+    const index = tasks.value.findIndex(t => t.id === taskId)
+    if (index !== -1) tasks.value[index] = updated
+  }
+
+  /**
    * タスクの完了/未完了をトグルする
    *
    * 現在のステータスカテゴリがDONEならTODOへ、TODOならDONEへ切り替える。
@@ -116,6 +131,7 @@ export function useTaskActions(state: TaskState) {
     fetchData,
     addTask,
     scheduleTask,
+    updateTask,
     completeTask,
     moveTaskToList,
   }

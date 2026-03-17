@@ -63,6 +63,7 @@ export const useTaskStore = () => {
     fetchData: actions.fetchData,
     addTask: actions.addTask,
     scheduleTask: actions.scheduleTask,
+    updateTask: actions.updateTask,
     completeTask: actions.completeTask,
     moveTaskToList: actions.moveTaskToList,
     // ナビゲーション

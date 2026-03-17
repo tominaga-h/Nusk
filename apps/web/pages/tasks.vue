@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { List, Calendar } from 'lucide-vue-next'
+import type { Status, UpdateTaskPayload } from '@nusk/shared'
 import { ViewMode } from '~/composables/task-store/types'
 const route = useRoute()
 
 const {
   loading,
   viewMode,
+  lists,
+  statuses,
   selectedList,
   selectedListId,
   todayStr,
@@ -17,6 +20,7 @@ const {
   getStatus,
   addTask,
   scheduleTask,
+  updateTask,
   completeTask,
   switchToDateView,
   switchToListView,
@@ -27,6 +31,12 @@ const { showToast } = useToast()
 
 const isListView = computed(() => viewMode.value === ViewMode.LIST);
 const isDateView = computed(() => viewMode.value === ViewMode.DATE);
+const editingTaskId = ref<string | null>(null)
+const isSavingEdit = ref(false)
+const editingTask = computed(() =>
+  tasks.value.find(task => task.id === editingTaskId.value) ?? null,
+)
+
 const listViewTitle = computed(() => {
   if (!selectedList.value) return ''
   return selectedList.value.is_inbox ? 'Inbox' : selectedList.value.name
@@ -63,6 +73,100 @@ async function handleComplete(taskId: string) {
   const wasDone = currentStatus?.category === 'DONE'
   await completeTask(taskId)
   showToast(wasDone ? `「${task.title}」を未完了に戻しました` : `「${task.title}」を完了しました`)
+}
+
+/**
+ * 編集対象タスクを選択して編集パネルを開く。
+ */
+function handleEdit(taskId: string) {
+  editingTaskId.value = taskId
+}
+
+/**
+ * 編集パネルを閉じる（保存中は閉じない）。
+ */
+function handleCloseEditPanel() {
+  if (isSavingEdit.value) return
+  editingTaskId.value = null
+}
+
+/**
+ * 指定リストで選択可能なステータスを返す。
+ * リスト専用 + グローバル（list_id === null）を対象にする。
+ */
+function getSelectableStatuses(listId: string): Status[] {
+  return statuses.value.filter(status =>
+    status.list_id === listId || status.list_id === null,
+  )
+}
+
+/**
+ * リスト変更時の status_id 補正ルール。
+ * 1) 新リストTODO 2) グローバルTODO 3) 候補先頭
+ */
+function resolveStatusIdForList(listId: string): string {
+  const candidates = getSelectableStatuses(listId)
+  if (candidates.length === 0) return ''
+
+  const listTodo = candidates.find(status =>
+    status.list_id === listId && status.category === 'TODO',
+  )
+  if (listTodo) return listTodo.id
+
+  const globalTodo = candidates.find(status =>
+    status.list_id === null && status.category === 'TODO',
+  )
+  if (globalTodo) return globalTodo.id
+
+  return candidates[0].id
+}
+
+/**
+ * 編集パネル保存ハンドラ。
+ * 保存時に list/status の整合性を補正し、成功時のみパネルを閉じる。
+ */
+async function handleUpdateTask(event: { taskId: string, payload: UpdateTaskPayload }) {
+  const currentTask = tasks.value.find(task => task.id === event.taskId)
+  if (!currentTask) return
+
+  const trimmedTitle = event.payload.title?.trim() ?? ''
+  if (!trimmedTitle) {
+    showToast('タイトルを入力してください')
+    return
+  }
+
+  const nextListId = event.payload.list_id ?? currentTask.list_id
+  const selectableStatuses = getSelectableStatuses(nextListId)
+  if (selectableStatuses.length === 0) {
+    showToast('このリストで選択できるステータスがありません')
+    return
+  }
+
+  const currentStatusId = event.payload.status_id ?? currentTask.status_id
+  const normalizedStatusId = selectableStatuses.some(status => status.id === currentStatusId)
+    ? currentStatusId
+    : resolveStatusIdForList(nextListId)
+
+  if (!normalizedStatusId) {
+    showToast('有効なステータスが見つかりませんでした')
+    return
+  }
+
+  isSavingEdit.value = true
+  try {
+    await updateTask(event.taskId, {
+      ...event.payload,
+      title: trimmedTitle,
+      list_id: nextListId,
+      status_id: normalizedStatusId,
+    })
+    showToast(`「${trimmedTitle}」を更新しました`)
+    editingTaskId.value = null
+  } catch {
+    showToast('タスクの更新に失敗しました')
+  } finally {
+    isSavingEdit.value = false
+  }
 }
 
 /**
@@ -128,6 +232,7 @@ watch(() => route.query, (query) => {
             :status-name="getStatus(task.status_id)?.name ?? ''"
             :status-category="getStatus(task.status_id)?.category ?? 'TODO'"
             @complete="handleComplete(task.id)"
+            @edit="handleEdit(task.id)"
             @schedule-today="handleSchedule(task.id, todayStr, task.scheduled_date, task.title)"
             @schedule-tomorrow="handleSchedule(task.id, tomorrowStr, task.scheduled_date, task.title)"
           />
@@ -144,11 +249,20 @@ watch(() => route.query, (query) => {
             :group-key="group.key"
             :label="group.label"
             :tasks="group.tasks"
+            @edit-task="handleEdit"
             @schedule-task="handleSchedule"
           />
         </div>
       </div>
     </div>
+    <TaskEditPanel
+      :task="editingTask"
+      :lists="lists"
+      :statuses="statuses"
+      :is-saving="isSavingEdit"
+      @save="handleUpdateTask"
+      @close="handleCloseEditPanel"
+    />
     </template>
   </div>
 </template>

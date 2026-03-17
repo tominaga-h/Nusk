@@ -20,6 +20,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   'schedule-task': [taskId: string, targetDate: string, previousDate: string | null, taskTitle: string]
+  'edit-task': [taskId: string]
 }>()
 
 const {
@@ -77,6 +78,7 @@ const hideScheduleTomorrow = computed(() => props.groupKey === DateGroup.TOMORRO
         :hide-schedule-today="hideScheduleToday"
         :hide-schedule-tomorrow="hideScheduleTomorrow"
         @complete="handleComplete(task)"
+        @edit="emit('edit-task', task.id)"
         @schedule-today="emit('schedule-task', task.id, todayStr, task.scheduled_date, task.title)"
         @schedule-tomorrow="emit('schedule-task', task.id, tomorrowStr, task.scheduled_date, task.title)"
       />
