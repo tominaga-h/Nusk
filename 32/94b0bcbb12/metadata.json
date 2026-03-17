@@ -1,0 +1,18 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "3294b0bcbb12",
+  "strategy": "manual-commit",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/composables/task-store/state.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/32/94b0bcbb12/0/metadata.json",
+      "transcript": "/32/94b0bcbb12/0/full.jsonl",
+      "content_hash": "/32/94b0bcbb12/0/content_hash.txt",
+      "prompt": "/32/94b0bcbb12/0/prompt.txt"
+    }
+  ]
+}

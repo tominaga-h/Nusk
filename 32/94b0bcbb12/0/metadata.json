@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "3294b0bcbb12",
+  "session_id": "5d45c8c0-3ac8-4868-bcff-9787cabb56f7",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-17T07:00:25.764362Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/composables/task-store/state.ts"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "45fd5682cdd4",
+  "checkpoint_transcript_start": 21,
+  "transcript_lines_at_start": 21,
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-17T07:00:25.681177Z",
+    "agent_lines": 7,
+    "human_added": 132,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 139,
+    "agent_percentage": 5.0359712230215825
+  }
+}
