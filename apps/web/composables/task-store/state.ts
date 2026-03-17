@@ -28,7 +28,7 @@ export function useTaskState(): TaskState & {
   const tasks = useState<Task[]>('task-items', () => [])
 
   /** データ取得中フラグ */
-  const loading = useState('task-loading', () => false)
+  const loading = useState('task-loading', () => true)
 
   /** 初回データ取得完了フラグ（二重ロード防止に使用） */
   const loaded = useState('task-loaded', () => false)
