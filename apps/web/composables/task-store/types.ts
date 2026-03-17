@@ -5,7 +5,14 @@ import type { List, Status, Task } from '@nusk/shared'
 import type { Ref } from 'vue'
 
 /** 日付グルーピング用のグループキー */
-export type DateGroupKey = 'overdue' | 'today' | 'tomorrow' | 'upcoming' | 'undated'
+export const DateGroup = {
+  OVERDUE: 'overdue',
+  TODAY: 'today',
+  TOMORROW: 'tomorrow',
+  UPCOMING: 'upcoming',
+  UNDATED: 'undated',
+} as const;
+export type DateGroupKey = (typeof DateGroup)[keyof typeof DateGroup];
 
 /** 日付ビューで使用するグループ構造体 */
 export interface DateGroup {
@@ -15,7 +22,12 @@ export interface DateGroup {
 }
 
 /** ステータスフィルターの値型 */
-export type StatusFilterValue = 'all' | 'incomplete' | 'done'
+export const StatusFilter = {
+  ALL: 'all',
+  INCOMPLETE: 'incomplete',
+  DONE: 'done',
+} as const;
+export type StatusFilterValue = (typeof StatusFilter)[keyof typeof StatusFilter];
 
 /**
  * useTaskState() が返す共有ステートのインターフェース

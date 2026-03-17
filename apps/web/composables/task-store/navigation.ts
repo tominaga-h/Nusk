@@ -4,6 +4,7 @@
  * サイドバーやフィルターバーからのビュー切り替え操作と、
  * URLクエリパラメータとストアステートの双方向同期を担う。
  */
+import { DateGroup, StatusFilter } from './types'
 import type { DateGroupKey, StatusFilterValue, TaskState } from './types'
 
 /**
@@ -21,7 +22,7 @@ export function useTaskNavigation(state: TaskState) {
    * 直接スクロールのみ実行する（同一URL遷移は Vue Router に無視されるため）。
    * @param group - スクロール先の日付グループ（デフォルト: 'today'）
    */
-  function switchToDateView(group: DateGroupKey = 'today') {
+  function switchToDateView(group: DateGroupKey = DateGroup.TODAY) {
     if (viewMode.value === 'date' && selectedDateGroup.value === group) return
     navigateTo({ path: '/tasks', query: { view: 'date', group, status: statusFilter.value } })
   }
@@ -58,7 +59,7 @@ export function useTaskNavigation(state: TaskState) {
     const view = query.view as 'list' | 'date' | undefined
     if (view === 'date') {
       viewMode.value = 'date'
-      const group = (query.group as DateGroupKey) || 'today'
+      const group = (query.group as DateGroupKey) || DateGroup.TODAY
       selectedDateGroup.value = group
     } else if (view === 'list') {
       viewMode.value = 'list'
@@ -67,7 +68,7 @@ export function useTaskNavigation(state: TaskState) {
 
     // ステータスフィルターの復元（未指定時は未完了をデフォルトとする）
     const status = query.status as StatusFilterValue | undefined
-    statusFilter.value = status || 'incomplete'
+    statusFilter.value = status || StatusFilter.INCOMPLETE
   }
 
   return {

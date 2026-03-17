@@ -6,7 +6,8 @@
  */
 import type { Task } from '@nusk/shared'
 import type { ComputedRef } from 'vue'
-import type { DateGroup, DateGroupKey, TaskState } from './types'
+import { DateGroup, StatusFilter } from './types'
+import type { DateGroupKey, TaskState } from './types'
 import { toJpDateLabel } from '~/lib/date-utils'
 
 /**
@@ -31,13 +32,13 @@ export function useTaskFilters(
 
   /** ステータスフィルターをタスク配列に適用するヘルパー */
   const applyStatusFilter = (taskList: Task[]): Task[] => {
-    if (statusFilter.value === 'incomplete') {
+    if (statusFilter.value === StatusFilter.INCOMPLETE) {
       return taskList.filter(t => {
         const status = statuses.value.find(s => s.id === t.status_id)
         return status?.category !== 'DONE'
       })
     }
-    if (statusFilter.value === 'done') {
+    if (statusFilter.value === StatusFilter.DONE) {
       return taskList.filter(t => {
         const status = statuses.value.find(s => s.id === t.status_id)
         return status?.category === 'DONE'
@@ -88,27 +89,27 @@ export function useTaskFilters(
 
     return [
       {
-        key: 'overdue' as DateGroupKey,
+        key: DateGroup.OVERDUE,
         label: '過去',
         tasks: applyStatusFilter(overdueTasks),
       },
       {
-        key: 'today' as DateGroupKey,
+        key: DateGroup.TODAY,
         label: `今日 (${toJpDateLabel(today)})`,
         tasks: applyStatusFilter(todayTasks),
       },
       {
-        key: 'tomorrow' as DateGroupKey,
+        key: DateGroup.TOMORROW,
         label: `明日 (${toJpDateLabel(tomorrow)})`,
         tasks: applyStatusFilter(tomorrowTasks),
       },
       {
-        key: 'upcoming' as DateGroupKey,
+        key: DateGroup.UPCOMING,
         label: '明日以降',
         tasks: applyStatusFilter(upcomingTasks),
       },
       {
-        key: 'undated' as DateGroupKey,
+        key: DateGroup.UNDATED,
         label: '未定',
         tasks: applyStatusFilter(undatedTasks),
       },

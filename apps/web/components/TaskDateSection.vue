@@ -6,6 +6,7 @@
  * タスクが0件の場合は「タスクはありません」を表示する。
  */
 import type { Task } from '@nusk/shared'
+import { DateGroup } from '~/composables/task-store/types'
 import type { DateGroupKey } from '~/composables/task-store/types'
 
 const props = defineProps<{
@@ -26,10 +27,10 @@ const {
 } = useTaskStore()
 
 /** グループキーに応じて「今日やる」ボタンを非表示にするか */
-const hideScheduleToday = computed(() => props.groupKey === 'today')
+const hideScheduleToday = computed(() => props.groupKey === DateGroup.TODAY)
 
 /** グループキーに応じて「明日やる」ボタンを非表示にするか */
-const hideScheduleTomorrow = computed(() => props.groupKey === 'tomorrow')
+const hideScheduleTomorrow = computed(() => props.groupKey === DateGroup.TOMORROW)
 </script>
 
 <template>

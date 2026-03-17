@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { SlidersHorizontal, ArrowUpFromLine, Calendar, CircleCheck } from 'lucide-vue-next'
+import { StatusFilter } from '~/composables/task-store/types'
 
 withDefaults(defineProps<{
   count: number
@@ -35,22 +36,22 @@ const { statusFilter, switchStatusFilter } = useTaskStore()
       <!-- ステータスフィルター用チップボタン -->
       <button
         class="filter-bar__chip filter-bar__chip--all"
-        :class="{ 'filter-bar__chip--active': statusFilter === 'all' }"
-        @click="switchStatusFilter('all')"
+        :class="{ 'filter-bar__chip--active': statusFilter === StatusFilter.ALL }"
+        @click="switchStatusFilter(StatusFilter.ALL)"
       >
         全て
       </button>
       <button
         class="filter-bar__chip filter-bar__chip--incomplete"
-        :class="{ 'filter-bar__chip--active': statusFilter === 'incomplete' }"
-        @click="switchStatusFilter('incomplete')"
+        :class="{ 'filter-bar__chip--active': statusFilter === StatusFilter.INCOMPLETE }"
+        @click="switchStatusFilter(StatusFilter.INCOMPLETE)"
       >
         未完了
       </button>
       <button
         class="filter-bar__chip filter-bar__chip--done"
-        :class="{ 'filter-bar__chip--active': statusFilter === 'done' }"
-        @click="switchStatusFilter('done')"
+        :class="{ 'filter-bar__chip--active': statusFilter === StatusFilter.DONE }"
+        @click="switchStatusFilter(StatusFilter.DONE)"
       >
         完了
       </button>

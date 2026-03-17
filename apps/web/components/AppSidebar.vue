@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Calendar, AlarmClock, ArrowRight, History, CircleHelp, LogOut, Settings } from 'lucide-vue-next'
+import { DateGroup } from '~/composables/task-store/types'
 
 const client = useSupabaseClient()
 const user = useSupabaseUser()
@@ -91,8 +92,8 @@ async function logout() {
           <div class="sidebar__list">
             <button
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === 'today' }"
-              @click="switchToDateView('today')"
+              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === DateGroup.TODAY }"
+              @click="switchToDateView(DateGroup.TODAY)"
             >
               <span class="sidebar__item-left">
                 <Calendar class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
@@ -102,8 +103,8 @@ async function logout() {
             </button>
             <button
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === 'tomorrow' }"
-              @click="switchToDateView('tomorrow')"
+              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === DateGroup.TOMORROW }"
+              @click="switchToDateView(DateGroup.TOMORROW)"
             >
               <span class="sidebar__item-left">
                 <AlarmClock class="sidebar__item-svg" :size="15" :stroke-width="1.5" />
@@ -114,8 +115,8 @@ async function logout() {
             <!-- 明日以降（明後日〜） -->
             <button
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === 'upcoming' }"
-              @click="switchToDateView('upcoming')"
+              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === DateGroup.UPCOMING }"
+              @click="switchToDateView(DateGroup.UPCOMING)"
             >
               <span class="sidebar__item-left">
                 <ArrowRight class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
@@ -126,8 +127,8 @@ async function logout() {
             <!-- 過去（期限超過） -->
             <button
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === 'overdue' }"
-              @click="switchToDateView('overdue')"
+              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === DateGroup.OVERDUE }"
+              @click="switchToDateView(DateGroup.OVERDUE)"
             >
               <span class="sidebar__item-left">
                 <History class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
@@ -138,8 +139,8 @@ async function logout() {
             <!-- 未定（日付未設定） -->
             <button
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === 'undated' }"
-              @click="switchToDateView('undated')"
+              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === DateGroup.UNDATED }"
+              @click="switchToDateView(DateGroup.UNDATED)"
             >
               <span class="sidebar__item-left">
                 <CircleHelp class="sidebar__item-svg" :size="14" :stroke-width="1.5" />

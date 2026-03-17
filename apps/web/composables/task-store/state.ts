@@ -5,6 +5,8 @@
  * SSR/CSR 間で共有されるシングルトンステートの唯一の定義元。
  */
 import type { List, Status, Task } from '@nusk/shared'
+import type { ComputedRef } from 'vue'
+import { DateGroup, StatusFilter } from './types'
 import type { DateGroupKey, StatusFilterValue, TaskState } from './types'
 import { toDateStr } from '~/lib/date-utils'
 
@@ -14,11 +16,11 @@ import { toDateStr } from '~/lib/date-utils'
  */
 export function useTaskState(): TaskState & {
   /** 現在選択中のリストオブジェクト */
-  selectedList: ReturnType<typeof computed<List | undefined>>
+  selectedList: ComputedRef<List | undefined>
   /** 今日の日付文字列（"YYYY-MM-DD"） */
-  todayStr: ReturnType<typeof computed<string>>
+  todayStr: ComputedRef<string>
   /** 明日の日付文字列（"YYYY-MM-DD"） */
-  tomorrowStr: ReturnType<typeof computed<string>>
+  tomorrowStr: ComputedRef<string>
 } {
   // --- グローバルステート（useStateでSSR/CSR間で共有） ---
   const lists = useState<List[]>('task-lists', () => [])
@@ -35,9 +37,9 @@ export function useTaskState(): TaskState & {
   /** 表示モード: "list"（リスト別） or "date"（日付別） */
   const viewMode = useState<'list' | 'date'>('view-mode', () => 'list')
   /** ステータスフィルター: all=全件, incomplete=未完了(TODO/IN_PROGRESS), done=完了(DONE) */
-  const statusFilter = useState<StatusFilterValue>('status-filter', () => 'incomplete')
+  const statusFilter = useState<StatusFilterValue>('status-filter', () => StatusFilter.INCOMPLETE)
   /** 日付ビューで選択中のグループ（サイドバーのアクティブ表示・スクロール制御に使用） */
-  const selectedDateGroup = useState<DateGroupKey>('selected-date-group', () => 'today')
+  const selectedDateGroup = useState<DateGroupKey>('selected-date-group', () => DateGroup.TODAY)
   /** タスクをドラッグ中かどうか（TaskItem↔AppSidebar間の状態共有に使用） */
   const isDraggingTask = useState('is-dragging-task', () => false)
 
