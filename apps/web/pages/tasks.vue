@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { List, Calendar } from 'lucide-vue-next'
-import type { DateGroupKey } from '~/composables/useTaskStore'
-
 const route = useRoute()
 
 const {
@@ -21,7 +19,6 @@ const {
   switchToDateView,
   switchToListView,
   syncFromRoute,
-  scrollToDateSection,
 } = useTaskStore()
 
 const isListView = computed(() => viewMode.value === 'list');
@@ -29,14 +26,10 @@ const isDateView = computed(() => viewMode.value === 'date');
 
 /**
  * URLクエリパラメータの変更を監視し、ストアステートを同期する。
- * 日付ビューの場合は該当セクションへのスクロールも実行する。
  * immediate: true で初回ロード時にもURLからステートを復元する。
  */
 watch(() => route.query, (query) => {
   syncFromRoute(query as Record<string, string>)
-  if (query.view === 'date') {
-    scrollToDateSection((query.group as DateGroupKey) || 'today')
-  }
 }, { immediate: true })
 </script>
 

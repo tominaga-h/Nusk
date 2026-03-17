@@ -305,19 +305,6 @@ export const useTaskStore = () => {
   }
 
   /**
-   * 日付ビューの指定セクションへスムーズスクロールする
-   * nextTick後にDOM要素を検索し、scrollIntoViewで移動する。
-   * @param group - スクロール先の日付グループキー
-   */
-  function scrollToDateSection(group: DateGroupKey) {
-    nextTick(() => {
-      document
-        .getElementById(`date-section-${group}`)
-        ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    })
-  }
-
-  /**
    * 日付ビューに切り替え、指定グループを選択する
    * サイドバーの「今日」「明日」クリック時や、ヘッダーの日付トグルから呼ばれる。
    *
@@ -326,10 +313,7 @@ export const useTaskStore = () => {
    * @param group - スクロール先の日付グループ（デフォルト: 'today'）
    */
   function switchToDateView(group: DateGroupKey = 'today') {
-    if (viewMode.value === 'date' && selectedDateGroup.value === group) {
-      scrollToDateSection(group)
-      return
-    }
+    if (viewMode.value === 'date' && selectedDateGroup.value === group) return
     navigateTo({ path: '/tasks', query: { view: 'date', group, status: statusFilter.value } })
   }
 
@@ -416,6 +400,5 @@ export const useTaskStore = () => {
     switchStatusFilter,
     // URL同期
     syncFromRoute,
-    scrollToDateSection,
   }
 }
