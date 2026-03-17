@@ -1,0 +1,20 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "400d324e419c",
+  "strategy": "manual-commit",
+  "branch": "feature/phase3",
+  "checkpoints_count": 3,
+  "files_touched": [
+    ".cursor/plans/ステータスフィルタリング実装_89001c99.plan.md",
+    "apps/web/components/TaskFilterBar.vue",
+    "apps/web/composables/useTaskStore.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/40/0d324e419c/0/metadata.json",
+      "transcript": "/40/0d324e419c/0/full.jsonl",
+      "content_hash": "/40/0d324e419c/0/content_hash.txt",
+      "prompt": "/40/0d324e419c/0/prompt.txt"
+    }
+  ]
+}

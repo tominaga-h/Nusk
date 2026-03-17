@@ -1,0 +1,22 @@
+@apps/web/components/TaskFilterBar.vue @apps/web/composables/useTaskStore.ts 
+ステータスによる絞り込みを実装したいです。
+フィルターバーのステータス項目の横に、未完了/完了のチップ型ボタンを表示。
+未完了のボタンを押されたらリスト中のタスクのうち完了でないものを、完了ボタンが押されたら完了済のものを表示する。フィルターバーのカウントもちゃんと動的に変わること。
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+---
+
+「全て」チップボタンの追加と、`filteredTasks` のリファクタリングを実行してください。
+`filteredTasks` を `listedTasks` と `filteredTasks` に分割し、
+listedTaskはリストIDによるフィルタリング、filteredTasksはlistedIdをもとにフィルターバーによるフィルタリングの実行。
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
