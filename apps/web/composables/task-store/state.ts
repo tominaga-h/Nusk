@@ -29,21 +29,24 @@ export function useTaskState(): TaskState & {
 
   /** データ取得中フラグ */
   const loading = useState('task-loading', () => false)
+
   /** 初回データ取得完了フラグ（二重ロード防止に使用） */
   const loaded = useState('task-loaded', () => false)
 
   /** 現在選択中のリストID */
   const selectedListId = useState<string>('selected-list-id', () => '')
+
   /** 表示モード: "list"（リスト別） or "date"（日付別） */
   const viewMode = useState<ViewModeValue>('view-mode', () => ViewMode.LIST)
+
   /** ステータスフィルター: all=全件, incomplete=未完了(TODO/IN_PROGRESS), done=完了(DONE) */
   const statusFilter = useState<StatusFilterValue>('status-filter', () => StatusFilter.INCOMPLETE)
+
   /** 日付ビューで選択中のグループ（サイドバーのアクティブ表示・スクロール制御に使用） */
   const selectedDateGroup = useState<DateGroupKey>('selected-date-group', () => DateGroup.TODAY)
+
   /** タスクをドラッグ中かどうか（TaskItem↔AppSidebar間の状態共有に使用） */
   const isDraggingTask = useState('is-dragging-task', () => false)
-
-  // --- 基本 computed ---
 
   /** 現在選択中のリストオブジェクト */
   const selectedList = computed(() =>
