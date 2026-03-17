@@ -6,7 +6,7 @@
  * タスクが0件の場合は「タスクはありません」を表示する。
  */
 import type { Task } from '@nusk/shared'
-import type { DateGroupKey } from '~/composables/useTaskStore'
+import type { DateGroupKey } from '~/composables/task-store/types'
 
 const props = defineProps<{
   /** グループのキー（overdue/today/tomorrow/upcoming/undated） */

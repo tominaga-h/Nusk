@@ -10,6 +10,12 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/supabase'],
 
+  imports: {
+    dirs: [
+      '~/composables/**',
+    ]
+  },
+
   css: [
     '~/assets/scss/_global.scss',
     '~/assets/scss/_fonts.scss',
