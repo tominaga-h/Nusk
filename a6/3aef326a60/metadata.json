@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "a63aef326a60",
+  "strategy": "manual-commit",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".cursor/rules/general.mdc",
+    "apps/web/components/AppSidebar.vue",
+    "apps/web/composables/task-store/navigation.ts",
+    "apps/web/composables/task-store/state.ts",
+    "apps/web/composables/task-store/types.ts",
+    "apps/web/pages/tasks.vue"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a6/3aef326a60/0/metadata.json",
+      "transcript": "/a6/3aef326a60/0/full.jsonl",
+      "content_hash": "/a6/3aef326a60/0/content_hash.txt",
+      "prompt": "/a6/3aef326a60/0/prompt.txt"
+    }
+  ]
+}

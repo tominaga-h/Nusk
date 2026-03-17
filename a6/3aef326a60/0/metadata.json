@@ -1,0 +1,34 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "a63aef326a60",
+  "session_id": "fa164841-1137-4c87-b1d9-7caa5be416ef",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-17T07:09:30.620827Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".cursor/rules/general.mdc",
+    "apps/web/components/AppSidebar.vue",
+    "apps/web/composables/task-store/navigation.ts",
+    "apps/web/composables/task-store/state.ts",
+    "apps/web/composables/task-store/types.ts",
+    "apps/web/pages/tasks.vue"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "22aabcceae1c",
+  "checkpoint_transcript_start": 44,
+  "transcript_lines_at_start": 44,
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-17T07:09:30.560054Z",
+    "agent_lines": 46,
+    "human_added": 68,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 114,
+    "agent_percentage": 40.35087719298245
+  }
+}

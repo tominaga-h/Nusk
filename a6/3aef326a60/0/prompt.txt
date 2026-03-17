@@ -1,0 +1,8 @@
+@apps/web/composables/task-store/state.ts @apps/web/composables/task-store/types.ts 
+`viewMode` のユニオン型を types.ts に `ViewModeValue` に定義して、 `DateGroup` と同じくオブジェクト定数化してください。そして'list' 'date' と文字列リテラルで参照しているファイルを定数に置き換えて。
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
