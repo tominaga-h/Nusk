@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "6f33437f3181",
+  "session_id": "d3a2306c-c348-4630-92fd-3b5b841a445a",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-17T08:51:37.744016Z",
+  "branch": "feature/ui_improve",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/composables/task-store/index.ts"
+  ],
+  "agent": "Cursor",
+  "model": "gpt-5.3-codex",
+  "turn_id": "82ce2561e467",
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-17T08:51:37.690673Z",
+    "agent_lines": 4,
+    "human_added": 31,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 35,
+    "agent_percentage": 11.428571428571429
+  }
+}
