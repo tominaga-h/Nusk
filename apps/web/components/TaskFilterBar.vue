@@ -126,19 +126,19 @@ const { statusFilter, switchStatusFilter } = useTaskStore()
     }
 
     &--active {
-      &.filter-bar__chip--all {
-      background: color('surface');
       border: 0px;
+      font-weight: bold;
+
+      &.filter-bar__chip--all {
+        background: color('surface');
       }
       &.filter-bar__chip--incomplete {
-        background: color('danger-light');
-        color: color('danger');
-        border: 0px;
+        background: color('blue');
+        color: color('surface');
       }
       &.filter-bar__chip--done {
-        background: color('status-green-bg');
-        color: color('status-green');
-        border: 0px;
+        background: color('status-green');
+        color: color('surface');
       }
     }
   }
