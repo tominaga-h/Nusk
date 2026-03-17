@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { List, Calendar } from 'lucide-vue-next'
+import { ViewMode } from '~/composables/task-store/types'
 const route = useRoute()
 
 const {
@@ -21,8 +22,8 @@ const {
   syncFromRoute,
 } = useTaskStore()
 
-const isListView = computed(() => viewMode.value === 'list');
-const isDateView = computed(() => viewMode.value === 'date');
+const isListView = computed(() => viewMode.value === ViewMode.LIST);
+const isDateView = computed(() => viewMode.value === ViewMode.DATE);
 
 /**
  * URLクエリパラメータの変更を監視し、ストアステートを同期する。
@@ -42,7 +43,7 @@ watch(() => route.query, (query) => {
       <div class="tasks__title-row">
         <!-- リストビュー: リスト名、日付ビュー: "今後のタスク N件" -->
         <h2 class="tasks__title">
-          {{ viewMode === 'date' ? '今後のタスク' : selectedList?.name }}
+          {{ viewMode === ViewMode.DATE ? '今後のタスク' : selectedList?.name }}
         </h2>
         <span v-if="isDateView" class="tasks__count-badge">
           {{ dateViewTotalCount }}件
@@ -75,8 +76,8 @@ watch(() => route.query, (query) => {
 
         <!-- フィルターバー -->
         <TaskFilterBar
-          :count="viewMode === 'date' ? dateViewTotalCount : filteredTasks.length"
-          :hide-due-filter="viewMode === 'date'"
+          :count="viewMode === ViewMode.DATE ? dateViewTotalCount : filteredTasks.length"
+          :hide-due-filter="viewMode === ViewMode.DATE"
         />
 
         <!-- リストビュー: フラットなタスク一覧 -->

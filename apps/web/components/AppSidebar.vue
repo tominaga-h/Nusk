@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Calendar, AlarmClock, ArrowRight, History, CircleHelp, LogOut, Settings } from 'lucide-vue-next'
-import { DateGroup } from '~/composables/task-store/types'
+import { DateGroup, ViewMode } from '~/composables/task-store/types'
 
 const client = useSupabaseClient()
 const user = useSupabaseUser()
@@ -70,7 +70,7 @@ async function logout() {
               :key="list.id"
               class="sidebar__item"
               :class="{
-                'sidebar__item--active': viewMode === 'list' && list.id === selectedListId,
+                'sidebar__item--active': viewMode === ViewMode.LIST && list.id === selectedListId,
                 'sidebar__item--drop-ready': isDraggingTask,
                 'sidebar__item--drag-over': dragOverListId === list.id,
               }"
@@ -92,7 +92,7 @@ async function logout() {
           <div class="sidebar__list">
             <button
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === DateGroup.TODAY }"
+              :class="{ 'sidebar__item--active': viewMode === ViewMode.DATE && selectedDateGroup === DateGroup.TODAY }"
               @click="switchToDateView(DateGroup.TODAY)"
             >
               <span class="sidebar__item-left">
@@ -103,7 +103,7 @@ async function logout() {
             </button>
             <button
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === DateGroup.TOMORROW }"
+              :class="{ 'sidebar__item--active': viewMode === ViewMode.DATE && selectedDateGroup === DateGroup.TOMORROW }"
               @click="switchToDateView(DateGroup.TOMORROW)"
             >
               <span class="sidebar__item-left">
@@ -115,7 +115,7 @@ async function logout() {
             <!-- 明日以降（明後日〜） -->
             <button
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === DateGroup.UPCOMING }"
+              :class="{ 'sidebar__item--active': viewMode === ViewMode.DATE && selectedDateGroup === DateGroup.UPCOMING }"
               @click="switchToDateView(DateGroup.UPCOMING)"
             >
               <span class="sidebar__item-left">
@@ -127,7 +127,7 @@ async function logout() {
             <!-- 過去（期限超過） -->
             <button
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === DateGroup.OVERDUE }"
+              :class="{ 'sidebar__item--active': viewMode === ViewMode.DATE && selectedDateGroup === DateGroup.OVERDUE }"
               @click="switchToDateView(DateGroup.OVERDUE)"
             >
               <span class="sidebar__item-left">
@@ -139,7 +139,7 @@ async function logout() {
             <!-- 未定（日付未設定） -->
             <button
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'date' && selectedDateGroup === DateGroup.UNDATED }"
+              :class="{ 'sidebar__item--active': viewMode === ViewMode.DATE && selectedDateGroup === DateGroup.UNDATED }"
               @click="switchToDateView(DateGroup.UNDATED)"
             >
               <span class="sidebar__item-left">

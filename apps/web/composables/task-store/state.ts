@@ -6,8 +6,8 @@
  */
 import type { List, Status, Task } from '@nusk/shared'
 import type { ComputedRef } from 'vue'
-import { DateGroup, StatusFilter } from './types'
-import type { DateGroupKey, StatusFilterValue, TaskState } from './types'
+import { DateGroup, StatusFilter, ViewMode } from './types'
+import type { DateGroupKey, StatusFilterValue, ViewModeValue, TaskState } from './types'
 import { toDateStr } from '~/lib/date-utils'
 
 /**
@@ -35,7 +35,7 @@ export function useTaskState(): TaskState & {
   /** 現在選択中のリストID */
   const selectedListId = useState<string>('selected-list-id', () => '')
   /** 表示モード: "list"（リスト別） or "date"（日付別） */
-  const viewMode = useState<'list' | 'date'>('view-mode', () => 'list')
+  const viewMode = useState<ViewModeValue>('view-mode', () => ViewMode.LIST)
   /** ステータスフィルター: all=全件, incomplete=未完了(TODO/IN_PROGRESS), done=完了(DONE) */
   const statusFilter = useState<StatusFilterValue>('status-filter', () => StatusFilter.INCOMPLETE)
   /** 日付ビューで選択中のグループ（サイドバーのアクティブ表示・スクロール制御に使用） */

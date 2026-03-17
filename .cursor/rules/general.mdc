@@ -33,3 +33,14 @@ alwaysApply: true
 ## TypeScript
 
 - ユーティリティ関数はアロー方式でOKだが、ハンドリング等の動作関数はfunction方式で記述すること。
+- ユニオン型はオブジェクト定数といっしょに定義してください。
+  ```ts
+  export const DateGroup = {
+    OVERDUE: 'overdue',
+    TODAY: 'today',
+    TOMORROW: 'tomorrow',
+    UPCOMING: 'upcoming',
+    UNDATED: 'undated',
+  } as const;
+  export type DateGroupKey = (typeof DateGroup)[keyof typeof DateGroup];
+```

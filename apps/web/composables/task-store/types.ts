@@ -29,6 +29,13 @@ export const StatusFilter = {
 } as const;
 export type StatusFilterValue = (typeof StatusFilter)[keyof typeof StatusFilter];
 
+/** 表示モードの値型 */
+export const ViewMode = {
+  LIST: 'list',
+  DATE: 'date',
+} as const;
+export type ViewModeValue = (typeof ViewMode)[keyof typeof ViewMode];
+
 /**
  * useTaskState() が返す共有ステートのインターフェース
  *
@@ -42,7 +49,7 @@ export interface TaskState {
   loading: Ref<boolean>
   loaded: Ref<boolean>
   selectedListId: Ref<string>
-  viewMode: Ref<'list' | 'date'>
+  viewMode: Ref<ViewModeValue>
   statusFilter: Ref<StatusFilterValue>
   selectedDateGroup: Ref<DateGroupKey>
   isDraggingTask: Ref<boolean>

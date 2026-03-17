@@ -4,8 +4,8 @@
  * サイドバーやフィルターバーからのビュー切り替え操作と、
  * URLクエリパラメータとストアステートの双方向同期を担う。
  */
-import { DateGroup, StatusFilter } from './types'
-import type { DateGroupKey, StatusFilterValue, TaskState } from './types'
+import { DateGroup, StatusFilter, ViewMode } from './types'
+import type { DateGroupKey, StatusFilterValue, ViewModeValue, TaskState } from './types'
 
 /**
  * ステートを受け取り、ナビゲーション系アクション関数を返す
@@ -23,8 +23,8 @@ export function useTaskNavigation(state: TaskState) {
    * @param group - スクロール先の日付グループ（デフォルト: 'today'）
    */
   function switchToDateView(group: DateGroupKey = DateGroup.TODAY) {
-    if (viewMode.value === 'date' && selectedDateGroup.value === group) return
-    navigateTo({ path: '/tasks', query: { view: 'date', group, status: statusFilter.value } })
+    if (viewMode.value === ViewMode.DATE && selectedDateGroup.value === group) return
+    navigateTo({ path: '/tasks', query: { view: ViewMode.DATE, group, status: statusFilter.value } })
   }
 
   /**
@@ -35,8 +35,8 @@ export function useTaskNavigation(state: TaskState) {
    * @param listId - 選択するリストのID
    */
   function switchToListView(listId: string) {
-    if (viewMode.value === 'list' && selectedListId.value === listId) return
-    navigateTo({ path: '/tasks', query: { view: 'list', list: listId, status: statusFilter.value } })
+    if (viewMode.value === ViewMode.LIST && selectedListId.value === listId) return
+    navigateTo({ path: '/tasks', query: { view: ViewMode.LIST, list: listId, status: statusFilter.value } })
   }
 
   /**
@@ -56,13 +56,13 @@ export function useTaskNavigation(state: TaskState) {
    * @param query - route.query オブジェクト
    */
   function syncFromRoute(query: Record<string, string>) {
-    const view = query.view as 'list' | 'date' | undefined
-    if (view === 'date') {
-      viewMode.value = 'date'
+    const view = query.view as ViewModeValue | undefined
+    if (view === ViewMode.DATE) {
+      viewMode.value = ViewMode.DATE
       const group = (query.group as DateGroupKey) || DateGroup.TODAY
       selectedDateGroup.value = group
-    } else if (view === 'list') {
-      viewMode.value = 'list'
+    } else if (view === ViewMode.LIST) {
+      viewMode.value = ViewMode.LIST
       if (query.list) selectedListId.value = query.list
     }
 
