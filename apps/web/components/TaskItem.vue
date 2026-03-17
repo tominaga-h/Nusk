@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Calendar, GripVertical, LayoutList } from 'lucide-vue-next'
+import { Calendar, CalendarClock, GripVertical, LayoutList, Pencil, TriangleAlert } from 'lucide-vue-next'
 import type { Task } from '@nusk/shared'
 
 const props = withDefaults(defineProps<{
@@ -22,9 +22,10 @@ defineEmits<{
   'complete': []
   'schedule-today': []
   'schedule-tomorrow': []
+  'edit': []
 }>()
 
-const { isToday, formatDate, isDraggingTask } = useTaskStore()
+const { todayStr, tomorrowStr, formatDate, isDraggingTask } = useTaskStore()
 
 /** ドラッグ中フラグ（自身の半透明表示に使用） */
 const isDragging = ref(false)
@@ -49,12 +50,20 @@ function onDragEnd() {
 }
 
 const dateDisplay = computed(() => {
-  if (!props.task.scheduled_date) return { text: '日付なし', highlight: false }
-  const formatted = formatDate(props.task.scheduled_date)
-  if (isToday(props.task.scheduled_date)) {
-    return { text: `${formatted}（今日）`, highlight: true }
+  if (!props.task.scheduled_date) {
+    return { text: '日付なし', tone: 'undated' as const }
   }
-  return { text: formatted, highlight: false }
+  const formatted = formatDate(props.task.scheduled_date)
+  if (props.task.scheduled_date < todayStr.value) {
+    return { text: `${formatted}（期限超過）`, tone: 'overdue' as const }
+  }
+  if (props.task.scheduled_date === todayStr.value) {
+    return { text: `${formatted}（今日）`, tone: 'today' as const }
+  }
+  if (props.task.scheduled_date === tomorrowStr.value) {
+    return { text: `${formatted}（明日）`, tone: 'tomorrow' as const }
+  }
+  return { text: formatted, tone: 'normal' as const }
 })
 </script>
 
@@ -68,7 +77,7 @@ const dateDisplay = computed(() => {
   >
     <div class="task-item__content">
       <!-- ホバー時に表示されるドラッグハンドル -->
-      <GripVertical class="task-item__grip" :size="16" :stroke-width="1.5" />
+      <GripVertical class="task-item__grip" :size="16" :stroke-width="1.5" title="ドラッグして移動" />
       <input
         type="checkbox"
         class="task-item__check"
@@ -96,10 +105,26 @@ const dateDisplay = computed(() => {
         >{{ statusName }}</span>
         <span
           class="task-item__date"
-          :class="{ 'task-item__date--today': dateDisplay.highlight }"
+          :class="{
+            'task-item__date--today': dateDisplay.tone === 'today',
+            'task-item__date--tomorrow': dateDisplay.tone === 'tomorrow',
+            'task-item__date--overdue': dateDisplay.tone === 'overdue',
+          }"
         >
           <Calendar
-            v-if="task.scheduled_date"
+            v-if="dateDisplay.tone === 'normal' || dateDisplay.tone === 'undated'"
+            class="task-item__date-icon"
+            :size="14"
+            :stroke-width="1.5"
+          />
+          <CalendarClock
+            v-if="dateDisplay.tone === 'today' || dateDisplay.tone === 'tomorrow'"
+            class="task-item__date-icon"
+            :size="14"
+            :stroke-width="1.5"
+          />
+          <TriangleAlert
+            v-if="dateDisplay.tone === 'overdue'"
             class="task-item__date-icon"
             :size="14"
             :stroke-width="1.5"
@@ -108,10 +133,19 @@ const dateDisplay = computed(() => {
         </span>
       </div>
     </div>
-    <div v-if="!hideScheduleToday || !hideScheduleTomorrow" class="task-item__actions">
+    <div class="task-item__actions">
+      <button
+        class="task-item__action-btn task-item__action-btn--icon"
+        title="タスクを編集"
+        aria-label="タスクを編集"
+        @click="$emit('edit')"
+      >
+        <Pencil :size="14" :stroke-width="1.6" />
+      </button>
       <button
         v-if="!hideScheduleToday"
         class="task-item__action-btn"
+        title="今日にスケジュール変更"
         @click="$emit('schedule-today')"
       >
         今日やる
@@ -119,6 +153,7 @@ const dateDisplay = computed(() => {
       <button
         v-if="!hideScheduleTomorrow"
         class="task-item__action-btn"
+        title="明日にスケジュール変更"
         @click="$emit('schedule-tomorrow')"
       >
         明日やる
@@ -132,7 +167,7 @@ const dateDisplay = computed(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: spacing(4);
+  padding: spacing(3) spacing(4);
   background: color('surface');
   border: 1px solid color('border-light');
   border-radius: radius('md');
@@ -156,7 +191,7 @@ const dateDisplay = computed(() => {
   &__content {
     display: flex;
     align-items: center;
-    gap: spacing(4);
+    gap: spacing(3);
     flex: 1;
     min-width: 0;
   }
@@ -218,7 +253,7 @@ const dateDisplay = computed(() => {
     align-items: center;
     gap: spacing(1);
     flex-shrink: 0;
-    @include status-badge(color('border-light'), color('text-secondary'));
+    @include status-badge(color('border-light'), color('text-disabled'));
   }
 
   &__list-icon {
@@ -229,7 +264,7 @@ const dateDisplay = computed(() => {
     flex-shrink: 0;
 
     &--todo {
-      @include status-badge(color('border-light'), color('text-gray'));
+      @include status-badge(color('border-light'), color('text-secondary'));
     }
 
     &--in-progress {
@@ -246,13 +281,23 @@ const dateDisplay = computed(() => {
     align-items: center;
     gap: spacing(1);
     font-size: font-size('base');
-    color: color('text-secondary');
+    color: color('text-disabled');
     white-space: nowrap;
     flex-shrink: 0;
 
     &--today {
       color: color('primary');
       font-weight: font-weight('medium');
+    }
+
+    &--tomorrow {
+      color: color('status-blue');
+      font-weight: font-weight('medium');
+    }
+
+    &--overdue {
+      color: color('primary');
+      font-weight: font-weight('bold');
     }
   }
 
@@ -262,19 +307,19 @@ const dateDisplay = computed(() => {
 
   &__actions {
     display: flex;
-    gap: 8px;
+    gap: spacing(2);
     flex-shrink: 0;
-    margin-left: spacing(4);
+    margin-left: spacing(3);
   }
 
   &__action-btn {
-    padding: 5px 13px;
+    padding: 4px 12px;
     border: 1px solid color('border');
     border-radius: radius('md');
     background: transparent;
     font-family: $font-family-base;
     font-size: font-size('base-sm');
-    color: color('text-secondary');
+    color: color('text-disabled');
     cursor: pointer;
     white-space: nowrap;
     transition: all $transition-fast;
@@ -282,6 +327,25 @@ const dateDisplay = computed(() => {
     &:hover {
       background: color('bg');
       border-color: color('text-disabled');
+    }
+
+    &--icon {
+      width: 30px;
+      padding: 0;
+      opacity: 0;
+      transition: opacity $transition-fast;
+    }
+  }
+
+  &:hover &__action-btn--icon {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .task-item {
+    &__action-btn--icon {
+      opacity: 1;
     }
   }
 }

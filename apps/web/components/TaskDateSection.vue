@@ -18,18 +18,38 @@ const props = defineProps<{
   tasks: Task[]
 }>()
 
+const emit = defineEmits<{
+  'schedule-task': [taskId: string, targetDate: string, previousDate: string | null, taskTitle: string]
+  'edit-task': [taskId: string]
+}>()
+
 const {
   lists,
   getStatus,
   todayStr,
   tomorrowStr,
-  scheduleTask,
   completeTask,
 } = useTaskStore()
 
+const { showToast } = useToast()
+
+/**
+ * 完了トグルハンドラ: 完了/未完了を切り替え、Toast で通知
+ */
+async function handleComplete(task: Task) {
+  const currentStatus = getStatus(task.status_id)
+  const wasDone = currentStatus?.category === 'DONE'
+  await completeTask(task.id)
+  showToast(wasDone ? `「${task.title}」を未完了に戻しました` : `「${task.title}」を完了しました`)
+}
+
 /** task.list_id から所属リスト名を引く */
-const getListName = (listId: string) =>
-  lists.value.find(l => l.id === listId)?.name ?? ''
+function getListName(listId: string) {
+  const list = lists.value.find(l => l.id === listId)
+  if (!list) return ''
+  if (list.is_inbox) return 'Inbox'
+  return list.name
+}
 
 /** グループキーに応じて「今日やる」ボタンを非表示にするか */
 const hideScheduleToday = computed(() => props.groupKey === DateGroup.TODAY)
@@ -57,9 +77,10 @@ const hideScheduleTomorrow = computed(() => props.groupKey === DateGroup.TOMORRO
         :status-category="getStatus(task.status_id)?.category ?? 'TODO'"
         :hide-schedule-today="hideScheduleToday"
         :hide-schedule-tomorrow="hideScheduleTomorrow"
-        @complete="completeTask(task.id)"
-        @schedule-today="scheduleTask(task.id, todayStr)"
-        @schedule-tomorrow="scheduleTask(task.id, tomorrowStr)"
+        @complete="handleComplete(task)"
+        @edit="emit('edit-task', task.id)"
+        @schedule-today="emit('schedule-task', task.id, todayStr, task.scheduled_date, task.title)"
+        @schedule-tomorrow="emit('schedule-task', task.id, tomorrowStr, task.scheduled_date, task.title)"
       />
     </div>
 

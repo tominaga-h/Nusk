@@ -17,8 +17,10 @@ import { useTaskFilters } from './filters'
 import { useTaskNavigation } from './navigation'
 import { useTaskState } from './state'
 
-/** 型の再エクスポート（コンシューマ向け） */
-export type { DateGroup, DateGroupKey, StatusFilterValue } from './types'
+/** NOTE:
+ * 型は ./types から直接importする。
+ * Nuxt auto-importで重複シンボル警告が出るため、index.ts での再エクスポートは行わない。
+ */
 
 export const useTaskStore = () => {
   const state = useTaskState()
@@ -63,6 +65,7 @@ export const useTaskStore = () => {
     fetchData: actions.fetchData,
     addTask: actions.addTask,
     scheduleTask: actions.scheduleTask,
+    updateTask: actions.updateTask,
     completeTask: actions.completeTask,
     moveTaskToList: actions.moveTaskToList,
     // ナビゲーション

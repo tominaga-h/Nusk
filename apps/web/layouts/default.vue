@@ -12,6 +12,8 @@ onMounted(() => {
     <main class="layout__main">
       <slot />
     </main>
+    <!-- グローバル Toast 通知 -->
+    <AppToast />
   </div>
 </template>
 

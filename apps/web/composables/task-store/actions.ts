@@ -5,6 +5,7 @@
  * 各関数は楽観的にローカルステートも更新する。
  */
 import type { TaskState } from './types'
+import type { UpdateTaskPayload } from '@nusk/shared'
 
 /**
  * ステートを受け取り、API通信を伴うアクション関数群を返す
@@ -47,11 +48,13 @@ export function useTaskActions(state: TaskState) {
   /**
    * 現在選択中のリストに新規タスクを追加
    * @param title - タスクのタイトル
+   * @param scheduledDate - 着手予定日（未設定時はnull）
    */
-  async function addTask(title: string) {
+  async function addTask(title: string, scheduledDate: string | null = null) {
     const task = await api.tasks.create({
       title,
       list_id: selectedListId.value,
+      scheduled_date: scheduledDate,
     })
     tasks.value.push(task)
   }
@@ -59,10 +62,24 @@ export function useTaskActions(state: TaskState) {
   /**
    * タスクの着手予定日（scheduled_date）を変更
    * @param taskId - 対象タスクのID
-   * @param date - 新しい着手予定日（"YYYY-MM-DD"形式）
+   * @param date - 新しい着手予定日（"YYYY-MM-DD"形式、解除時はnull）
    */
-  async function scheduleTask(taskId: string, date: string) {
+  async function scheduleTask(taskId: string, date: string | null) {
     const updated = await api.tasks.update(taskId, { scheduled_date: date })
+    const index = tasks.value.findIndex(t => t.id === taskId)
+    if (index !== -1) tasks.value[index] = updated
+  }
+
+  /**
+   * タスクを任意フィールドで更新する
+   *
+   * 編集パネルからの保存処理で使用し、title/status/list/scheduled_date の
+   * 一括更新をAPI経由で反映する。
+   * @param taskId - 更新対象タスクのID
+   * @param payload - 更新内容（部分更新）
+   */
+  async function updateTask(taskId: string, payload: UpdateTaskPayload) {
+    const updated = await api.tasks.update(taskId, payload)
     const index = tasks.value.findIndex(t => t.id === taskId)
     if (index !== -1) tasks.value[index] = updated
   }
@@ -114,6 +131,7 @@ export function useTaskActions(state: TaskState) {
     fetchData,
     addTask,
     scheduleTask,
+    updateTask,
     completeTask,
     moveTaskToList,
   }
