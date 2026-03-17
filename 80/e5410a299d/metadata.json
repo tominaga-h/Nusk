@@ -3,7 +3,7 @@
   "checkpoint_id": "80e5410a299d",
   "strategy": "manual-commit",
   "branch": "feature/phase3",
-  "checkpoints_count": 2,
+  "checkpoints_count": 3,
   "files_touched": [
     ".cursor/plans/taskitem_レイアウト整備_79bbc818.plan.md",
     "apps/web/components/TaskItem.vue",
@@ -23,6 +23,12 @@
       "transcript": "/80/e5410a299d/1/full.jsonl",
       "content_hash": "/80/e5410a299d/1/content_hash.txt",
       "prompt": "/80/e5410a299d/1/prompt.txt"
+    },
+    {
+      "metadata": "/80/e5410a299d/2/metadata.json",
+      "transcript": "/80/e5410a299d/2/full.jsonl",
+      "content_hash": "/80/e5410a299d/2/content_hash.txt",
+      "prompt": "/80/e5410a299d/2/prompt.txt"
     }
   ]
 }
