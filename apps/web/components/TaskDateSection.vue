@@ -19,12 +19,17 @@ const props = defineProps<{
 }>()
 
 const {
+  lists,
   getStatus,
   todayStr,
   tomorrowStr,
   scheduleTask,
   completeTask,
 } = useTaskStore()
+
+/** task.list_id から所属リスト名を引く */
+const getListName = (listId: string) =>
+  lists.value.find(l => l.id === listId)?.name ?? ''
 
 /** グループキーに応じて「今日やる」ボタンを非表示にするか */
 const hideScheduleToday = computed(() => props.groupKey === DateGroup.TODAY)
@@ -47,6 +52,7 @@ const hideScheduleTomorrow = computed(() => props.groupKey === DateGroup.TOMORRO
         v-for="task in tasks"
         :key="task.id"
         :task="task"
+        :list-name="getListName(task.list_id)"
         :status-name="getStatus(task.status_id)?.name ?? ''"
         :status-category="getStatus(task.status_id)?.category ?? 'TODO'"
         :hide-schedule-today="hideScheduleToday"

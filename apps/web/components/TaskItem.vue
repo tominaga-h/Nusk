@@ -6,11 +6,14 @@ const props = withDefaults(defineProps<{
   task: Task
   statusName: string
   statusCategory: 'TODO' | 'IN_PROGRESS' | 'DONE'
+  /** 所属リスト名（日付ビューで表示。未指定時は非表示） */
+  listName?: string
   /** trueの場合「今日やる」ボタンを非表示（日付ビュー: 今日グループ用） */
   hideScheduleToday?: boolean
   /** trueの場合「明日やる」ボタンを非表示（日付ビュー: 明日グループ用） */
   hideScheduleTomorrow?: boolean
 }>(), {
+  listName: undefined,
   hideScheduleToday: false,
   hideScheduleTomorrow: false,
 })
@@ -78,6 +81,8 @@ const dateDisplay = computed(() => {
           class="task-item__title"
           :class="{ 'task-item__title--done': statusCategory === 'DONE' }"
         >{{ task.title }}</span>
+        <!-- リスト名バッジ（日付ビュー時のみ親から渡される） -->
+        <span v-if="listName" class="task-item__list-name">{{ listName }}</span>
         <span
           class="task-item__badge"
           :class="{
@@ -201,6 +206,11 @@ const dateDisplay = computed(() => {
       text-decoration: line-through;
       color: color('text-secondary');
     }
+  }
+
+  &__list-name {
+    flex-shrink: 0;
+    @include status-badge(color('border-light'), color('text-secondary'));
   }
 
   &__badge {
