@@ -1,0 +1,24 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "5d55e306fce5",
+  "strategy": "manual-commit",
+  "branch": "feature/ui_improve",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".cursor/plans/toast_notification_refactor_697405f8.plan.md",
+    "apps/web/components/AppSidebar.vue",
+    "apps/web/components/AppToast.vue",
+    "apps/web/components/TaskDateSection.vue",
+    "apps/web/composables/useToast.ts",
+    "apps/web/layouts/default.vue",
+    "apps/web/pages/tasks.vue"
+  ],
+  "sessions": [
+    {
+      "metadata": "/5d/55e306fce5/0/metadata.json",
+      "transcript": "/5d/55e306fce5/0/full.jsonl",
+      "content_hash": "/5d/55e306fce5/0/content_hash.txt",
+      "prompt": "/5d/55e306fce5/0/prompt.txt"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "5d55e306fce5",
+  "session_id": "b24908dc-ec76-4759-8e21-e1ed6d106f1c",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-17T08:33:19.695157Z",
+  "branch": "feature/ui_improve",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".cursor/plans/toast_notification_refactor_697405f8.plan.md",
+    "apps/web/components/AppSidebar.vue",
+    "apps/web/components/AppToast.vue",
+    "apps/web/components/TaskDateSection.vue",
+    "apps/web/composables/useToast.ts",
+    "apps/web/layouts/default.vue",
+    "apps/web/pages/tasks.vue"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "3a0132034a46",
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-17T08:33:19.628292Z",
+    "agent_lines": 274,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 274,
+    "agent_percentage": 100
+  }
+}
