@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "9512ef4261fd",
+  "session_id": "bd4737ec-9253-47b2-b1a4-065c9342658e",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-17T05:50:30.686215Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "apps/web/components/TaskFilterBar.vue",
+    "apps/web/composables/useTaskStore.ts",
+    "apps/web/pages/tasks.vue",
+    "docs/TODO.md"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "07b71e14aa0c",
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-17T05:50:30.604541Z",
+    "agent_lines": 84,
+    "human_added": 255,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 339,
+    "agent_percentage": 24.778761061946902
+  }
+}

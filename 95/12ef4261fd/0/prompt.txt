@@ -1,0 +1,18 @@
+現状の実装だと、リストビューにしろ日付ビューにしろ、クエリやハッシュがURLに着いていないので、
+リストビュー→日付ビュー→サイドバーの明日クリック→サイドバーの今日クリック→今日のところまでスクロールされないという現象があります。これを解決する方法をかんがえて
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+---
+
+ステータスもクエリで移動できるようにしたい。`/tasks` を表示した際は、未完了のタスクのみ閲覧したいので、　`?status=` みたいな感じでステータスもクエリで保持するようにして
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
