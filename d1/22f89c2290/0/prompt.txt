@@ -1,0 +1,26 @@
+現状、フェーズ3において未実装な機能や残タスクを整理してください。
+
+---
+
+優先度が一番高いタスクは？
+
+---
+
+いま日付ビューのデザインを考えているのですが、今のデザインをもとに日付ビューを考えると
+https://www.figma.com/design/z94xHuoDWxAMA25rHHvwmG/Nusk?node-id=12-464&t=HuxexeYvo2PSaLOa-4 このようなデザインになります。
+https://www.figma.com/design/z94xHuoDWxAMA25rHHvwmG/Nusk?node-id=12-719&t=HuxexeYvo2PSaLOa-4 こっちのようなデザインのほうがいいですかね？
+
+---
+
+デザインBにするなら、リストビューもデザインBのように一覧性があるデザインがいいですか？
+
+---
+
+OK、では日付ビューをデザインBで実装するプランを構築してください。
+一旦整理頂いた残タスクは `docs/TODO.md` に集約しちゃいましょう
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
