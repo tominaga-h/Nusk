@@ -1,0 +1,8 @@
+@apps/web/components/AppSidebar.vue @apps/web/pages/tasks.vue 
+日付欄に「明日以降」と「未定」と「過去」を追加して、タスクのグループにも同様に追加してください。現状「今週後半」となっているものは「明日以降」に変更して。
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.

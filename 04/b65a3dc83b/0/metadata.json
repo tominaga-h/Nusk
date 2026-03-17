@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "04b65a3dc83b",
+  "session_id": "f48151d6-9669-4d1b-a519-a08cf7c4cfd0",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-17T06:11:02.641209Z",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".cursor/plans/日付グループ拡張_8ab3e18e.plan.md",
+    "apps/web/components/AppSidebar.vue",
+    "apps/web/components/TaskDateSection.vue",
+    "apps/web/composables/useTaskStore.ts"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-4-6",
+  "turn_id": "71e1cfbfd0ae",
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-17T06:11:02.570791Z",
+    "agent_lines": 162,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 162,
+    "agent_percentage": 100
+  }
+}
