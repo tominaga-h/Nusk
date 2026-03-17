@@ -1,0 +1,22 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "ac6e717a4388",
+  "strategy": "manual-commit",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".cursor/plans/サイドバー日付ビュー改善_1c36050c.plan.md",
+    "apps/web/components/AppSidebar.vue",
+    "apps/web/components/TaskDateSection.vue",
+    "apps/web/composables/useTaskStore.ts",
+    "apps/web/pages/tasks.vue"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ac/6e717a4388/0/metadata.json",
+      "transcript": "/ac/6e717a4388/0/full.jsonl",
+      "content_hash": "/ac/6e717a4388/0/content_hash.txt",
+      "prompt": "/ac/6e717a4388/0/prompt.txt"
+    }
+  ]
+}
