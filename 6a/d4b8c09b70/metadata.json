@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "6ad4b8c09b70",
+  "strategy": "manual-commit",
+  "branch": "feature/phase3",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/components/TaskDateSection.vue",
+    "apps/web/composables/task-store/actions.ts",
+    "apps/web/composables/task-store/filters.ts",
+    "apps/web/composables/task-store/index.ts",
+    "apps/web/composables/task-store/navigation.ts",
+    "apps/web/composables/task-store/state.ts",
+    "apps/web/composables/task-store/types.ts",
+    "apps/web/composables/useTaskStore.ts",
+    "apps/web/lib/date-utils.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/6a/d4b8c09b70/0/metadata.json",
+      "transcript": "/6a/d4b8c09b70/0/full.jsonl",
+      "content_hash": "/6a/d4b8c09b70/0/content_hash.txt",
+      "prompt": "/6a/d4b8c09b70/0/prompt.txt"
+    }
+  ]
+}
