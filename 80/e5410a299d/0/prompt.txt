@@ -1,0 +1,5 @@
+For the code present, we get this error:
+```
+型 'Exclude<R extends "/api/v1/lists/:id" ? { key: "/api/v1/lists/:id"; exact: true; score: []; catchAll: false; } : { key: "/api/v1/lists/:id"; exact: false; score: `${R}/` extends `${infer RouteSeg}/${infer RouteRest}` ? `${RouteSeg}?` extends `${infer RouteSegWithoutQuery}?${string}` ? RouteSegWithoutQuery extends ""...' と '{ score: MaxTuple<((R extends "/api/v1/lists/:id" ? { key: "/api/v1/lists/:id"; exact: true; score: []; catchAll: false; } : { key: "/api/v1/lists/:id"; exact: false; score: `${R}/` extends `${infer RouteSeg}/${infer RouteRest}` ? `${RouteSeg}?` extends `${infer RouteSegWithoutQuery}?${string}` ? RouteSegWithoutQuer...' を比較するスタックが深すぎます。
+```
+Fix it, verify, and then give a concise explanation. @apps/web/composables/useApi.ts:10-12
