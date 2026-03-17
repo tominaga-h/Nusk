@@ -8,6 +8,7 @@ const {
   viewMode,
   selectedListId,
   selectedDateGroup,
+  isDraggingTask,
   taskCount,
   todayCount,
   tomorrowCount,
@@ -16,7 +17,34 @@ const {
   undatedCount,
   switchToDateView,
   switchToListView,
+  moveTaskToList,
 } = useTaskStore()
+
+/** ドラッグオーバー中のリストID（ハイライト表示に使用） */
+const dragOverListId = ref<string | null>(null)
+
+/**
+ * リスト項目上でのドラッグオーバー: ドロップを許可し、ハイライト対象を更新
+ */
+function onListDragOver(listId: string, event: DragEvent) {
+  event.preventDefault()
+  if (event.dataTransfer) {
+    event.dataTransfer.dropEffect = 'move'
+  }
+  dragOverListId.value = listId
+}
+
+/**
+ * リスト項目へのドロップ: タスクを対象リストに移動
+ */
+function onListDrop(listId: string, event: DragEvent) {
+  event.preventDefault()
+  const taskId = event.dataTransfer?.getData('application/x-task-id')
+  if (taskId) {
+    moveTaskToList(taskId, listId)
+  }
+  dragOverListId.value = null
+}
 
 async function logout() {
   await client.auth.signOut()
@@ -35,13 +63,20 @@ async function logout() {
         <div class="sidebar__section">
           <span class="sidebar__section-label">リスト</span>
           <div class="sidebar__list">
-            <!-- リスト一覧 -->
+            <!-- リスト一覧（タスクドラッグ時のドロップターゲット） -->
             <button
               v-for="list in lists"
               :key="list.id"
               class="sidebar__item"
-              :class="{ 'sidebar__item--active': viewMode === 'list' && list.id === selectedListId }"
+              :class="{
+                'sidebar__item--active': viewMode === 'list' && list.id === selectedListId,
+                'sidebar__item--drop-ready': isDraggingTask,
+                'sidebar__item--drag-over': dragOverListId === list.id,
+              }"
               @click="switchToListView(list.id)"
+              @dragover="onListDragOver(list.id, $event)"
+              @dragleave="dragOverListId = null"
+              @drop="onListDrop(list.id, $event)"
             >
               <span class="sidebar__item-left">
                 <span class="sidebar__item-icon">{{ list.is_inbox ? '📥' : '📁' }}</span>
@@ -216,6 +251,19 @@ async function logout() {
       font-weight: font-weight('medium');
       border-left: 2px solid color('primary');
       padding-left: calc(#{spacing(6)} - 2px);
+    }
+
+    /* タスクドラッグ中: 全リスト項目にドロップ可能を示す薄い点線枠 */
+    &--drop-ready {
+      border: 1px dashed color('border');
+      border-radius: radius('sm');
+    }
+
+    /* ドラッグオーバー中: プライマリカラーでハイライト */
+    &--drag-over {
+      background: color('primary-light');
+      border: 1px solid color('primary');
+      border-radius: radius('sm');
     }
   }
 

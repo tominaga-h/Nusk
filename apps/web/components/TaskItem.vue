@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Calendar } from 'lucide-vue-next'
+import { Calendar, GripVertical } from 'lucide-vue-next'
 import type { Task } from '@nusk/shared'
 
 const props = withDefaults(defineProps<{
@@ -21,7 +21,29 @@ defineEmits<{
   'schedule-tomorrow': []
 }>()
 
-const { isToday, formatDate } = useTaskStore()
+const { isToday, formatDate, isDraggingTask } = useTaskStore()
+
+/** ドラッグ中フラグ（自身の半透明表示に使用） */
+const isDragging = ref(false)
+
+/**
+ * ドラッグ開始: dataTransfer にタスクIDをセットし、グローバルのドラッグ状態を有効化
+ */
+function onDragStart(event: DragEvent) {
+  if (!event.dataTransfer) return
+  event.dataTransfer.setData('application/x-task-id', props.task.id)
+  event.dataTransfer.effectAllowed = 'move'
+  isDragging.value = true
+  isDraggingTask.value = true
+}
+
+/**
+ * ドラッグ終了: ドラッグ状態をリセット
+ */
+function onDragEnd() {
+  isDragging.value = false
+  isDraggingTask.value = false
+}
 
 const dateDisplay = computed(() => {
   if (!props.task.scheduled_date) return { text: '日付なし', highlight: false }
@@ -34,8 +56,16 @@ const dateDisplay = computed(() => {
 </script>
 
 <template>
-  <article class="task-item">
+  <article
+    class="task-item"
+    :class="{ 'task-item--dragging': isDragging }"
+    draggable="true"
+    @dragstart="onDragStart"
+    @dragend="onDragEnd"
+  >
     <div class="task-item__content">
+      <!-- ホバー時に表示されるドラッグハンドル -->
+      <GripVertical class="task-item__grip" :size="16" :stroke-width="1.5" />
       <input
         type="checkbox"
         class="task-item__check"
@@ -98,6 +128,22 @@ const dateDisplay = computed(() => {
   background: color('surface');
   border: 1px solid color('border-light');
   border-radius: radius('md');
+
+  &--dragging {
+    opacity: 0.4;
+  }
+
+  &__grip {
+    color: color('text-disabled');
+    flex-shrink: 0;
+    cursor: grab;
+    opacity: 0;
+    transition: opacity $transition-fast;
+  }
+
+  &:hover &__grip {
+    opacity: 1;
+  }
 
   &__content {
     display: flex;

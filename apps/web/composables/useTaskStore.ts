@@ -49,6 +49,8 @@ export const useTaskStore = () => {
   const statusFilter = useState<'all' | 'incomplete' | 'done'>('status-filter', () => 'incomplete')
   /** 日付ビューで選択中のグループ（サイドバーのアクティブ表示・スクロール制御に使用） */
   const selectedDateGroup = useState<DateGroupKey>('selected-date-group', () => 'today')
+  /** タスクをドラッグ中かどうか（TaskItem↔AppSidebar間の状態共有に使用） */
+  const isDraggingTask = useState('is-dragging-task', () => false)
 
   // --- 算出プロパティ（派生データ） ---
 
@@ -305,6 +307,23 @@ export const useTaskStore = () => {
   }
 
   /**
+   * タスクを別のリストに移動する
+   *
+   * API経由で list_id を更新し、ローカルの tasks 配列も即座に反映する。
+   * 既に同じリストに属している場合は何もしない。
+   * @param taskId - 移動対象のタスクID
+   * @param listId - 移動先のリストID
+   */
+  async function moveTaskToList(taskId: string, listId: string) {
+    const task = tasks.value.find(t => t.id === taskId)
+    if (!task || task.list_id === listId) return
+
+    const updated = await api.tasks.update(taskId, { list_id: listId })
+    const index = tasks.value.findIndex(t => t.id === taskId)
+    if (index !== -1) tasks.value[index] = updated
+  }
+
+  /**
    * 日付ビューに切り替え、指定グループを選択する
    * サイドバーの「今日」「明日」クリック時や、ヘッダーの日付トグルから呼ばれる。
    *
@@ -372,6 +391,7 @@ export const useTaskStore = () => {
     viewMode,
     statusFilter,
     selectedDateGroup,
+    isDraggingTask,
     // 算出プロパティ
     selectedList,
     listedTasks,
@@ -395,6 +415,7 @@ export const useTaskStore = () => {
     addTask,
     scheduleTask,
     completeTask,
+    moveTaskToList,
     switchToDateView,
     switchToListView,
     switchStatusFilter,
