@@ -1,0 +1,17 @@
+タスク編集画面を実装してください。
+https://www.figma.com/design/z94xHuoDWxAMA25rHHvwmG/Nusk?node-id=13-994&t=HuxexeYvo2PSaLOa-4 
+画面といっても @apps/web/components/TaskItem.vue に編集ボタンをつけて、 編集バーを表示する形になりますが。
+
+---
+
+プランをレビューして
+
+---
+
+プランを改定して
+
+---
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.

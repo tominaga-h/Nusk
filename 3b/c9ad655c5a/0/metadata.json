@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "3bc9ad655c5a",
+  "session_id": "79047110-5bd6-48ff-813d-551aa4814fad",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-17T08:47:50.073856Z",
+  "branch": "feature/ui_improve",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/components/TaskDateSection.vue",
+    "apps/web/components/TaskEditPanel.vue",
+    "apps/web/components/TaskItem.vue",
+    "apps/web/composables/task-store/actions.ts",
+    "apps/web/composables/task-store/index.ts",
+    "apps/web/pages/tasks.vue"
+  ],
+  "agent": "Cursor",
+  "model": "gpt-5.3-codex",
+  "turn_id": "3def8311d12e",
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-17T08:47:49.995747Z",
+    "agent_lines": 541,
+    "human_added": 141,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 682,
+    "agent_percentage": 79.32551319648094
+  }
+}
