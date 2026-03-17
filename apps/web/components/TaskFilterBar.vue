@@ -3,7 +3,6 @@ import { SlidersHorizontal, ArrowUpFromLine, Calendar, CircleCheck } from 'lucid
 import { StatusFilter } from '~/composables/task-store/types'
 
 withDefaults(defineProps<{
-  count: number
   /** trueの場合「期限」ボタンを非表示（日付ビュー時はグルーピングで代替するため） */
   hideDueFilter?: boolean
 }>(), {
@@ -19,17 +18,16 @@ const { statusFilter, switchStatusFilter } = useTaskStore()
       <SlidersHorizontal :size="14" :stroke-width="1.5" />
       <span>フィルター</span>
     </div>
-    <span class="filter-bar__count">{{ count }} item{{ count > 1 ? 's' : '' }}</span>
     <div class="filter-bar__buttons">
-      <button class="filter-bar__btn">
+      <button class="filter-bar__btn" title="優先度フィルター（準備中）">
         <ArrowUpFromLine :size="14" :stroke-width="1.5" />
         優先度
       </button>
-      <button v-if="!hideDueFilter" class="filter-bar__btn">
+      <button v-if="!hideDueFilter" class="filter-bar__btn" title="期限フィルター（準備中）">
         <Calendar :size="14" :stroke-width="1.5" />
         期限
       </button>
-      <button class="filter-bar__btn">
+      <button class="filter-bar__btn" title="ステータスフィルター">
         <CircleCheck :size="15" :stroke-width="1.5" />
         ステータス
       </button>
@@ -73,14 +71,6 @@ const { statusFilter, switchStatusFilter } = useTaskStore()
     gap: 6px;
     padding-right: spacing(3);
     border-right: 1px solid color('text-disabled');
-  }
-
-  &__count {
-    padding: 5px 9px;
-    border: 1px solid color('border');
-    border-radius: radius('sm');
-    font-size: font-size('base');
-    color: color('text-secondary');
   }
 
   &__buttons {

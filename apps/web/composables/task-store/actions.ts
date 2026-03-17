@@ -47,11 +47,13 @@ export function useTaskActions(state: TaskState) {
   /**
    * 現在選択中のリストに新規タスクを追加
    * @param title - タスクのタイトル
+   * @param scheduledDate - 着手予定日（未設定時はnull）
    */
-  async function addTask(title: string) {
+  async function addTask(title: string, scheduledDate: string | null = null) {
     const task = await api.tasks.create({
       title,
       list_id: selectedListId.value,
+      scheduled_date: scheduledDate,
     })
     tasks.value.push(task)
   }
@@ -59,9 +61,9 @@ export function useTaskActions(state: TaskState) {
   /**
    * タスクの着手予定日（scheduled_date）を変更
    * @param taskId - 対象タスクのID
-   * @param date - 新しい着手予定日（"YYYY-MM-DD"形式）
+   * @param date - 新しい着手予定日（"YYYY-MM-DD"形式、解除時はnull）
    */
-  async function scheduleTask(taskId: string, date: string) {
+  async function scheduleTask(taskId: string, date: string | null) {
     const updated = await api.tasks.update(taskId, { scheduled_date: date })
     const index = tasks.value.findIndex(t => t.id === taskId)
     if (index !== -1) tasks.value[index] = updated

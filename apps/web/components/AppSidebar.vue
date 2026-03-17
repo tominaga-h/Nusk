@@ -51,6 +51,17 @@ async function logout() {
   await client.auth.signOut()
   navigateTo('/login')
 }
+
+/** 0件は非表示にしてサイドバーの視覚ノイズを下げる */
+function formatCount(count: number) {
+  return count > 0 ? String(count) : ''
+}
+
+/** InboxはUI上で表記を統一する */
+function formatListName(name: string, isInbox: boolean) {
+  if (isInbox) return 'Inbox'
+  return name
+}
 </script>
 
 <template>
@@ -81,9 +92,9 @@ async function logout() {
             >
               <span class="sidebar__item-left">
                 <span class="sidebar__item-icon">{{ list.is_inbox ? '📥' : '📁' }}</span>
-                <span class="sidebar__item-name">{{ list.name }}</span>
+                <span class="sidebar__item-name">{{ formatListName(list.name, list.is_inbox ?? false) }}</span>
               </span>
-              <span class="sidebar__item-count">{{ taskCount(list.id) }}</span>
+              <span class="sidebar__item-count">{{ formatCount(taskCount(list.id)) }}</span>
             </button>
           </div>
         </div>
@@ -99,7 +110,7 @@ async function logout() {
                 <Calendar class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
                 <span class="sidebar__item-name">今日</span>
               </span>
-              <span class="sidebar__item-count">{{ todayCount }}</span>
+              <span class="sidebar__item-count">{{ formatCount(todayCount) }}</span>
             </button>
             <button
               class="sidebar__item"
@@ -110,7 +121,7 @@ async function logout() {
                 <AlarmClock class="sidebar__item-svg" :size="15" :stroke-width="1.5" />
                 <span class="sidebar__item-name">明日</span>
               </span>
-              <span class="sidebar__item-count">{{ tomorrowCount }}</span>
+              <span class="sidebar__item-count">{{ formatCount(tomorrowCount) }}</span>
             </button>
             <!-- 明日以降（明後日〜） -->
             <button
@@ -122,7 +133,7 @@ async function logout() {
                 <ArrowRight class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
                 <span class="sidebar__item-name">明日以降</span>
               </span>
-              <span class="sidebar__item-count">{{ upcomingCount }}</span>
+              <span class="sidebar__item-count">{{ formatCount(upcomingCount) }}</span>
             </button>
             <!-- 過去（期限超過） -->
             <button
@@ -134,7 +145,7 @@ async function logout() {
                 <History class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
                 <span class="sidebar__item-name">過去</span>
               </span>
-              <span class="sidebar__item-count">{{ overdueCount }}</span>
+              <span class="sidebar__item-count">{{ formatCount(overdueCount) }}</span>
             </button>
             <!-- 未定（日付未設定） -->
             <button
@@ -146,7 +157,7 @@ async function logout() {
                 <CircleHelp class="sidebar__item-svg" :size="14" :stroke-width="1.5" />
                 <span class="sidebar__item-name">未定</span>
               </span>
-              <span class="sidebar__item-count">{{ undatedCount }}</span>
+              <span class="sidebar__item-count">{{ formatCount(undatedCount) }}</span>
             </button>
           </div>
         </div>
