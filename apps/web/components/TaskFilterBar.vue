@@ -4,6 +4,13 @@ import { SlidersHorizontal, ArrowUpFromLine, Calendar, CircleCheck } from 'lucid
 defineProps<{
   count: number
 }>()
+
+const { statusFilter } = useTaskStore()
+
+/** ステータスフィルターを指定値に切り替える */
+function setStatusFilter(value: 'all' | 'incomplete' | 'done') {
+  statusFilter.value = value
+}
 </script>
 
 <template>
@@ -25,6 +32,28 @@ defineProps<{
       <button class="filter-bar__btn">
         <CircleCheck :size="15" :stroke-width="1.5" />
         ステータス
+      </button>
+      <!-- ステータスフィルター用チップボタン -->
+      <button
+        class="filter-bar__chip filter-bar__chip--all"
+        :class="{ 'filter-bar__chip--active': statusFilter === 'all' }"
+        @click="setStatusFilter('all')"
+      >
+        全て
+      </button>
+      <button
+        class="filter-bar__chip filter-bar__chip--incomplete"
+        :class="{ 'filter-bar__chip--active': statusFilter === 'incomplete' }"
+        @click="setStatusFilter('incomplete')"
+      >
+        未完了
+      </button>
+      <button
+        class="filter-bar__chip filter-bar__chip--done"
+        :class="{ 'filter-bar__chip--active': statusFilter === 'done' }"
+        @click="setStatusFilter('done')"
+      >
+        完了
       </button>
     </div>
   </div>
@@ -77,6 +106,41 @@ defineProps<{
     &:hover {
       background: color('bg');
       border-color: color('border');
+    }
+  }
+
+  &__chip {
+    width: 80px;
+    padding: 4px 10px;
+    border: 1px solid color('border');
+    border-radius: radius('pill');
+    background: transparent;
+    font-family: $font-family-base;
+    font-size: font-size('base-sm');
+    color: color('text-gray');
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: color('bg');
+      border-color: color('text-disabled');
+    }
+
+    &--active {
+      &.filter-bar__chip--all {
+      background: color('surface');
+      border: 0px;
+      }
+      &.filter-bar__chip--incomplete {
+        background: color('danger-light');
+        color: color('danger');
+        border: 0px;
+      }
+      &.filter-bar__chip--done {
+        background: color('status-green-bg');
+        color: color('status-green');
+        border: 0px;
+      }
     }
   }
 }

@@ -28,6 +28,8 @@ export const useTaskStore = () => {
   const selectedListId = useState<string>('selected-list-id', () => '')
   /** 表示モード: "list"（リスト別） or "date"（日付別） */
   const viewMode = useState<'list' | 'date'>('view-mode', () => 'list')
+  /** ステータスフィルター: all=全件, incomplete=未完了(TODO/IN_PROGRESS), done=完了(DONE) */
+  const statusFilter = useState<'all' | 'incomplete' | 'done'>('status-filter', () => 'all')
 
   // --- 算出プロパティ（派生データ） ---
 
@@ -36,10 +38,27 @@ export const useTaskStore = () => {
     lists.value.find(l => l.id === selectedListId.value),
   )
 
-  /** 選択中リストに属するタスク一覧 */
-  const filteredTasks = computed(() =>
+  /** 選択中リストに属するタスク一覧（リストIDのみでフィルタ） */
+  const listedTasks = computed(() =>
     tasks.value.filter(t => t.list_id === selectedListId.value),
   )
+
+  /** listedTasks にフィルターバー条件（ステータス等）を適用した最終表示用タスク一覧 */
+  const filteredTasks = computed(() => {
+    if (statusFilter.value === 'incomplete') {
+      return listedTasks.value.filter(t => {
+        const status = statuses.value.find(s => s.id === t.status_id)
+        return status?.category !== 'DONE'
+      })
+    }
+    if (statusFilter.value === 'done') {
+      return listedTasks.value.filter(t => {
+        const status = statuses.value.find(s => s.id === t.status_id)
+        return status?.category === 'DONE'
+      })
+    }
+    return listedTasks.value
+  })
 
   // --- ユーティリティ関数 ---
 
@@ -176,8 +195,10 @@ export const useTaskStore = () => {
     loaded,
     selectedListId,
     viewMode,
+    statusFilter,
     // 算出プロパティ
     selectedList,
+    listedTasks,
     filteredTasks,
     taskCount,
     // ユーティリティ
